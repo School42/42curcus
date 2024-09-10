@@ -6,11 +6,11 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:48:56 by ubuntu            #+#    #+#             */
-/*   Updated: 2024/09/10 11:12:46 by ubuntu           ###   ########.fr       */
+/*   Updated: 2024/09/10 11:17:58 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 int	ft_len_ptr(unsigned long nbr)
 {

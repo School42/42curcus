@@ -6,11 +6,11 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:43:13 by talin             #+#    #+#             */
-/*   Updated: 2024/09/10 11:02:58 by ubuntu           ###   ########.fr       */
+/*   Updated: 2024/09/10 11:18:08 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 size_t	ft_usize(unsigned int n)
 {

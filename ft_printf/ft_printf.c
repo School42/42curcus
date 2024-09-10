@@ -6,11 +6,11 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 11:42:51 by talin             #+#    #+#             */
-/*   Updated: 2024/09/10 11:11:33 by ubuntu           ###   ########.fr       */
+/*   Updated: 2024/09/10 11:17:44 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 int	ft_check(const char format, va_list ptr)
 {
