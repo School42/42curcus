@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:13:11 by talin             #+#    #+#             */
-/*   Updated: 2024/09/10 15:55:18 by talin            ###   ########.fr       */
+/*   Updated: 2024/09/10 16:40:17 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(void)
 {
 	char	str[10] = "hello";
 
-	ft_printf("hello %p %p\n", 0, 0);
-	printf("hello %p %p\n", 0, 0);
+	ft_printf("hello %s %d %i %c %% %x %X %p\n", "world", 1, 2, 90, 42, 42, &str);
+	printf("hello %s %d %i %c %% %x %X %p\n", "world", 1, 2, 90, 42, 42, &str);
+	printf("# %d #\n", 9);
 }
