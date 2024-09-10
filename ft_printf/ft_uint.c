@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_uint.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:43:13 by talin             #+#    #+#             */
-/*   Updated: 2024/09/09 17:12:53 by talin            ###   ########.fr       */
+/*   Updated: 2024/09/10 11:02:58 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ char	*ft_uitoa(unsigned int n)
 
 	num = (long int)n;
 	size = ft_usize(n);
-	if (n < 0)
-		num *= -1;
 	ptr = (char *)malloc(sizeof(char) * (size + 1));
 	if (!ptr)
 		return (NULL);
@@ -53,8 +51,6 @@ char	*ft_uitoa(unsigned int n)
 		*(ptr + size) = num % 10 + '0';
 		num /= 10;
 	}
-	if (n < 0)
-		*(ptr + 0) = '-';
 	return (ptr);
 }
 
