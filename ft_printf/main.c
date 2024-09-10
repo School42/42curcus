@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:13:11 by talin             #+#    #+#             */
-/*   Updated: 2024/09/10 11:19:33 by ubuntu           ###   ########.fr       */
+/*   Updated: 2024/09/10 15:55:18 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
 int	main(void)
 {
 	char	str[10] = "hello";
 
-	ft_printf("hello %s %d %i %c %% %p %x %X", "world", 1, 2, 90, &str, 42, 42);
+	ft_printf("hello %p %p\n", 0, 0);
+	printf("hello %p %p\n", 0, 0);
 }

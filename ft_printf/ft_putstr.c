@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:11:17 by talin             #+#    #+#             */
-/*   Updated: 2024/09/10 11:18:02 by ubuntu           ###   ########.fr       */
+/*   Updated: 2024/09/10 15:51:26 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@ int	ft_putstr(char *str)
 	int	i;
 
 	i = 0;
-	if (!str)
+	if (str == NULL)
+	{
 		write(1, "(null)", 6);
+		i = 6;
+	}
 	else
 	{
 		while (str[i])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putptr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:48:56 by ubuntu            #+#    #+#             */
-/*   Updated: 2024/09/10 11:17:58 by ubuntu           ###   ########.fr       */
+/*   Updated: 2024/09/10 15:56:36 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ int	ft_putptr(unsigned long ptr)
 	int	x;
 
 	x = 0;
-	x += write(1, "0x", 2);
 	if (ptr == 0)
-		x += write(1, "0", 1);
+		x += write(1, "(nil)", 5);
 	else
 	{
+		x += write(1, "0x", 2);
 		ft_put(ptr);
 		x += ft_len_ptr(ptr);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 11:42:51 by talin             #+#    #+#             */
-/*   Updated: 2024/09/10 11:17:44 by ubuntu           ###   ########.fr       */
+/*   Updated: 2024/09/10 15:31:28 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,17 @@ int	ft_printf(const char *format, ...)
 	int		i;
 
 	x = 0;
+	i = 0;
 	va_start(ptr, format);
 	while (format[i])
 	{
 		if (format[i] == '%')
 		{
-			x = ft_check(format[i + 1], ptr);
+			x += ft_check(format[i + 1], ptr);
 			i++;
 		}
 		else
-			ft_putchar(format[i]);
+			x += ft_putchar(format[i]);
 		i++;
 	}
 	va_end(ptr);
