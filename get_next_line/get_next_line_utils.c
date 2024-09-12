@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 23:05:40 by ubuntu            #+#    #+#             */
-/*   Updated: 2024/09/11 23:29:54 by ubuntu           ###   ########.fr       */
+/*   Updated: 2024/09/12 12:04:26 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,28 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	new[i] = '\0';
 	return (new);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*ptr;
+	char	*tmp;
+	size_t	i;
+	size_t	s_len;
+
+	s_len = ft_strlen(s);
+	if (s == NULL || s_len < start)
+		return (ft_strdup(""));
+	if (start + len < s_len)
+		ptr = (char *)malloc((len + 1) * sizeof(char));
+	else
+		ptr = (char *)malloc((s_len - start + 1) * sizeof(char));
+	if (!ptr)
+		return (NULL);
+	i = start;
+	tmp = ptr;
+	while (i < (start + len) && s[i])
+		*tmp++ = *(s + i++);
+	*tmp = '\0';
+	return (ptr);
 }

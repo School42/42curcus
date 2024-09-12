@@ -3,39 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:55:49 by talin             #+#    #+#             */
-/*   Updated: 2024/09/11 23:36:16 by ubuntu           ###   ########.fr       */
+/*   Updated: 2024/09/12 16:41:41 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
-// char	*get_next_line(int fd);
-
-char	*ft_get(void)
+char	*ft_get(int fd, char *line, char *buffer)
 {
-	int	fd;
-	int	n;
-	static char	*str;
-	// char	*ptr;
+	ssize_t	n;
+	char	*str;
 
-	str = (char *)calloc((BUFFER + 1), sizeof(char));
-	fd = open("doc.txt", O_RDONLY);
-	read(fd, str, BUFFER);
-	return (str);
-	// ptr = ft_strdup(str);
-	// printf("%s\n", ptr);
-	// get_next_line(fd);
+	n = 1;
+	while (n > 0 && !(ft_strchr(buffer, '\n')))
+	{
+		n = read(fd, buffer, BUFFER);
+		if (n == -1)
+		{
+			free(line);
+			return (NULL);
+		}
+		buffer[n] = 0;
+		// str[n] = '\0';
+		line = ft_strjoin(line, buffer);
+		// free(str);
+	}
+	// free(str);
+	return (buffer);
 }
 
+char	*get_next_line(int fd)
+{
+	static char	*line;
+	char	*buffer;
+	char	*str;
+
+	buffer = (char *)malloc(sizeof(char) * (BUFFER + 1));
+	if (!buffer)
+		return (buffer);
+	// read(fd, str, BUFFER);
+	// printf("%s\n", str);
+	line = ft_get(fd, line, buffer);
+	return (line);
+}
 #include <stdio.h>
 
 int	main(void)
 {
-	char	*str = ft_get();
-	str = ft_get();
-	str = ft_get();
-	printf("%s\n", str);
+	int	fd;
+	fd = open("doc.txt", O_RDONLY);
+	char	*str = get_next_line(fd);
+	printf("%s", str);
+	return (0);
 }
