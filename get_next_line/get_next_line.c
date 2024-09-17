@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:55:49 by talin             #+#    #+#             */
-/*   Updated: 2024/09/17 12:36:28 by talin            ###   ########.fr       */
+/*   Updated: 2024/09/17 15:33:04 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*next_line(char *buffer)
 		return (NULL);
 	while (buffer[i] && buffer[i] != '\n')
 		i++;
-	str = (char *)malloc((i + 2) * sizeof(char));
+	str = (char *)malloc((i + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
 	i = 0;
@@ -64,6 +64,9 @@ char	*new_line(char *buffer)
 		str[j++] = buffer[i++];
 	str[j] = '\0';
 	free(buffer);
+	// buffer = NULL;
+	if (!buffer)
+		printf("BUFFER\n");
 	return (str);
 }
 
@@ -72,10 +75,10 @@ char	*read_line(int fd, char *buffer)
 	char	*ptr;
 	ssize_t	n;
 
-	n = 1;
 	ptr = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!ptr)
 		return (NULL);
+	n = 1;
 	while (!ft_strchr(buffer, '\n') && n > 0)
 	{
 		n = read(fd, ptr, BUFFER_SIZE);
@@ -88,6 +91,8 @@ char	*read_line(int fd, char *buffer)
 		buffer = ft_strjoin(buffer, ptr);
 	}
 	free(ptr);
+	if (!ptr)
+		printf("POINTER\n");
 	return (buffer);
 }
 
@@ -98,12 +103,17 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+	{
+		buffer = (char *)malloc(1 * sizeof(char));
+		buffer[0] = '\0';
+	}
 	buffer = read_line(fd, buffer);
 	if (!buffer)
 		return (NULL);
 	str = next_line(buffer);
 	buffer = new_line(buffer);
+	free(buffer);
 	return (str);
 }
 
@@ -114,8 +124,21 @@ int	main()
 
 	fd = open("doc.txt", O_RDONLY);
 	str = get_next_line(fd);
-	printf("%s\n", str);
+	printf("%s", str);
 	str = get_next_line(fd);
-	printf("%s\n", str);
+	printf("%s", str);
+	// str = get_next_line(fd);
+	// printf("%s", str);
+	// str = get_next_line(fd);
+	// printf("%s", str);
+	// str = get_next_line(fd);
+	// printf("%s", str);
+
+	if (str)
+	{
+		free(str);
+	}
+	if (!str)
+		printf("NO LEAK from main!!!\n");
 	return (0);
 }

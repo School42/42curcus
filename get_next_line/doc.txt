@@ -1,7 +1,6 @@
 Hello World again!! 
-
 What time is it now?
-
 cat
+
 dog
 talkie 
