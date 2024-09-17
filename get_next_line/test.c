@@ -1,25 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/17 20:50:10 by ubuntu            #+#    #+#             */
+/*   Updated: 2024/09/17 20:51:03 by ubuntu           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "get_next_line.h"
 
-// C Program to illustrate the static variable lifetime
-#include <stdio.h>
- 
-// function with static variable
-int fun()
+int	main(void)
 {
-    static int count = 0;
-	if (count < 5)
-    	count++;
-	// count = 5;
-    return count;
-}
- 
-int main()
-{
-	for (int i = 0; i < 5; i++)
+	int		fd;
+	char	*str;
+
+	fd = open("doc.txt", O_RDONLY);
+	if (fd == -1)
 	{
-		printf("%d \n", fun());
+		printf("Failed to open file\n");
+		return (1);
 	}
-    printf("%d ", fun());
-    printf("%d ", fun());
-    return 0;
+	str = get_next_line(fd);
+	printf("%s", str);
+	if (str != NULL)
+	{
+		printf("FREED\n");
+		free(str);
+	}
+	close(fd);
+	return (0);
 }

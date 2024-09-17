@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:55:49 by talin             #+#    #+#             */
-/*   Updated: 2024/09/17 15:33:04 by talin            ###   ########.fr       */
+/*   Updated: 2024/09/17 20:50:00 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*next_line(char *buffer)
 		return (NULL);
 	while (buffer[i] && buffer[i] != '\n')
 		i++;
-	str = (char *)malloc((i + 1) * sizeof(char));
+	str = (char *)malloc((i + 2) * sizeof(char));
 	if (!str)
 		return (NULL);
 	i = 0;
@@ -64,9 +64,6 @@ char	*new_line(char *buffer)
 		str[j++] = buffer[i++];
 	str[j] = '\0';
 	free(buffer);
-	// buffer = NULL;
-	if (!buffer)
-		printf("BUFFER\n");
 	return (str);
 }
 
@@ -91,8 +88,6 @@ char	*read_line(int fd, char *buffer)
 		buffer = ft_strjoin(buffer, ptr);
 	}
 	free(ptr);
-	if (!ptr)
-		printf("POINTER\n");
 	return (buffer);
 }
 
@@ -113,32 +108,5 @@ char	*get_next_line(int fd)
 		return (NULL);
 	str = next_line(buffer);
 	buffer = new_line(buffer);
-	free(buffer);
 	return (str);
-}
-
-int	main()
-{
-	int	fd;
-	char	*str;
-
-	fd = open("doc.txt", O_RDONLY);
-	str = get_next_line(fd);
-	printf("%s", str);
-	str = get_next_line(fd);
-	printf("%s", str);
-	// str = get_next_line(fd);
-	// printf("%s", str);
-	// str = get_next_line(fd);
-	// printf("%s", str);
-	// str = get_next_line(fd);
-	// printf("%s", str);
-
-	if (str)
-	{
-		free(str);
-	}
-	if (!str)
-		printf("NO LEAK from main!!!\n");
-	return (0);
 }
