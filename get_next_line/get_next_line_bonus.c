@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:55:49 by talin             #+#    #+#             */
-/*   Updated: 2024/09/18 17:21:46 by talin            ###   ########.fr       */
+/*   Updated: 2024/09/18 17:28:16 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*next_line(char *buffer)
 {
@@ -93,20 +93,15 @@ char	*read_line(int fd, char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	static char	*buffer[LIMIT];
 	char		*str;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!buffer)
-	{
-		buffer = (char *)malloc(1 * sizeof(char));
-		buffer[0] = '\0';
-	}
-	buffer = read_line(fd, buffer);
-	if (!buffer)
+	buffer[fd] = read_line(fd, buffer[fd]);
+	if (!buffer[fd])
 		return (NULL);
-	str = next_line(buffer);
-	buffer = new_line(buffer);
+	str = next_line(buffer[fd]);
+	buffer[fd] = new_line(buffer[fd]);
 	return (str);
 }
