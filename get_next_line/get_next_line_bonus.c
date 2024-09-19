@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:55:49 by talin             #+#    #+#             */
-/*   Updated: 2024/09/18 17:28:16 by talin            ###   ########.fr       */
+/*   Updated: 2024/09/19 10:08:47 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,11 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
+	if (!buffer[fd])
+	{
+		buffer[fd] = (char *)malloc(1 * sizeof(char));
+		buffer[fd][0] = '\0';
+	}
 	buffer[fd] = read_line(fd, buffer[fd]);
 	if (!buffer[fd])
 		return (NULL);
