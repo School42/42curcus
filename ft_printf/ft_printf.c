@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 11:42:51 by talin             #+#    #+#             */
-/*   Updated: 2024/09/10 15:31:28 by talin            ###   ########.fr       */
+/*   Updated: 2024/09/19 13:15:52 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	ft_printf(const char *format, ...)
 
 	x = 0;
 	i = 0;
+	if (!format)
+		return (-1);
 	va_start(ptr, format);
 	while (format[i])
 	{
