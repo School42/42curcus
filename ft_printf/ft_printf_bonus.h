@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:54:46 by talin             #+#    #+#             */
-/*   Updated: 2024/09/25 15:46:43 by talin            ###   ########.fr       */
+/*   Updated: 2024/09/30 09:34:53 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,9 @@ typedef struct t_format
 	int		sharp;
 	char	specifier;
 }	t_format;
+
+char	*ft_strchr(char *s, int c);
+int		ft_isdigit(int c);
+int		ft_atoi(char *str);
+t_format	ft_newformat(void);
 #endif
