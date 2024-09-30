@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:54:46 by talin             #+#    #+#             */
-/*   Updated: 2024/09/30 09:34:53 by talin            ###   ########.fr       */
+/*   Updated: 2024/09/30 15:21:14 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_PRINTF_BONUS_H
 
 # include <stdarg.h>
+# include <unistd.h>
 
 typedef struct t_format
 {
@@ -29,8 +30,11 @@ typedef struct t_format
 	char	specifier;
 }	t_format;
 
-char	*ft_strchr(char *s, int c);
-int		ft_isdigit(int c);
-int		ft_atoi(char *str);
+# define SPECIFIER	"cspdiuxX%"
+
+char		*ft_strchr(char *s, int c);
+int			ft_isdigit(int c);
+int			ft_atoi(char *str);
 t_format	ft_newformat(void);
+int			ft_print_format(t_format new, va_list ptr);
 #endif

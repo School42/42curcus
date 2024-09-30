@@ -1,7 +1,7 @@
-#include "ft_printf"
+#include "ft_printf_bonus.h"
 #include <stdio.h>
 
 int	main(void)
 {
-	printf("%10i, %10s\n", 1234, "hello");
+	printf("%10%%10b\n", "Hello");
 }

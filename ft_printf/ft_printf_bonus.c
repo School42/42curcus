@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:54:26 by talin             #+#    #+#             */
-/*   Updated: 2024/09/30 09:34:23 by talin            ###   ########.fr       */
+/*   Updated: 2024/09/30 13:57:12 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,22 @@ t_format	ft_newformat(void)
 	new.sharp = 0;
 	new.specifier = 0;
 	return (new);
+}
+
+int	ft_print_format(t_format new, va_list ptr)
+{
+	int	count;
+
+	count = 0;
+	if (new.specifier == 'c' || new.specifier == '%')
+		count = ft_printf_char(new, ptr);
+	if (new.specifier == 'i' || new.specifier == 'd')
+		count = ft_printf_int(new, ptr);
+	if (new.specifier == 'u')
+		count = ft_printf_uint(new, ptr);
+	if (new.specifier == 'x' || new.specifier == 'X')
+		count = ft_printf_hex(new, ptr);
+	if (new.specifier == 'p')
+		count = ft_printf_ptr(new, ptr);
+	return (count);
 }
