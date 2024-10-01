@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 09:26:08 by talin             #+#    #+#             */
-/*   Updated: 2024/09/30 09:30:08 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/01 10:43:18 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@ char	*ft_strchr(char *s, int c)
 	if (s[i] == chr)
 		return ((s + i));
 	return (0);
+}
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
 
 int	ft_isdigit(int c)

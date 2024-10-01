@@ -3,5 +3,5 @@
 
 int	main(void)
 {
-	printf("%10%%10b\n", "Hello");
+	printf("%+010.6i\n", 123);
 }
