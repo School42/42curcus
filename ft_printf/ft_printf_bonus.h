@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:54:46 by talin             #+#    #+#             */
-/*   Updated: 2024/10/01 11:44:07 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/02 12:51:44 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdarg.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h> //remove this later
 
 typedef struct t_format
 {
@@ -33,6 +34,7 @@ typedef struct t_format
 
 # define SPECIFIER	"cspdiuxX%"
 
+int			ft_printf_bonus(const char *str, ...);
 char		*ft_strchr(char *s, int c);
 int			ft_isdigit(int c);
 int			ft_atoi(char *str);
@@ -44,4 +46,10 @@ int			ft_putnchar(int c, int size);
 char		*ft_strdup(char *s);
 int			ft_printf_str(t_format new, va_list ptr);
 int			ft_printf_char(t_format new, va_list ptr);
+int			ft_putchar(char c);
+int			ft_parse(char *str, va_list ptr);
+int			ft_printf_int(t_format new, va_list ptr);
+char		ft_sign(t_format new, int neg);
+char		ft_usign(t_format new);
+int			ft_printf_uint(t_format new, va_list ptr);
 #endif

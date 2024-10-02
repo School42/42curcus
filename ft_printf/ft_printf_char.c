@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 14:07:27 by talin             #+#    #+#             */
-/*   Updated: 2024/10/01 11:29:44 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/02 09:52:52 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_printf_char(t_format new, va_list ptr)
 
 	count = 0;
 	if (new.specifier == 'c')
-		c = va_arg(ptr, char);
+		c = va_arg(ptr, int);
 	else
 		c = '%';
 	if (!new.minus && new.width)
@@ -42,12 +42,15 @@ int	ft_printf_str(t_format new, va_list ptr)
 		mal = 1;
 		str = ft_strdup("(null)");
 	}
-	if (!new.minus && new.width)
-		count += ft_putnchar(' ', (new.width - new.precision));
-	if (new.dot && (new.precision <= ft_strlen(str)))
-		count += ft_putnstr(str, new.precision);
-	else
-		count += ft_putnstr(str, ft_strlen(str));
+	if (new.precision > ft_strlen(str) || new.precision < 0 || !new.dot)
+		new.precision = ft_strlen(str);
+	if (!new.minus && new.width > new.precision && new.zero && (!new.dot || new.neg_prec))
+		count += ft_putnchar('0', new.width - new.precision);
+	else if (!new.minus && new.width - new.precision > 0)
+		count += ft_putnchar(' ', new.width - new.precision);
+	count += ft_putnstr(str, new.precision);
+	if (new.minus && new.width - new.precision > 0)
+		count += ft_putnchar(' ', new.width - new.precision);
 	if (mal)
 		free(str);
 	return (count);

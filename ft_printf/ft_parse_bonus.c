@@ -6,13 +6,13 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:56:57 by talin             #+#    #+#             */
-/*   Updated: 2024/09/30 15:12:10 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/02 12:31:59 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-static t_format	ft_parse_flag(char *str, va_list ptr, t_format new)
+static t_format	ft_parse_flag(char *str, t_format new)
 {
 	while (*str != '.' && !ft_strchr(SPECIFIER, *str))
 	{
@@ -58,14 +58,14 @@ static t_format	ft_parse_width(char *str, va_list ptr, t_format new)
 	return (new);
 }
 
-t_format	ft_parse_precision(char *str, va_list ptr, t_format new)
+static t_format	ft_parse_precision(char *str, va_list ptr, t_format new)
 {
 	int	specified;
 
 	specified = 0;
 	while (!ft_strchr(SPECIFIER, *str))
 	{
-		if ((*str == '*' || !ft_isdigit(*str)) && !specified)
+		if ((*str == '*' || ft_isdigit(*str)) && !specified)
 		{
 			if (*str == '*')
 				new.precision = va_arg(ptr, int);
@@ -82,7 +82,7 @@ int	ft_parse(char *str, va_list ptr)
 {
 	t_format	new;
 
-	new = ft_parse_flag(str, ptr, ft_newformat());
+	new = ft_parse_flag(str, ft_newformat());
 	new = ft_parse_width(str, ptr, new);
 	while (*str != '.' && !ft_strchr(SPECIFIER, *str))
 		str++;

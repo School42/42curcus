@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_int.c                                    :+:      :+:    :+:   */
+/*   ft_printf_uint.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 11:30:24 by talin             #+#    #+#             */
-/*   Updated: 2024/10/02 12:51:53 by talin            ###   ########.fr       */
+/*   Created: 2024/10/02 12:40:15 by talin             #+#    #+#             */
+/*   Updated: 2024/10/02 12:53:22 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-static size_t	ft_size(int n)
+static size_t	ft_size(unsigned int n)
 {
 	size_t		i;
 	long int	num;
@@ -34,7 +34,7 @@ static size_t	ft_size(int n)
 	return (i);
 }
 
-static char	*ft_itoa(int n)
+static char	*ft_uitoa(unsigned int n)
 {
 	char		*ptr;
 	size_t		size;
@@ -58,51 +58,47 @@ static char	*ft_itoa(int n)
 	return (ptr);
 }
 
-int	ft_printf_nbr(t_format new, char *nbr, int len, int neg)
+static int	ft_printf_nbr(t_format new, char *nbr, int len)
 {
 	int	count;
 
 	count = 0;
-	new.width -= (new.space && !neg && !new.plus && new.width);
-	if (neg || new.plus)
-		count += ft_putnchar(ft_sign(new, neg), new.zero && (!new.dot || new.neg_prec));
+	new.width -= (new.space && !new.plus && new.width);
+	if (new.plus)
+		count += ft_putnchar(ft_usign(new), new.zero && (!new.dot || new.neg_prec));
 	else if (new.space)
 		count += ft_putnchar(' ', new.zero && !new.dot);
 	if (!new.minus && new.width > new.precision && (!new.dot || new.neg_prec) && new.zero)
-		count += ft_putnchar('0', new.width - new.precision - neg - new.plus);
+		count += ft_putnchar('0', new.width - new.precision - new.plus);
 	else if (!new.minus && new.width > new.precision)
-		count += ft_putnchar(' ', new.width - new.precision - neg - new.plus);
-	if (neg || new.plus)
-		count += ft_putnchar(ft_sign(new, neg), !new.zero || (new.dot && !new.neg_prec));
+		count += ft_putnchar(' ', new.width - new.precision - new.plus);
+	if (new.plus)
+		count += ft_putnchar(ft_usign(new), !new.zero || (new.dot && !new.neg_prec));
 	else if (new.space)
 		count += ft_putnchar(' ', !new.zero || new.dot);
 	count += ft_putnchar('0', (new.precision - len));
 	count += ft_putnstr(nbr, len);
 	if (new.minus && new.width > new.precision)
-		count += ft_putnchar(' ', new.width - new.precision - neg - new.plus);
+		count += ft_putnchar(' ', new.width - new.precision - new.plus);
 	return (count);
 }
 
-int	ft_printf_int(t_format new, va_list ptr)
+int	ft_printf_uint(t_format new, va_list ptr)
 {
 	int		count;
-	int		n;
+	unsigned int		n;
 	char	*nbr;
 	int		len;
-	int		neg;
 
 	count = 0;
-	n = va_arg(ptr, int);
-	neg = (n < 0);
-	nbr = ft_itoa(n);
-	if (neg)
-		new.plus = 0;
+	n = va_arg(ptr, unsigned int);
+	nbr = ft_uitoa(n);
 	len = ft_strlen(nbr);
 	if (*nbr == '0' && !new.precision && new.dot)
 		len = 0;
 	if (new.precision < len || !new.dot)
 		new.precision = len;
-	count += ft_printf_nbr(new, nbr, len, neg);
+	count += ft_printf_nbr(new, nbr, len);
 	free(nbr);
 	return (count);
 }

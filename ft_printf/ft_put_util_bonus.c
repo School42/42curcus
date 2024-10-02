@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 14:14:54 by talin             #+#    #+#             */
-/*   Updated: 2024/10/01 11:18:32 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/02 12:50:20 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,22 @@ char	*ft_strdup(char *s)
 	}
 	ptr[i] = '\0';
 	return (ptr);
+}
+
+char	ft_sign(t_format new, int neg)
+{
+	if (neg)
+		return ('-');
+	else if (new.plus && !neg)
+		return ('+');
+	else
+		return (' ');
+}
+
+char	ft_usign(t_format new)
+{
+	if (new.plus)
+		return ('+');
+	else
+		return (' ');
 }

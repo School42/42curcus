@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:54:26 by talin             #+#    #+#             */
-/*   Updated: 2024/09/30 13:57:12 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/02 12:52:11 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	ft_printf_bonus(const char *str, ...)
 {
 	va_list	ptr;
 	int		count;
+	char	*first;
 
 	count = 0;
 	va_start(ptr, str);
@@ -23,14 +24,22 @@ int	ft_printf_bonus(const char *str, ...)
 	{
 		if (*str == '%')
 		{
-			count += ft_parse(str++, ptr);
+			first = (char *)str;
+			if (*(str++))
+				count += ft_parse((char *)str, ptr);
+			while (*str && !ft_strchr(SPECIFIER, *str))
+				str++;
+			if (!(*str))
+				str = first;
 		}
-		str++;
+		else
+			count += ft_putchar(*str);
+		if (*str)
+			str++;
 	}
 	va_end(ptr);
-	return (1);
+	return (count);
 }
-
 
 t_format	ft_newformat(void)
 {
@@ -48,7 +57,7 @@ t_format	ft_newformat(void)
 	new.specifier = 0;
 	return (new);
 }
-
+#include <stdio.h>
 int	ft_print_format(t_format new, va_list ptr)
 {
 	int	count;
@@ -56,13 +65,21 @@ int	ft_print_format(t_format new, va_list ptr)
 	count = 0;
 	if (new.specifier == 'c' || new.specifier == '%')
 		count = ft_printf_char(new, ptr);
+	if (new.specifier == 's')
+		count = ft_printf_str(new, ptr);
 	if (new.specifier == 'i' || new.specifier == 'd')
 		count = ft_printf_int(new, ptr);
 	if (new.specifier == 'u')
 		count = ft_printf_uint(new, ptr);
-	if (new.specifier == 'x' || new.specifier == 'X')
-		count = ft_printf_hex(new, ptr);
-	if (new.specifier == 'p')
-		count = ft_printf_ptr(new, ptr);
+	// if (new.specifier == 'x' || new.specifier == 'X')
+	// 	count = ft_printf_hex(new, ptr);
+	// if (new.specifier == 'p')
+	// 	count = ft_printf_ptr(new, ptr);
 	return (count);
+}
+
+int	ft_putchar(char c)
+{
+	write(1, &c, 1);
+	return (1);
 }
