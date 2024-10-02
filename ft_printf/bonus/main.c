@@ -6,11 +6,11 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 09:40:08 by talin             #+#    #+#             */
-/*   Updated: 2024/10/02 15:42:44 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/02 15:51:42 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_bonus.h"
+#include "ft_printf.h"
 #include <stdio.h>
 
 int	main(void)

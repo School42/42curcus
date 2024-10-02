@@ -6,11 +6,11 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:03:21 by talin             #+#    #+#             */
-/*   Updated: 2024/10/02 14:50:18 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/02 15:51:24 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_bonus.h"
+#include "ft_printf.h"
 
 int	ft_nbrlen(size_t n)
 {

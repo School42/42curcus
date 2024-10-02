@@ -6,11 +6,11 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 12:40:15 by talin             #+#    #+#             */
-/*   Updated: 2024/10/02 12:53:22 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/02 15:51:28 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_bonus.h"
+#include "ft_printf.h"
 
 static size_t	ft_size(unsigned int n)
 {

@@ -6,11 +6,11 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:56:57 by talin             #+#    #+#             */
-/*   Updated: 2024/10/02 12:31:59 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/02 15:50:44 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_bonus.h"
+#include "ft_printf.h"
 
 static t_format	ft_parse_flag(char *str, t_format new)
 {
