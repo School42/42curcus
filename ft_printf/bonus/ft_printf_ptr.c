@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:03:21 by talin             #+#    #+#             */
-/*   Updated: 2024/10/02 15:51:24 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/02 16:54:59 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,15 @@ int	ft_recursive_hex(t_format new, size_t n, size_t i)
 	return (count);
 }
 
+int ft_ptr_null(void)
+{
+	int	count;
+
+	count = 0;
+	count += ft_putnstr("(nil)", 5);
+	return (count);
+}
+
 int	ft_printf_ptr(t_format new, va_list ptr)
 {
 	int		count;
@@ -59,6 +68,8 @@ int	ft_printf_ptr(t_format new, va_list ptr)
 
 	count = 0;
 	n = va_arg(ptr, size_t);
+	if (n == 0)
+		return (ft_ptr_null());
 	len = ft_nbrlen(n);
 	len *= !(!n && !new.precision && new.dot);
 	if (new.precision < len || !new.dot)

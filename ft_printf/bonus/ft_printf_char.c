@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 14:07:27 by talin             #+#    #+#             */
-/*   Updated: 2024/10/02 15:51:10 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/02 17:38:43 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,29 @@ int	ft_printf_char(t_format new, va_list ptr)
 	if (new.specifier == 'c')
 		c = va_arg(ptr, int);
 	else
-		c = '%';
+		return (ft_putnchar('%', 1));
 	if (!new.minus && new.width)
-		count += ft_putnchar(' ', (new.width - 1));
+		count += ft_putnchar(' ', (new.width - new.precision - 1));
+	count += ft_putnchar(' ', new.precision - 1);
 	count += ft_putnchar(c, 1);
+	return (count);
+}
+
+int ft_str_null(t_format new, char *str)
+{
+	int	count;
+
+	count = 0;
+	count += ft_putnchar(' ', (new.width - new.precision));
+	if (new.precision < ft_strlen(str) && !new.dot)
+	{
+		count += ft_putnchar(' ', (new.precision - ft_strlen(str)));
+	}
+	else
+	{
+		count += ft_putnchar(' ', new.precision);
+		count += ft_putnstr(str, ft_strlen(str));
+	}
 	return (count);
 }
 
@@ -32,15 +51,15 @@ int	ft_printf_str(t_format new, va_list ptr)
 {
 	int		count;
 	char	*str;
-	int		mal;
 
 	str = va_arg(ptr, char *);
 	count = 0;
-	mal = 0;
 	if (!str)
 	{
-		mal = 1;
 		str = ft_strdup("(null)");
+		count += ft_str_null(new, str);
+		free(str);
+		return (count);
 	}
 	if (new.precision > ft_strlen(str) || new.precision < 0 || !new.dot)
 		new.precision = ft_strlen(str);
@@ -51,7 +70,5 @@ int	ft_printf_str(t_format new, va_list ptr)
 	count += ft_putnstr(str, new.precision);
 	if (new.minus && new.width - new.precision > 0)
 		count += ft_putnchar(' ', new.width - new.precision);
-	if (mal)
-		free(str);
 	return (count);
 }
