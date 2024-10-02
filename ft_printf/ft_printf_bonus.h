@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:54:46 by talin             #+#    #+#             */
-/*   Updated: 2024/10/02 12:51:44 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/02 14:53:58 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct t_format
 }	t_format;
 
 # define SPECIFIER	"cspdiuxX%"
+# define HEXA_LOWER "0123456789abcdef"
+# define HEXA_UPPER "0123456789ABCDEF"
 
 int			ft_printf_bonus(const char *str, ...);
 char		*ft_strchr(char *s, int c);
@@ -52,4 +54,7 @@ int			ft_printf_int(t_format new, va_list ptr);
 char		ft_sign(t_format new, int neg);
 char		ft_usign(t_format new);
 int			ft_printf_uint(t_format new, va_list ptr);
+int			ft_printf_ptr(t_format new, va_list ptr);
+int			ft_recursive_hex(t_format new, size_t n, size_t i);
+int			ft_nbrlen(size_t n);
 #endif
