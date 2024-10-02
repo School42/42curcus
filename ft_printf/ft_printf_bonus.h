@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:54:46 by talin             #+#    #+#             */
-/*   Updated: 2024/10/02 14:53:58 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/02 15:36:34 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,5 @@ int			ft_printf_uint(t_format new, va_list ptr);
 int			ft_printf_ptr(t_format new, va_list ptr);
 int			ft_recursive_hex(t_format new, size_t n, size_t i);
 int			ft_nbrlen(size_t n);
+int			ft_printf_hex(t_format new, va_list ptr);
 #endif

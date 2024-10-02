@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:54:26 by talin             #+#    #+#             */
-/*   Updated: 2024/10/02 14:03:53 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/02 15:37:00 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int	ft_print_format(t_format new, va_list ptr)
 		count = ft_printf_int(new, ptr);
 	if (new.specifier == 'u')
 		count = ft_printf_uint(new, ptr);
-	// if (new.specifier == 'x' || new.specifier == 'X')
-	// 	count = ft_printf_hex(new, ptr);
+	if (new.specifier == 'x' || new.specifier == 'X')
+		count = ft_printf_hex(new, ptr);
 	if (new.specifier == 'p')
 		count = ft_printf_ptr(new, ptr);
 	return (count);
