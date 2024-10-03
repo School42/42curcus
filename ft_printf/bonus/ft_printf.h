@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_bonus.h                                  :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:54:46 by talin             #+#    #+#             */
-/*   Updated: 2024/10/02 15:51:04 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/03 13:34:28 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <stdarg.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h> //remove this later
 
 typedef struct t_format
 {
@@ -52,7 +51,6 @@ int			ft_putchar(char c);
 int			ft_parse(char *str, va_list ptr);
 int			ft_printf_int(t_format new, va_list ptr);
 char		ft_sign(t_format new, int neg);
-char		ft_usign(t_format new);
 int			ft_printf_uint(t_format new, va_list ptr);
 int			ft_printf_ptr(t_format new, va_list ptr);
 int			ft_recursive_hex(t_format new, size_t n, size_t i);

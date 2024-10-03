@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_util_bonus.c                                :+:      :+:    :+:   */
+/*   ft_put_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 14:14:54 by talin             #+#    #+#             */
-/*   Updated: 2024/10/02 15:51:33 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/03 13:34:16 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,29 +42,6 @@ int	ft_putnstr(char *str, int size)
 	return (i);
 }
 
-char	*ft_strdup(char *s)
-{
-	char	*ptr;
-	int		i;
-
-	i = 0;
-	if (!s)
-		return (NULL);
-	while (s[i])
-		i++;
-	ptr = (char *)malloc((i + 1) * sizeof(char));
-	if (!ptr)
-		return (NULL);
-	i = 0;
-	while (s[i])
-	{
-		ptr[i] = s[i];
-		i++;
-	}
-	ptr[i] = '\0';
-	return (ptr);
-}
-
 char	ft_sign(t_format new, int neg)
 {
 	if (neg)
@@ -75,10 +52,4 @@ char	ft_sign(t_format new, int neg)
 		return (' ');
 }
 
-char	ft_usign(t_format new)
-{
-	if (new.plus)
-		return ('+');
-	else
-		return (' ');
-}
+

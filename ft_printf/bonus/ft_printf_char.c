@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 14:07:27 by talin             #+#    #+#             */
-/*   Updated: 2024/10/02 17:38:43 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/03 10:04:16 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,14 @@ int	ft_printf_char(t_format new, va_list ptr)
 		c = va_arg(ptr, int);
 	else
 		return (ft_putnchar('%', 1));
-	if (!new.minus && new.width)
-		count += ft_putnchar(' ', (new.width - new.precision - 1));
-	count += ft_putnchar(' ', new.precision - 1);
+	new.precision = 1;
+	if (!new.minus && new.zero)
+		count += ft_putnchar('0', new.width - new.precision);
+	else if (!new.minus && new.width > new.precision)
+		count += ft_putnchar(' ', new.width - new.precision);
 	count += ft_putnchar(c, 1);
-	return (count);
-}
-
-int ft_str_null(t_format new, char *str)
-{
-	int	count;
-
-	count = 0;
-	count += ft_putnchar(' ', (new.width - new.precision));
-	if (new.precision < ft_strlen(str) && !new.dot)
-	{
-		count += ft_putnchar(' ', (new.precision - ft_strlen(str)));
-	}
-	else
-	{
-		count += ft_putnchar(' ', new.precision);
-		count += ft_putnstr(str, ft_strlen(str));
-	}
+	if (new.minus && new.width - new.precision > 0)
+		count += ft_putnchar(' ', new.width - new.precision);
 	return (count);
 }
 
@@ -54,16 +40,14 @@ int	ft_printf_str(t_format new, va_list ptr)
 
 	str = va_arg(ptr, char *);
 	count = 0;
+	if (!str && new.dot && new.precision < ft_strlen("(null)"))
+		return (ft_putnchar(' ', new.width));
 	if (!str)
-	{
-		str = ft_strdup("(null)");
-		count += ft_str_null(new, str);
-		free(str);
-		return (count);
-	}
+		str = (char *)"(null)";
 	if (new.precision > ft_strlen(str) || new.precision < 0 || !new.dot)
 		new.precision = ft_strlen(str);
-	if (!new.minus && new.width > new.precision && new.zero && (!new.dot || new.neg_prec))
+	if (!new.minus && new.width > new.precision \
+	&& new.zero && (!new.dot || new.neg_prec))
 		count += ft_putnchar('0', new.width - new.precision);
 	else if (!new.minus && new.width - new.precision > 0)
 		count += ft_putnchar(' ', new.width - new.precision);

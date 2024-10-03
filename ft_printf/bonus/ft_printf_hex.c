@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:29:19 by talin             #+#    #+#             */
-/*   Updated: 2024/10/02 15:51:15 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/03 13:09:30 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,13 @@ int	ft_printf_hex(t_format new, va_list ptr)
 		len = 0;
 	if (new.precision < 0 || new.precision < len || !new.dot)
 		new.precision = len;
-	if (new.sharp && n)
-		new.width -= 2;
-	count += ft_putnstr(ft_sharp(new), 2 * (new.sharp && new.zero && n));
-	if (!new.minus && new.width > new.precision && (!new.dot || new.neg_prec) && new.zero)
-		count += ft_putnchar('0', new.width - new.precision);
-	else if (!new.minus && new.width > new.precision)
+	new.width -= 2 * (new.sharp && n);
+	if (!new.minus && new.width > new.precision)
 		count += ft_putnchar(' ', new.width - new.precision);
-	count += ft_putnstr(ft_sharp(new), 2 * (new.sharp && !new.zero && n));
+	count += ft_putnstr(ft_sharp(new), 2 * (new.sharp && new.zero && n));
+	if (!new.minus && new.width > new.precision \
+	&& (!new.dot || new.neg_prec) && new.zero)
+		count += ft_putnchar('0', new.width - new.precision);
 	count += ft_putnchar('0', new.precision - len);
 	if (len)
 		count += ft_recursive_hex(new, n, n);

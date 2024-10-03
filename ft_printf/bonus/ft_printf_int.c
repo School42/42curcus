@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:30:24 by talin             #+#    #+#             */
-/*   Updated: 2024/10/02 15:51:19 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/03 10:03:14 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static size_t	ft_size(int n)
 	if (num < 0)
 	{
 		num *= -1;
-		// i++;
 	}
 	while (num > 9)
 	{
@@ -53,8 +52,6 @@ static char	*ft_itoa(int n)
 		*(ptr + size) = num % 10 + '0';
 		num /= 10;
 	}
-	// if (n < 0)
-	// 	*(ptr + 0) = '-';
 	return (ptr);
 }
 
@@ -65,15 +62,18 @@ int	ft_printf_nbr(t_format new, char *nbr, int len, int neg)
 	count = 0;
 	new.width -= (new.space && !neg && !new.plus && new.width);
 	if (neg || new.plus)
-		count += ft_putnchar(ft_sign(new, neg), new.zero && (!new.dot || new.neg_prec));
+		count += ft_putnchar(ft_sign(new, neg), new.zero \
+		&& (!new.dot || new.neg_prec));
 	else if (new.space)
 		count += ft_putnchar(' ', new.zero && !new.dot);
-	if (!new.minus && new.width > new.precision && (!new.dot || new.neg_prec) && new.zero)
+	if (!new.minus && new.width > new.precision && \
+	(!new.dot || new.neg_prec) && new.zero)
 		count += ft_putnchar('0', new.width - new.precision - neg - new.plus);
 	else if (!new.minus && new.width > new.precision)
 		count += ft_putnchar(' ', new.width - new.precision - neg - new.plus);
 	if (neg || new.plus)
-		count += ft_putnchar(ft_sign(new, neg), !new.zero || (new.dot && !new.neg_prec));
+		count += ft_putnchar(ft_sign(new, neg), \
+		!new.zero || (new.dot && !new.neg_prec));
 	else if (new.space)
 		count += ft_putnchar(' ', !new.zero || new.dot);
 	count += ft_putnchar('0', (new.precision - len));

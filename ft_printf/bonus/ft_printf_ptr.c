@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:03:21 by talin             #+#    #+#             */
-/*   Updated: 2024/10/02 16:54:59 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/03 10:54:20 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,21 @@ int	ft_recursive_hex(t_format new, size_t n, size_t i)
 	return (count);
 }
 
-int ft_ptr_null(void)
+int	ft_ptr_null(t_format new)
 {
 	int	count;
 
 	count = 0;
-	count += ft_putnstr("(nil)", 5);
+	if (new.precision > ft_strlen("(nil)") || new.precision < 0 || !new.dot)
+		new.precision = ft_strlen("(nil)");
+	if (!new.minus && new.width > new.precision \
+	&& new.zero && (!new.dot || new.neg_prec))
+		count += ft_putnchar('0', new.width - new.precision);
+	else if (!new.minus && new.width - new.precision > 0)
+		count += ft_putnchar(' ', new.width - new.precision);
+	count += ft_putnstr("(nil)", new.precision);
+	if (new.minus && new.width - new.precision > 0)
+		count += ft_putnchar(' ', new.width - new.precision);
 	return (count);
 }
 
@@ -69,23 +78,22 @@ int	ft_printf_ptr(t_format new, va_list ptr)
 	count = 0;
 	n = va_arg(ptr, size_t);
 	if (n == 0)
-		return (ft_ptr_null());
-	len = ft_nbrlen(n);
-	len *= !(!n && !new.precision && new.dot);
+		return (ft_ptr_null(new));
+	if (new.dot)
+		new.zero = 0;
+	len = ft_nbrlen(n) * (!(!n && !new.precision && new.dot));
 	if (new.precision < len || !new.dot)
 		new.precision = len;
-	count += ft_putnstr("0x", 2 * new.zero);
-	new.width -= 2;
-	if (!new.minus && new.width > new.precision && !new.dot && new.zero)
-		count += ft_putnchar('0', new.width - new.precision);
-	else if (!new.minus && new.width > new.precision)
-		count += ft_putnchar(' ', new.width - new.precision);
-	count += ft_putnstr("0x", 2 * !new.zero);
+	if (!new.minus && (new.width - 2) > new.precision)
+		count += ft_putnchar(' ', new.width - new.precision - 2);
+	count += ft_putnstr("0x", 2);
+	if (!new.minus && (new.width - 2) > new.precision && !new.dot && new.zero)
+		count += ft_putnchar('0', new.width - new.precision - 2);
 	count += ft_putnchar('0', (new.precision - len) * (n != 0));
 	count += ft_putnchar('0', new.precision * (new.dot && !n));
 	if (len)
 		count += ft_recursive_hex(new, n, n);
-	if (new.minus && new.width > new.precision)
-		count += ft_putnchar(' ', new.width - new.precision);
+	if (new.minus && (new.width - 2) > new.precision)
+		count += ft_putnchar(' ', new.width - new.precision - 2);
 	return (count);
 }

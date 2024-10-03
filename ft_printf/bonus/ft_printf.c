@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:54:26 by talin             #+#    #+#             */
-/*   Updated: 2024/10/02 15:50:54 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/03 13:03:07 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+char	*ft_loop(const char *str)
+{
+	char	*first;
+
+	first = (char *)str++;
+	while (*str && !ft_strchr(SPECIFIER, *str))
+		str++;
+	if (!(*str))
+		str = first;
+	return ((char *)(str));
+}
+
 int	ft_printf(const char *str, ...)
 {
 	va_list	ptr;
 	int		count;
-	char	*first;
 
 	count = 0;
 	va_start(ptr, str);
@@ -24,13 +35,14 @@ int	ft_printf(const char *str, ...)
 	{
 		if (*str == '%')
 		{
-			first = (char *)str;
-			if (*(str++))
+			if (!*(++str))
+			{
+				va_end(ptr);
+				return (-1);
+			}
+			if (*(str))
 				count += ft_parse((char *)str, ptr);
-			while (*str && !ft_strchr(SPECIFIER, *str))
-				str++;
-			if (!(*str))
-				str = first;
+			str = ft_loop(str - 1);
 		}
 		else
 			count += ft_putchar(*str);
@@ -75,6 +87,8 @@ int	ft_print_format(t_format new, va_list ptr)
 		count = ft_printf_hex(new, ptr);
 	if (new.specifier == 'p')
 		count = ft_printf_ptr(new, ptr);
+	if (new.specifier == 0)
+		count += ft_putnchar('%', 1);
 	return (count);
 }
 
