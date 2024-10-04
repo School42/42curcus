@@ -1,53 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_util.c                                      :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 14:14:54 by talin             #+#    #+#             */
-/*   Updated: 2024/10/04 09:59:53 by talin            ###   ########.fr       */
+/*   Created: 2024/08/24 16:28:41 by talin             #+#    #+#             */
+/*   Updated: 2024/08/29 19:06:51 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putnchar(int c, int size)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	int	i;
+	size_t			i;
+	unsigned char	*p;
 
+	p = s;
 	i = 0;
-	if (size <= 0)
-		return (0);
-	while (i < size)
+	while (i < n)
 	{
-		write(1, &c, 1);
+		p[i] = (unsigned char) c;
 		i++;
 	}
-	return (i);
+	return (s);
 }
-
-int	ft_putnstr(char *str, int size)
+/*
+#include <stdio.h>
+#include <string.h>
+int	main()
 {
-	int	i;
-
-	i = 0;
-	if (size <= 0)
-		return (0);
-	while (i < size)
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-	return (i);
+	char str[6] = "hello";
+	ft_memset(str, 65, 7 * sizeof(char));
+	printf("%s\n", str);
+	return (0);
 }
-
-char	ft_sign(t_format new, int neg)
-{
-	if (neg)
-		return ('-');
-	else if (new.plus && !neg)
-		return ('+');
-	else
-		return (' ');
-}
+*/

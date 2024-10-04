@@ -1,53 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_util.c                                      :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 14:14:54 by talin             #+#    #+#             */
-/*   Updated: 2024/10/04 09:59:53 by talin            ###   ########.fr       */
+/*   Created: 2024/08/25 14:25:25 by talin             #+#    #+#             */
+/*   Updated: 2024/08/29 21:06:18 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putnchar(int c, int size)
+char	*ft_strdup(const char *s)
 {
-	int	i;
+	char	*ptr;
+	int		i;
 
 	i = 0;
-	if (size <= 0)
-		return (0);
-	while (i < size)
-	{
-		write(1, &c, 1);
+	if (!s)
+		return (NULL);
+	while (s[i])
 		i++;
-	}
-	return (i);
-}
-
-int	ft_putnstr(char *str, int size)
-{
-	int	i;
-
+	ptr = (char *)malloc((i + 1) * sizeof(char));
+	if (!ptr)
+		return (NULL);
 	i = 0;
-	if (size <= 0)
-		return (0);
-	while (i < size)
+	while (s[i])
 	{
-		write(1, &str[i], 1);
+		ptr[i] = s[i];
 		i++;
 	}
-	return (i);
-}
-
-char	ft_sign(t_format new, int neg)
-{
-	if (neg)
-		return ('-');
-	else if (new.plus && !neg)
-		return ('+');
-	else
-		return (' ');
+	ptr[i] = '\0';
+	return (ptr);
 }

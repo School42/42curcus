@@ -1,53 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_util.c                                      :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 14:14:54 by talin             #+#    #+#             */
-/*   Updated: 2024/10/04 09:59:53 by talin            ###   ########.fr       */
+/*   Created: 2024/08/25 10:52:33 by talin             #+#    #+#             */
+/*   Updated: 2024/08/28 14:33:15 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putnchar(int c, int size)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int	i;
+	unsigned char	*tmp;
+	unsigned char	chr;
+	size_t			i;
 
+	tmp = (unsigned char *)s;
+	chr = (unsigned char)c;
 	i = 0;
-	if (size <= 0)
-		return (0);
-	while (i < size)
+	while (i < n)
 	{
-		write(1, &c, 1);
+		if (tmp[i] == chr)
+			return ((void *)(tmp + i));
 		i++;
 	}
-	return (i);
+	return (NULL);
 }
+/*
+#include <stdio.h>
+#include <string.h>
 
-int	ft_putnstr(char *str, int size)
+int	main()
 {
-	int	i;
-
-	i = 0;
-	if (size <= 0)
-		return (0);
-	while (i < size)
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-	return (i);
+	const char	str[6] = "hello";
+	char	*r;
+	r = ft_memchr(str, 'l', 5);
+	printf("str: %s\n", r);
 }
-
-char	ft_sign(t_format new, int neg)
-{
-	if (neg)
-		return ('-');
-	else if (new.plus && !neg)
-		return ('+');
-	else
-		return (' ');
-}
+*/

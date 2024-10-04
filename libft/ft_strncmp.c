@@ -1,53 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_util.c                                      :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 14:14:54 by talin             #+#    #+#             */
-/*   Updated: 2024/10/04 09:59:53 by talin            ###   ########.fr       */
+/*   Created: 2024/08/25 10:46:06 by talin             #+#    #+#             */
+/*   Updated: 2024/09/09 16:29:17 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putnchar(int c, int size)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	if (size <= 0)
-		return (0);
-	while (i < size)
+	while (i < n && (s1[i] || s2[i]))
 	{
-		write(1, &c, 1);
+		if ((unsigned char)s1[i] != (unsigned char)s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 		i++;
 	}
-	return (i);
+	return (0);
 }
+/*
+#include <stdio.h>
+#include <string.h>
 
-int	ft_putnstr(char *str, int size)
+int	main()
 {
-	int	i;
-
-	i = 0;
-	if (size <= 0)
-		return (0);
-	while (i < size)
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-	return (i);
+	int	n = ft_strncmp("hel\0lo1", "hel\0lo2", 6);
+	printf("n: %i\n", n);
 }
-
-char	ft_sign(t_format new, int neg)
-{
-	if (neg)
-		return ('-');
-	else if (new.plus && !neg)
-		return ('+');
-	else
-		return (' ');
-}
+*/
