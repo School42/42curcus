@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:28:33 by talin             #+#    #+#             */
-/*   Updated: 2024/09/09 16:22:44 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/07 13:26:41 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,17 @@
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list	*ptr;
+	t_list	*last;
 
-	if (lst)
+	if (!new || !lst)
+		return ;
+	if (!(*lst))
 	{
-		if (*lst)
-		{
-			ptr = ft_lstlast(*lst);
-			ptr->next = new;
-		}
-		else
-			*lst = new;
+		*lst = new;
+		return ;
 	}
+	last = ft_lstlast(*lst);
+	last->next = new;
 }
 /*
 #include <stdio.h>

@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 11:50:52 by talin             #+#    #+#             */
-/*   Updated: 2024/08/28 14:30:45 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/07 13:35:06 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	size_t			i;
 
 	i = 0;
+	if (n == 0)
+		return (0);
 	d1 = (unsigned char *)s1;
 	d2 = (unsigned char *)s2;
 	while (i < n)

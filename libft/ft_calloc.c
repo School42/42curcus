@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 13:50:29 by talin             #+#    #+#             */
-/*   Updated: 2024/08/29 17:14:07 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/07 13:20:28 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,17 @@
 void	*ft_calloc(size_t nmemb, size_t size)
 {
 	void	*ptr;
+	size_t	req;
 
-	ptr = (void *)malloc(nmemb * size);
+	req = (size_t)(nmemb * size);
+	if ((long) nmemb == 0 || (long) size == 0)
+		req = 1;
+	else if ((long) nmemb < 0 || (long) size < 0)
+		return (NULL);
+	ptr = malloc(req);
 	if (!ptr)
 		return (NULL);
-	ft_bzero(ptr, (nmemb * size));
+	ft_bzero(ptr, req);
 	return (ptr);
 }
 /*

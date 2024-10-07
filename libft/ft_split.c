@@ -6,120 +6,72 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 16:51:30 by talin             #+#    #+#             */
-/*   Updated: 2024/09/09 15:56:39 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/07 13:42:38 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_check(char const s, char c)
-{
-	if (s == c)
-		return (1);
-	return (0);
-}
-
-static int	ft_wordcount(char const *s, char c)
-{
-	size_t	n;
-	size_t	i;
-
-	n = 0;
-	i = 0;
-	while (s[i])
-	{
-		while (ft_check(s[i], c) == 1 && s[i])
-			i++;
-		if (s[i])
-			n++;
-		while (ft_check(s[i], c) == 0 && s[i])
-			i++;
-	}
-	return (n);
-}
-
-static int	ft_size(char const *s, char c, size_t index)
-{
-	size_t	n;
-
-	n = 0;
-	while (s[index])
-	{
-		if (ft_check(s[index], c) == 0)
-		{
-			n++;
-			index++;
-		}
-		else
-			return (n);
-	}
-	return (n);
-}
-
-static char	*ft_sep(char const *s, char c, size_t index)
+static size_t	ft_substr_count(char const *s, char c)
 {
 	size_t	i;
-	size_t	n;
-	size_t	j;
-	char	*ptr;
+	size_t	count;
 
 	i = 0;
-	n = ft_size(s, c, index);
-	ptr = (char *)malloc(sizeof(char) * (n + 1));
-	if (!ptr)
-		return (NULL);
-	j = index + n;
-	while (index < j)
+	count = 0;
+	if (*s == 0)
+		return (0);
+	while (s[i] != '\0')
 	{
-		if (ft_check(s[index], c) == 0)
-			ptr[i] = (unsigned char) s[index];
+		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
+			count++;
 		i++;
-		index++;
 	}
-	ptr[i] = '\0';
-	return (ptr);
+	return (count);
+}
+
+static size_t	ft_substr_len(char const *s, char c)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0' && s[i] != c)
+		i++;
+	return (i);
+}
+
+static char	**ft_free(char **str, int i)
+{
+	while (i >= 0)
+		free(str[i--]);
+	free(str);
+	return (NULL);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**ptr;
+	char	**str;
 	size_t	i;
 	size_t	j;
 
-	if (!s)
-		return (NULL);
-	ptr = (char **)malloc(sizeof(char *) * (ft_wordcount(s, c) + 1));
-	if (!ptr)
+	str = (char **) malloc((ft_substr_count(s, c) + 1) * sizeof(char *));
+	if (!s || !str)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (s[i])
+	while (s[i] != '\0')
 	{
-		while (ft_check(s[i], c) == 1 && s[i])
-			i++;
-		if (s[i])
+		if (s[i] != c)
 		{
-			ptr[j] = ft_sep(s, c, i);
+			str[j] = ft_substr(s, i, ft_substr_len(&s[i], c));
+			if (!str[j])
+				return (ft_free(str, j));
 			j++;
+			i += ft_substr_len(&s[i], c);
 		}
-		while (ft_check(s[i], c) == 0 && s[i])
+		else
 			i++;
 	}
-	ptr[j] = 0;
-	return (ptr);
+	str[j] = 0;
+	return (str);
 }
-/*
-#include <stdio.h>
-
-int	main()
-{
-	char	str[] = "lorem Sed non risus. Suspendisse";
-	char	**ptr = ft_split(str, ' ');
-	size_t	n = ft_wordcount(str, ' ');
-	printf("n: %zu\n", n);
-	for (size_t i = 0; i < n; i++)
-	{
-		printf("%s\n", ptr[i]);
-	}
-}
-*/
