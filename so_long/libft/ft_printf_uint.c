@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_uint.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 12:40:15 by talin             #+#    #+#             */
-/*   Updated: 2024/10/07 16:06:13 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/07 20:51:25 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*ft_uitoa(unsigned int n)
 
 	num = (long int)n;
 	size = ft_size(n);
-	if (n < 0)
+	if ((int)n < 0)
 		num *= -1;
 	ptr = (char *)malloc(sizeof(char) * (size + 1));
 	if (!ptr)
@@ -87,7 +87,7 @@ int	ft_printf_uint(t_format new, va_list ptr)
 
 	count = 0;
 	n = va_arg(ptr, unsigned int);
-	neg = (n < 0);
+	neg = ((int)n < 0);
 	nbr = ft_uitoa(n);
 	if (neg)
 		new.plus = 0;

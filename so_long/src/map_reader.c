@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_reader.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 15:09:46 by talin             #+#    #+#             */
-/*   Updated: 2024/10/07 16:56:27 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/07 20:51:55 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-static int	ft_read_size(char *filename)
+int	ft_read_size(char *filename)
 {
 	int		n;
 	int		fd;
