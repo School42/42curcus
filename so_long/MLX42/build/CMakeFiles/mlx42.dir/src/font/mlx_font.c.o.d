@@ -1,6 +1,6 @@
 CMakeFiles/mlx42.dir/src/font/mlx_font.c.o: \
-  /home/bworrawa/projects/so_long/MLX42/src/font/mlx_font.c \
-  /home/bworrawa/projects/so_long/MLX42/src/font/font.h \
+  /home/talin/42core/42git/so_long/MLX42/src/font/mlx_font.c \
+  /home/talin/42core/42git/so_long/MLX42/src/font/font.h \
   /usr/lib/llvm-15/lib/clang/15.0.7/include/stdint.h \
   /usr/include/stdint.h \
   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
@@ -17,15 +17,15 @@ CMakeFiles/mlx42.dir/src/font/mlx_font.c.o: \
   /usr/include/x86_64-linux-gnu/bits/wchar.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
-  /home/bworrawa/projects/so_long/MLX42/include/MLX42/MLX42_Int.h \
-  /home/bworrawa/projects/so_long/MLX42/include/MLX42/MLX42.h \
+  /home/talin/42core/42git/so_long/MLX42/include/MLX42/MLX42_Int.h \
+  /home/talin/42core/42git/so_long/MLX42/include/MLX42/MLX42.h \
   /usr/lib/llvm-15/lib/clang/15.0.7/include/stddef.h \
   /usr/lib/llvm-15/lib/clang/15.0.7/include/__stddef_max_align_t.h \
   /usr/lib/llvm-15/lib/clang/15.0.7/include/stdbool.h \
-  /home/bworrawa/projects/so_long/MLX42/include/lodepng/lodepng.h \
+  /home/talin/42core/42git/so_long/MLX42/include/lodepng/lodepng.h \
   /usr/include/string.h \
-  /home/bworrawa/projects/so_long/MLX42/include/glad/glad.h \
-  /home/bworrawa/projects/so_long/MLX42/include/KHR/khrplatform.h \
+  /home/talin/42core/42git/so_long/MLX42/include/glad/glad.h \
+  /home/talin/42core/42git/so_long/MLX42/include/KHR/khrplatform.h \
   /usr/include/GLFW/glfw3.h /usr/include/stdlib.h \
   /usr/include/x86_64-linux-gnu/bits/floatn.h \
   /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
