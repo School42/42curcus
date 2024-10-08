@@ -6,21 +6,11 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 23:05:40 by ubuntu            #+#    #+#             */
-/*   Updated: 2024/10/07 15:51:37 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/08 11:24:49 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-size_t	ft_strlen(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
 
 char	*ft_strchr_gnl(const char *s, int c)
 {
