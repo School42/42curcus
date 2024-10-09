@@ -5,7 +5,7 @@ HEADERS 	=  -I ./includes -I ${LIBFT}
 
 LIBS		= ${LIBFT}/libft.a 
 
-SRCS    	= src/map_reader.c
+SRCS    	= src/map_reader.c src/map_reader_two.c src/map_reader_three.c src/flood_fill.c
 
 OBJS 		= ${SRCS:.c=.o}
 
