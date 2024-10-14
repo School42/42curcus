@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 09:20:44 by talin             #+#    #+#             */
-/*   Updated: 2024/10/09 15:54:01 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/14 11:28:34 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ t_mapping	ft_checking_map(t_mapping new)
 			new.num_exit += (ft_char_check(new.map[i][j], 'E'));
 			new.num_player += (ft_char_check(new.map[i][j], 'P'));
 			new.num_collectible += (ft_char_check(new.map[i][j], 'C'));
+			j++;
 		}
-		j++;
 	}
 	if (n == new.size.x)
 		new.valid = 1;

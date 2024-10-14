@@ -5,7 +5,15 @@ HEADERS 	=  -I ./includes -I ${LIBFT}
 
 LIBS		= ${LIBFT}/libft.a 
 
-SRCS    	= src/map_reader.c src/map_reader_two.c src/map_reader_three.c src/flood_fill.c
+SRCS_DIR	= src/
+
+SRC 		= map_reader.c \
+				map_reader_two.c \
+				map_reader_three.c \
+				flood_fill.c \
+				flood_fill_two.c
+
+SRCS    	= ${addprefix ${SRCS_DIR}, ${SRC}}
 
 OBJS 		= ${SRCS:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 09:24:10 by talin             #+#    #+#             */
-/*   Updated: 2024/10/09 14:53:41 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/14 11:42:45 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,22 +72,22 @@ int	ft_player_exit(t_mapping new, t_point size)
 		return (0);
 }
 
-int	ft_right_path(t_mapping new)
+int	ft_collectible(t_mapping new)
 {
-	t_point	exit;
-	t_point	player;
-	int		i;
+	int	i;
+	int	j;
 
-	player = ft_get_exit(new, 'P');
-	flood_fill(new.map, new.size, player);
-	exit = ft_get_exit(new, 'E');
-	if (!(ft_player_exit(new, exit) && ft_player_exit(new, player)))
+	i = 0;
+	while (i < new.size.y)
 	{
-		new.valid = 0;
-		ft_printf("right path\n");
+		j = 0;
+		while (j < new.size.x)
+		{
+			if (new.map[i][j] == 'C')
+				return (0);
+			j++;
+		}
+		i++;
 	}
-	i = -1;
-	while (++i < new.size.y)
-		free(new.map[i]);
-	return (new.valid);
+	return (1);
 }

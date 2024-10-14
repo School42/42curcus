@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 10:45:00 by talin             #+#    #+#             */
-/*   Updated: 2024/10/09 16:19:02 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/14 11:44:09 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ typedef struct s_mapping
 // 	int		collectible;
 // }	t_game_map;
 
-int			ft_size_map(char *filename);
+int			ft_size_map(char *filename, int fd);
 char		*ft_strdup_sl(const char *s);
-char		**ft_making_map(char **av);
+char		**ft_making_map(char **av, int fd);
 int			ft_char_check(char str, char c);
 t_mapping	ft_init_mapping(void);
 t_mapping	ft_error(char *str, t_mapping new);
@@ -58,5 +58,6 @@ void		flood_fill(char **map, t_point size, t_point begin);
 int			ft_right_path(t_mapping new);
 int			ft_outsider(t_mapping new);
 int			ft_outside(char c);
-t_mapping	ft_creat_game_map(char **av);
+t_mapping	ft_creat_game_map(char **av, int fd);
+int			ft_collectible(t_mapping new);
 #endif
