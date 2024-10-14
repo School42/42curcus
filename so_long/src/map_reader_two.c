@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 09:20:44 by talin             #+#    #+#             */
-/*   Updated: 2024/10/14 11:28:34 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/14 14:40:15 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_mapping	ft_checking_map(t_mapping new)
 	if (n == new.size.x)
 		new.valid = 1;
 	else
-		new = ft_error("size.x", new);
+		new = ft_error("Error: Each line of map must have same length.", new);
 	return (new);
 }
 
@@ -66,23 +66,25 @@ t_mapping	ft_valid_map(t_mapping new)
 	int	i;
 
 	if (new.num_exit != 1)
-		new = ft_error("num_exit", new);
+		new = ft_error("Error: Only one exit is acceptable.", new);
 	else if (new.num_player != 1)
-		new = ft_error("num_player", new);
+		new = ft_error("Error: Only one player can play.", new);
 	else if (new.num_collectible <= 0)
-		new = ft_error("num_collectible", new);
+		new = ft_error("Error: No collectible.", new);
 	i = 0;
 	while (i < new.size.y)
 	{
 		if (new.map[i][0] != '1' || new.map[i][new.size.x - 1] != '1')
 		{
-			new = ft_error("wall e", new);
+			new = ft_error(\
+			"Error: The map must be closed/surrounded by walls.", new);
 			return (new);
 		}
 		i++;
 	}
 	if (!ft_wall(new.map[0]) || !ft_wall(new.map[new.size.y - 1]))
-		new = ft_error("wall", new);
+		new = ft_error(\
+		"Error: The map must be closed/surrounded by walls.", new);
 	return (new);
 }
 

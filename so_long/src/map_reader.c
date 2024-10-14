@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 15:09:46 by talin             #+#    #+#             */
-/*   Updated: 2024/10/14 11:29:29 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/14 16:18:01 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ char	*ft_strdup_sl(const char *s)
 	ptr[i] = '\0';
 	return (ptr);
 }
-
 
 char	**ft_making_map(char **av, int fd)
 {

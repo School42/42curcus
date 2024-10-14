@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:51:11 by talin             #+#    #+#             */
-/*   Updated: 2024/10/14 11:45:52 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/14 15:48:15 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ int	ft_outsider(t_mapping new)
 		while (j < new.size.x)
 		{
 			if (!ft_outside(new.map[i][j]))
+			{
+				ft_printf("Error: Outsider found!\n");
 				return (0);
+			}
 			j++;
 		}
 		i++;
@@ -56,13 +59,17 @@ t_mapping	ft_creat_game_map(char **av, int fd)
 	new.map = ft_making_map(av, fd);
 	if (!new.map || !new.game_map)
 	{
-		ft_printf("error, ft_creat_game_map\n");
+		ft_printf("Error: no map was created.\n");
 		return (new);
 	}
 	new.size.y = ft_size_map(av[1], fd);
 	new.game_map = ft_copying_map(new.map, new.size.y);
 	new = ft_checking_map(new);
+	if (!new.valid)
+		return (new);
 	new = ft_valid_map(new);
+	if (!new.valid)
+		return (new);
 	new.valid = ft_outsider(new);
 	new.valid = ft_right_path(new);
 	if (new.map)
@@ -70,7 +77,7 @@ t_mapping	ft_creat_game_map(char **av, int fd)
 	return (new);
 }
 
-void	ft_free(t_mapping game)
+int	ft_free(t_mapping game)
 {
 	int	i;
 
@@ -85,35 +92,5 @@ void	ft_free(t_mapping game)
 		if (game.game_map)
 			free(game.game_map);
 	}
-}
-
-int	main(int ac, char **av)
-{
-	(void)		ac;
-	t_mapping	game;
-	int			fd;
-
-	fd = open(av[1], O_RDONLY);
-	if (fd == -1)
-	{
-		ft_printf("Error, opening file\n");
-		return (1);
-	}
-	game = ft_creat_game_map(av, fd);
-	if (!game.valid)
-	{
-		ft_printf("Error\n");
-		ft_free(game);
-		return (1);
-	}
-	else
-	{
-		int i = 0;
-		while (i < game.size.y)
-		{
-			ft_printf("%s\n", game.game_map[i]);
-			i++;
-		}
-		ft_free(game);
-	}
+	return (0);
 }
