@@ -13,14 +13,19 @@ SRC 		= map_reader.c \
 				flood_fill.c \
 				flood_fill_two.c \
 				so_long.c \
-				game_window.c
+				game_window.c \
+				put_img.c \
+				load_assets.c \
+				key_hook.c \
+				check_finish.c
 
 SRCS    	= ${addprefix ${SRCS_DIR}, ${SRC}}
 
 OBJS 		= ${SRCS:.c=.o}
 
 CC			= cc
-CFLAGS 		= -Wall -Werror -Wextra -g3 #-fsanitize=address 
+
+CFLAGS 		= -Wall -Werror -Wextra -g3 -fsanitize=address 
 
 
 all:   libmlx libft ${NAME}

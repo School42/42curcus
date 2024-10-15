@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 10:45:00 by talin             #+#    #+#             */
-/*   Updated: 2024/10/14 15:56:43 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/15 14:15:10 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 
 # define WIDTH 100
+# define FALSE 0
+# define TRUE 1
 
 typedef struct s_point
 {
@@ -28,16 +30,28 @@ typedef struct s_point
 	int	y;
 }	t_point;
 
+typedef struct s_assets
+{
+	mlx_image_t	*rock;
+	mlx_image_t	*dino;
+	mlx_image_t	*meat;
+	mlx_image_t	*grass;
+	mlx_image_t	*portal;
+}	t_assets;
+
+
 typedef struct s_mapping
 {
-	mlx_t	*mlx;
-	char	**map;
-	char	**game_map;
-	int		num_exit;
-	int		num_player;
-	int		num_collectible;
-	int		valid;
-	t_point	size;
+	mlx_t		*mlx;
+	t_assets	assets;
+	char		**map;
+	char		**game_map;
+	int			num_exit;
+	int			num_player;
+	int			num_collectible;
+	int			valid;
+	t_point		size;
+	bool		exit;
 }	t_mapping;
 
 int			ft_size_map(char *filename, int fd);
@@ -61,4 +75,8 @@ t_mapping	ft_creat_game_map(char **av, int fd);
 int			ft_collectible(t_mapping new);
 int			ft_free(t_mapping game);
 void		ft_game_window(t_mapping game);
+void		ft_load_assets(t_mapping *game);
+void		ft_key_hook(mlx_key_data_t keydata, void *param);
+int			ft_check_count(t_mapping *game, char c);
+void		ft_put_img(t_mapping *game);
 #endif

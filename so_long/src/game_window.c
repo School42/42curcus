@@ -6,21 +6,32 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 15:46:46 by talin             #+#    #+#             */
-/*   Updated: 2024/10/14 16:46:33 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/15 14:10:25 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
+void	hook(void *param)
+{
+	t_mapping	*game;
+
+	game = param;
+	ft_put_img(game);
+}
+
 void	ft_game_window(t_mapping game)
 {
-	game.mlx = mlx_init((WIDTH * game.size.x), \
-	(WIDTH * game.size.y), "So_Long", true);
+	t_point	window;
+
+	window.x = game.size.x * WIDTH;
+	window.y = game.size.y * WIDTH;
+	game.mlx = mlx_init(window.x, window.y, "So_Long", FALSE);
 	if (!game.mlx)
-		ft_printf("MLX\n");
-	mlx_image_t*	img = mlx_new_image(game.mlx, 256, 256);
-	memset(img->pixels, 255, img->width * img->height * sizeof(int32_t));
-	mlx_image_to_window(game.mlx, img, 0, 0);
+		exit(EXIT_FAILURE);
+	ft_load_assets(&game);
+	mlx_loop_hook(game.mlx, &hook, &game);
+	mlx_key_hook(game.mlx, &ft_key_hook, &game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
 }
