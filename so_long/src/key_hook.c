@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:44:39 by talin             #+#    #+#             */
-/*   Updated: 2024/10/15 14:16:14 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/15 16:34:48 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,18 @@ void	ft_move_up(t_mapping *game)
 	int	x;
 	int	y;
 
-	y = -1;
-	while (++y < game->size.y)
+	y = game->player.y;
+	x = game->player.x;
+	if (y < game->size.y && x < game->size.x)
 	{
-		x = -1;
-		while (++x < game->size.x)
+		if (game->game_map[y - 1][x] != '1')
 		{
-			if (game->game_map[y][x] == 'P')
-			{
-				if (game->game_map[y - 1][x] == '0' \
-				|| game->game_map[y - 1][x] == 'C' \
-				|| game->game_map[y - 1][x] == 'E')
-				{
-					if (ft_check_count(game, game->game_map[y - 1][x]))
-						return ;
-					game->game_map[y - 1][x] = 'P';
-					game->game_map[y][x] = '0';
-					ft_printf("Move up\n");
-					return ;
-				}
-			}
+			if (ft_check_count(game, game->game_map[y - 1][x]))
+				return ;
+			game->game_map[y - 1][x] = 'P';
+			game->game_map[y][x] = '0';
+			game->player.y -= 1;
+			ft_printf("Move up\n");
 		}
 	}
 }
@@ -46,26 +38,18 @@ void	ft_move_down(t_mapping *game)
 	int	x;
 	int	y;
 
-	y = -1;
-	while (++y < game->size.y)
+	y = game->player.y;
+	x = game->player.x;
+	if (y < game->size.y && x < game->size.x)
 	{
-		x = -1;
-		while (++x < game->size.x)
+		if (game->game_map[y + 1][x] != '1')
 		{
-			if (game->game_map[y][x] == 'P')
-			{
-				if (game->game_map[y + 1][x] == '0' \
-				|| game->game_map[y + 1][x] == 'C' \
-				|| game->game_map[y + 1][x] == 'E')
-				{
-					if (ft_check_count(game, game->game_map[y - 1][x]))
-						return ;
-					game->game_map[y + 1][x] = 'P';
-					game->game_map[y][x] = '0';
-					ft_printf("Move up\n");
-					return ;
-				}
-			}
+			if (ft_check_count(game, game->game_map[y - 1][x]))
+				return ;
+			game->game_map[y + 1][x] = 'P';
+			game->game_map[y][x] = '0';
+			game->player.y += 1;
+			ft_printf("Move down\n");
 		}
 	}
 }
@@ -75,26 +59,18 @@ void	ft_move_left(t_mapping *game)
 	int	x;
 	int	y;
 
-	y = -1;
-	while (++y < game->size.y)
+	y = game->player.y;
+	x = game->player.x;
+	if (y < game->size.y && x < game->size.x)
 	{
-		x = -1;
-		while (++x < game->size.x)
+		if (game->game_map[y][x - 1] != '1')
 		{
-			if (game->game_map[y][x] == 'P')
-			{
-				if (game->game_map[y][x - 1] == '0' \
-				|| game->game_map[y][x - 1] == 'C' \
-				|| game->game_map[y][x - 1] == 'E')
-				{
-					if (ft_check_count(game, game->game_map[y - 1][x]))
-						return ;
-					game->game_map[y][x  - 1] = 'P';
-					game->game_map[y][x] = '0';
-					ft_printf("Move up\n");
-					return ;
-				}
-			}
+			if (ft_check_count(game, game->game_map[y - 1][x]))
+				return ;
+			game->game_map[y][x - 1] = 'P';
+			game->game_map[y][x] = '0';
+			game->player.x -= 1;
+			ft_printf("Move left\n");
 		}
 	}
 }
@@ -104,26 +80,18 @@ void	ft_move_right(t_mapping *game)
 	int	x;
 	int	y;
 
-	y = -1;
-	while (++y < game->size.y)
+	y = game->player.y;
+	x = game->player.x;
+	if (y < game->size.y && x < game->size.x)
 	{
-		x = -1;
-		while (++x < game->size.x)
+		if (game->game_map[y][x + 1] != '1')
 		{
-			if (game->game_map[y][x] == 'P')
-			{
-				if (game->game_map[y][x + 1] == '0' \
-				|| game->game_map[y][x + 1] == 'C' \
-				|| game->game_map[y][x + 1] == 'E')
-				{
-					if (ft_check_count(game, game->game_map[y - 1][x]))
-						return ;
-					game->game_map[y][x + 1] = 'P';
-					game->game_map[y][x] = '0';
-					ft_printf("Move up\n");
-					return ;
-				}
-			}
+			if (ft_check_count(game, game->game_map[y - 1][x]))
+				return ;
+			game->game_map[y][x + 1] = 'P';
+			game->game_map[y][x] = '0';
+			game->player.x += 1;
+			ft_printf("Move up\n");
 		}
 	}
 }

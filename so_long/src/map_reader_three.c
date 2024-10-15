@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:51:11 by talin             #+#    #+#             */
-/*   Updated: 2024/10/14 15:48:15 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/15 16:28:59 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_mapping	ft_creat_game_map(char **av, int fd)
 
 	new = ft_init_mapping();
 	new.map = ft_making_map(av, fd);
-	if (!new.map || !new.game_map)
+	if (!new.map)
 	{
 		ft_printf("Error: no map was created.\n");
 		return (new);
@@ -71,7 +71,7 @@ t_mapping	ft_creat_game_map(char **av, int fd)
 	if (!new.valid)
 		return (new);
 	new.valid = ft_outsider(new);
-	new.valid = ft_right_path(new);
+	new.valid = ft_right_path(&new);
 	if (new.map)
 		free(new.map);
 	return (new);

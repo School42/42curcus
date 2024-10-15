@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 10:45:00 by talin             #+#    #+#             */
-/*   Updated: 2024/10/15 14:15:10 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/15 16:27:15 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_mapping
 	int			valid;
 	t_point		size;
 	bool		exit;
+	t_point		player;
 }	t_mapping;
 
 int			ft_size_map(char *filename, int fd);
@@ -63,12 +64,11 @@ t_mapping	ft_error(char *str, t_mapping new);
 t_mapping	ft_checking_map(t_mapping new);
 int			ft_wall(char *str);
 t_mapping	ft_valid_map(t_mapping new);
-int			ft_right_path(t_mapping new);
+int			ft_right_path(t_mapping *new);
 int			ft_player_exit(t_mapping new, t_point size);
 t_point		ft_get_exit(t_mapping new, char c);
 void		fill(char **map, t_point size, int row, int col);
 void		flood_fill(char **map, t_point size, t_point begin);
-int			ft_right_path(t_mapping new);
 int			ft_outsider(t_mapping new);
 int			ft_outside(char c);
 t_mapping	ft_creat_game_map(char **av, int fd);
