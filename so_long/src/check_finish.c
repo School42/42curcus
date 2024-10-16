@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 14:03:11 by talin             #+#    #+#             */
-/*   Updated: 2024/10/15 14:16:44 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/16 09:40:06 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ int	ft_check_count(t_mapping *game, char c)
 	{
 		game->num_collectible--;
 		if (game->num_collectible == 0)
-			ft_printf("you got all collectible!\n");
+			ft_printf("you have eaten all meats!\n");
 	}
 	else if (c == 'E' && game->num_collectible != 0)
 	{
-		ft_printf("get all!\n");
+		ft_printf("some meat has to be consumed!\n");
 		return (1);
 	}
 	else if (c == 'E' && game->num_collectible == 0)
-		game->exit = TRUE;
+		game->portal = TRUE;
 	return (0);
 }

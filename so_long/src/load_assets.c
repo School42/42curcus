@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 11:53:34 by talin             #+#    #+#             */
-/*   Updated: 2024/10/15 15:35:35 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/16 10:31:14 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,13 @@ void	ft_load_assets(t_mapping *game)
 	game->assets.grass = ft_asset_to_image(game->mlx, "assets/grass.png");
 	game->assets.meat = ft_asset_to_image(game->mlx, "assets/meat.png");
 	game->assets.portal = ft_asset_to_image(game->mlx, "assets/portal.png");
+}
+
+void	ft_delete_assets(t_mapping *game)
+{
+	mlx_delete_image(game->mlx, game->images.grass);
+	mlx_delete_image(game->mlx, game->images.meat);
+	mlx_delete_image(game->mlx, game->images.dino);
+	mlx_delete_image(game->mlx, game->images.portal);
+	mlx_delete_image(game->mlx, game->images.rock);
 }

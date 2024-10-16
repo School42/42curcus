@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:44:39 by talin             #+#    #+#             */
-/*   Updated: 2024/10/15 16:34:48 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/16 09:57:40 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_move_up(t_mapping *game)
 			game->game_map[y - 1][x] = 'P';
 			game->game_map[y][x] = '0';
 			game->player.y -= 1;
+			game->move++;
 			ft_printf("Move up\n");
 		}
 	}
@@ -44,11 +45,12 @@ void	ft_move_down(t_mapping *game)
 	{
 		if (game->game_map[y + 1][x] != '1')
 		{
-			if (ft_check_count(game, game->game_map[y - 1][x]))
+			if (ft_check_count(game, game->game_map[y + 1][x]))
 				return ;
 			game->game_map[y + 1][x] = 'P';
 			game->game_map[y][x] = '0';
 			game->player.y += 1;
+			game->move++;
 			ft_printf("Move down\n");
 		}
 	}
@@ -65,11 +67,12 @@ void	ft_move_left(t_mapping *game)
 	{
 		if (game->game_map[y][x - 1] != '1')
 		{
-			if (ft_check_count(game, game->game_map[y - 1][x]))
+			if (ft_check_count(game, game->game_map[y][x - 1]))
 				return ;
 			game->game_map[y][x - 1] = 'P';
 			game->game_map[y][x] = '0';
 			game->player.x -= 1;
+			game->move++;
 			ft_printf("Move left\n");
 		}
 	}
@@ -86,12 +89,13 @@ void	ft_move_right(t_mapping *game)
 	{
 		if (game->game_map[y][x + 1] != '1')
 		{
-			if (ft_check_count(game, game->game_map[y - 1][x]))
+			if (ft_check_count(game, game->game_map[y][x + 1]))
 				return ;
 			game->game_map[y][x + 1] = 'P';
 			game->game_map[y][x] = '0';
 			game->player.x += 1;
-			ft_printf("Move up\n");
+			game->move++;
+			ft_printf("Move right\n");
 		}
 	}
 }
@@ -106,15 +110,19 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 		if (keydata.key == MLX_KEY_ESCAPE)
 		{
 			mlx_close_window(game->mlx);
-			ft_printf("game\n");
+			game->playing = CLOSING;
+			ft_print_game(game);
 		}
-		if (keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_UP)
-			ft_move_up(game);
-		if (keydata.key == MLX_KEY_S || keydata.key == MLX_KEY_DOWN)
-			ft_move_down(game);
-		if (keydata.key == MLX_KEY_A || keydata.key == MLX_KEY_LEFT)
-			ft_move_left(game);
-		if (keydata.key == MLX_KEY_D || keydata.key == MLX_KEY_RIGHT)
-			ft_move_right(game);
+		if (game->portal == FALSE)
+		{
+			if (keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_UP)
+				ft_move_up(game);
+			if (keydata.key == MLX_KEY_S || keydata.key == MLX_KEY_DOWN)
+				ft_move_down(game);
+			if (keydata.key == MLX_KEY_A || keydata.key == MLX_KEY_LEFT)
+				ft_move_left(game);
+			if (keydata.key == MLX_KEY_D || keydata.key == MLX_KEY_RIGHT)
+				ft_move_right(game);
+		}
 	}
 }

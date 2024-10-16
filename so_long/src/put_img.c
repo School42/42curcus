@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:32:28 by talin             #+#    #+#             */
-/*   Updated: 2024/10/15 15:45:08 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/16 10:32:37 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	ft_image_to_window(t_mapping *game, int x, int y)
 	else if (game->game_map[y][x] == 'C')
 		mlx_image_to_window(game->mlx, game->assets.meat, x * WIDTH, y * WIDTH);
 	if (y == 0 && x == 0)
-		mlx_image_to_window(game->mlx, game->assets.grass, x * WIDTH, y * WIDTH);
+		mlx_image_to_window(game->mlx, \
+		game->assets.grass, x * WIDTH, y * WIDTH);
 }
 
 void	ft_put_img(t_mapping *game)
@@ -36,16 +37,46 @@ void	ft_put_img(t_mapping *game)
 	int	y;
 
 	y = 0;
-	ft_load_assets(game);
-	while (y < game->size.y)
+	if (game->playing == PLAYING)
 	{
-		x = 0;
-		while (x < game->size.x)
+		ft_delete_assets(game);
+		game->images = game->assets;
+		ft_load_assets(game);
+		while (y < game->size.y)
 		{
-			ft_image_to_window(game, x, y);
-			x++;
+			x = 0;
+			while (x < game->size.x)
+			{
+				ft_image_to_window(game, x, y);
+				x++;
+			}
+			y++;
 		}
-		y++;
+		if (game->portal == TRUE)
+			ft_game_won(game);
 	}
 	return ;
+}
+
+void	ft_game_won(t_mapping *game)
+{
+	ft_delete_assets(game);
+	game->images = game->assets;
+	ft_delete_assets(game);
+	game->playing = GAME;
+	ft_print_game(game);
+	mlx_close_window(game->mlx);
+}
+
+void	ft_print_game(t_mapping *game)
+{
+	if (game->playing == GAME)
+	{
+		ft_printf("\nCongratulations!!!");
+		ft_printf("You completed the game in %d moves!\n", game->move);
+	}
+	else if (game->playing == CLOSING)
+		ft_printf("\nNext time, we should get these meats!\n");
+	else if (game->playing == GAMEOVER)
+		ft_printf("\nOh no!\n");
 }

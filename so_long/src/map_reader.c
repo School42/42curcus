@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 15:09:46 by talin             #+#    #+#             */
-/*   Updated: 2024/10/14 16:18:01 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/16 10:01:54 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,7 @@ t_mapping	ft_init_mapping(void)
 	new.size.x = 0;
 	new.size.y = 0;
 	new.valid = 0;
+	new.move = 0;
+	new.playing = PLAYING;
 	return (new);
 }

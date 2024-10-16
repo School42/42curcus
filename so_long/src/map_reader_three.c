@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:51:11 by talin             #+#    #+#             */
-/*   Updated: 2024/10/15 16:28:59 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/16 10:02:13 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,10 @@ t_mapping	ft_creat_game_map(char **av, int fd)
 	new.valid = ft_outsider(new);
 	new.valid = ft_right_path(&new);
 	if (new.map)
+	{
 		free(new.map);
+		new.map = NULL;
+	}
 	return (new);
 }
 
@@ -90,7 +93,10 @@ int	ft_free(t_mapping game)
 			i++;
 		}
 		if (game.game_map)
+		{
 			free(game.game_map);
+			game.game_map = NULL;
+		}
 	}
 	return (0);
 }

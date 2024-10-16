@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 10:45:00 by talin             #+#    #+#             */
-/*   Updated: 2024/10/15 16:27:15 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/16 11:33:08 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@
 # define WIDTH 100
 # define FALSE 0
 # define TRUE 1
+# define PLAYING 1
+# define GAME 2
+# define GAMEOVER 3
+# define CLOSING 4
 
 typedef struct s_point
 {
@@ -44,6 +48,7 @@ typedef struct s_mapping
 {
 	mlx_t		*mlx;
 	t_assets	assets;
+	t_assets	images;
 	char		**map;
 	char		**game_map;
 	int			num_exit;
@@ -51,8 +56,11 @@ typedef struct s_mapping
 	int			num_collectible;
 	int			valid;
 	t_point		size;
-	bool		exit;
+	bool		portal;
 	t_point		player;
+	t_point		exit;
+	int			playing;
+	int			move;
 }	t_mapping;
 
 int			ft_size_map(char *filename, int fd);
@@ -79,4 +87,7 @@ void		ft_load_assets(t_mapping *game);
 void		ft_key_hook(mlx_key_data_t keydata, void *param);
 int			ft_check_count(t_mapping *game, char c);
 void		ft_put_img(t_mapping *game);
+void		ft_delete_assets(t_mapping *game);
+void		ft_game_won(t_mapping *game);
+void		ft_print_game(t_mapping *game);
 #endif
