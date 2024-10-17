@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_assets.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 11:53:34 by talin             #+#    #+#             */
-/*   Updated: 2024/10/17 16:26:05 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/17 16:52:41 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	ft_load_assets(t_mapping *game)
 	game->assets.dino = ft_asset_to_image(game->mlx, "assets/dino.png");
 	game->assets.grass = ft_asset_to_image(game->mlx, "assets/grass.png");
 	game->assets.meat = ft_asset_to_image(game->mlx, "assets/meat.png");
-	// game->assets.portal = ft_asset_to_image(game->mlx, "assets/portal1.png");
-	ft_load_portal(game);
+	game->assets.portal = ft_asset_to_image(game->mlx, "assets/portal1.png");
+	// ft_load_portal(game);
 }
 
 void	ft_delete_assets(t_mapping *game)
@@ -56,7 +56,7 @@ void	ft_delete_assets(t_mapping *game)
 	mlx_delete_image(game->mlx, game->images.grass);
 	mlx_delete_image(game->mlx, game->images.meat);
 	mlx_delete_image(game->mlx, game->images.dino);
-	// mlx_delete_image(game->mlx, game->images.portal);
+	mlx_delete_image(game->mlx, game->images.portal);
 	mlx_delete_image(game->mlx, game->images.rock);
-	ft_delete_portal(game);
+	// ft_delete_portal(game);
 }
