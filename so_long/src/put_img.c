@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:32:28 by talin             #+#    #+#             */
-/*   Updated: 2024/10/16 10:32:37 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/17 16:46:03 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,11 @@ void	ft_image_to_window(t_mapping *game, int x, int y)
 	if (game->game_map[y][x] == '1')
 		mlx_image_to_window(game->mlx, game->assets.rock, x * WIDTH, y * WIDTH);
 	else if (game->game_map[y][x] == 'E')
-		mlx_image_to_window(game->mlx, \
-		game->assets.portal, x * WIDTH, y * WIDTH);
+	{
+		ft_img_portal(game, x, y);
+	}
+		// mlx_image_to_window(game->mlx, \
+		// game->assets.portal, x * WIDTH, y * WIDTH);
 	else if (game->game_map[y][x] == 'P')
 		mlx_image_to_window(game->mlx, game->assets.dino, x * WIDTH, y * WIDTH);
 	else if (game->game_map[y][x] == 'C')
