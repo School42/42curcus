@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:44:39 by talin             #+#    #+#             */
-/*   Updated: 2024/10/16 09:57:40 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/21 13:32:44 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_move_up(t_mapping *game)
 			game->game_map[y][x] = '0';
 			game->player.y -= 1;
 			game->move++;
-			ft_printf("Move up\n");
+			ft_print_moves(game);
 		}
 	}
 }
@@ -51,7 +51,7 @@ void	ft_move_down(t_mapping *game)
 			game->game_map[y][x] = '0';
 			game->player.y += 1;
 			game->move++;
-			ft_printf("Move down\n");
+			ft_print_moves(game);
 		}
 	}
 }
@@ -73,7 +73,7 @@ void	ft_move_left(t_mapping *game)
 			game->game_map[y][x] = '0';
 			game->player.x -= 1;
 			game->move++;
-			ft_printf("Move left\n");
+			ft_print_moves(game);
 		}
 	}
 }
@@ -95,7 +95,7 @@ void	ft_move_right(t_mapping *game)
 			game->game_map[y][x] = '0';
 			game->player.x += 1;
 			game->move++;
-			ft_printf("Move right\n");
+			ft_print_moves(game);
 		}
 	}
 }

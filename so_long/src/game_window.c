@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 15:46:46 by talin             #+#    #+#             */
-/*   Updated: 2024/10/15 16:35:47 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/21 13:54:24 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	hook(void *param)
 
 	game = param;
 	ft_put_img(game);
+	game->loop++;
+	ft_enemy_moves(game);
 }
 
 void	ft_game_window(t_mapping game)
@@ -25,11 +27,12 @@ void	ft_game_window(t_mapping game)
 	t_point	window;
 
 	window.x = game.size.x * WIDTH;
-	window.y = game.size.y * WIDTH;
-	game.mlx = mlx_init(window.x, window.y, "So_Long", FALSE);
+	window.y = (game.size.y + 1) * WIDTH;
+	game.mlx = mlx_init(window.x, window.y, "So_Long", TRUE);
 	if (!game.mlx)
 		exit(EXIT_FAILURE);
 	ft_load_assets(&game);
+	ft_print_strings(&game);
 	mlx_loop_hook(game.mlx, &hook, &game);
 	mlx_key_hook(game.mlx, &ft_key_hook, &game);
 	mlx_loop(game.mlx);

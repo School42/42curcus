@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 09:24:10 by talin             #+#    #+#             */
-/*   Updated: 2024/10/14 11:42:45 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/21 15:00:37 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	fill(char **map, t_point size, int row, int col)
 		return ;
 	if (map[row][col] == 'F' || map[row][col] == 'E' || map[row][col] == '1')
 		return ;
-	if (map[row][col] == '0' || map[row][col] == 'C')
+	if (map[row][col] == '0' || map[row][col] == 'C' || map[row][col] == 'X')
 		map[row][col] = 'F';
 	fill (map, size, row - 1, col);
 	fill (map, size, row + 1, col);
