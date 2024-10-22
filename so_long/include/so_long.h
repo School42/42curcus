@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 10:45:00 by talin             #+#    #+#             */
-/*   Updated: 2024/10/21 15:10:04 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/22 12:49:03 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,16 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 
 # define WIDTH 64
+
 # define FALSE 0
 # define TRUE 1
+
 # define PLAYING 1
 # define GAME 2
 # define GAMEOVER 3
 # define CLOSING 4
 
-// # define PC 6
+# define ENEMY 12
 
 typedef struct s_point
 {
@@ -62,6 +64,7 @@ typedef struct s_mapping
 	t_assets	assets;
 	t_assets	images;
 	t_texts		texts;
+	mlx_image_t	*enemy[ENEMY];
 	char		**map;
 	char		**game_map;
 	int			num_exit;
@@ -75,9 +78,12 @@ typedef struct s_mapping
 	int			playing;
 	int			move;
 	int			loop;
-	int			enemy;
+	int			enemy_int;
 	bool		gameover;
 	int			consumed_meat;
+	int			frame_speed;
+	int			frame_count;
+	int			current_frame;
 }	t_mapping;
 
 int			ft_size_map(char *filename, int fd);
@@ -114,4 +120,7 @@ void		ft_game_over(t_mapping *game);
 void		ft_print_strings(t_mapping *game);
 void		ft_print_meat(t_mapping *game);
 mlx_image_t	*ft_asset_to_image(mlx_t *mlx, char *img_path);
+void		ft_game_over_window(t_mapping *game);
+void		ft_get_current_frame(t_mapping *game);
+void		ft_delete_enemy_assets(t_mapping *game);
 #endif

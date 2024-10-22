@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 15:09:46 by talin             #+#    #+#             */
-/*   Updated: 2024/10/21 14:07:12 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/21 16:44:53 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,8 @@ t_mapping	ft_init_mapping(void)
 	new.playing = PLAYING;
 	new.loop = 0;
 	new.consumed_meat = 0;
+	new.current_frame = 0;
+	new.frame_count = 0;
+	new.frame_speed = 10;
 	return (new);
 }

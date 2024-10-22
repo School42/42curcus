@@ -19,7 +19,8 @@ SRC 		= map_reader.c \
 				key_hook.c \
 				check_finish.c \
 				enemy_move.c \
-				print_moves.c
+				print_moves.c \
+				game_over.c
 
 SRCS    	= ${addprefix ${SRCS_DIR}, ${SRC}}
 

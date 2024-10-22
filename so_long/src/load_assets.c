@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 11:53:34 by talin             #+#    #+#             */
-/*   Updated: 2024/10/21 14:58:08 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/22 12:48:51 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,13 @@ void	ft_delete_assets(t_mapping *game)
 	mlx_delete_image(game->mlx, game->images.portal);
 	mlx_delete_image(game->mlx, game->images.rock);
 	mlx_delete_image(game->mlx, game->images.enemy);
+}
+
+void	ft_delete_enemy_assets(t_mapping *game)
+{
+	int	i;
+
+	i = -1;
+	while (++i < ENEMY)
+		mlx_delete_image(game->mlx, game->enemy[i]);
 }

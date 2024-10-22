@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 15:46:46 by talin             #+#    #+#             */
-/*   Updated: 2024/10/21 13:54:24 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/21 16:55:04 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	hook(void *param)
 	t_mapping	*game;
 
 	game = param;
+	ft_get_current_frame(game);
 	ft_put_img(game);
 	game->loop++;
 	ft_enemy_moves(game);
@@ -32,6 +33,7 @@ void	ft_game_window(t_mapping game)
 	if (!game.mlx)
 		exit(EXIT_FAILURE);
 	ft_load_assets(&game);
+	ft_game_over_window(&game);
 	ft_print_strings(&game);
 	mlx_loop_hook(game.mlx, &hook, &game);
 	mlx_key_hook(game.mlx, &ft_key_hook, &game);

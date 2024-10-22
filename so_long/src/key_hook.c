@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:44:39 by talin             #+#    #+#             */
-/*   Updated: 2024/10/21 13:32:44 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/22 12:49:32 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	{
 		if (keydata.key == MLX_KEY_ESCAPE)
 		{
+			ft_delete_enemy_assets(game);
 			mlx_close_window(game->mlx);
 			game->playing = CLOSING;
 			ft_print_game(game);

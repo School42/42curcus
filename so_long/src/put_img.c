@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:32:28 by talin             #+#    #+#             */
-/*   Updated: 2024/10/21 15:52:44 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/21 16:24:36 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	ft_game_won(t_mapping *game)
 
 void	ft_game_over(t_mapping *game)
 {
-	mlx_image_t	*img;
 	mlx_image_t	*bg;
 
 	mlx_delete_image(game->mlx, game->texts.move);
@@ -109,11 +108,7 @@ void	ft_game_over(t_mapping *game)
 	bg = ft_asset_to_image(game->mlx, "assets/bg.png");
 	mlx_resize_image(bg, (game->size.x * WIDTH), (game->size.y + 1) * WIDTH);
 	mlx_image_to_window(game->mlx, bg, 0, 0);
-	img = mlx_new_image(game->mlx, game->size.x * WIDTH, game->size.y * WIDTH);
-	img = ft_asset_to_image(game->mlx, "assets/enemy.png");
-	mlx_resize_image(img, (game->size.y * WIDTH), (game->size.y * WIDTH));
-	mlx_image_to_window(game->mlx, img, \
-	(game->size.x * WIDTH) / 2 - 160, (game->size.y * WIDTH) / 2 - 160);
+	ft_game_over_window(game);
 }
 
 void	ft_print_game(t_mapping *game)
