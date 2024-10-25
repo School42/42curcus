@@ -1,12 +1,12 @@
 NAME        = pipex
 LIBFT       = ./libft
-HEADERS 	=  -I ./includes -I ${LIBFT}
+HEADERS 	=  -I ./include -I ${LIBFT}
 
 LIBS		= ${LIBFT}/libft.a
 
 SRCS_DIR	= src/
 
-SRC 		= 
+SRC 		= read.c
 
 SRCS    	= ${addprefix ${SRCS_DIR}, ${SRC}}
 
@@ -26,10 +26,10 @@ norm:
 libft:
 	@${MAKE} -C ${LIBFT}
 
-%.o: %.c	Makefile include/so_long.h
+%.o: %.c	Makefile include/pipex.h
 	${CC} ${CFLAGS} -o $@ -c $< ${HEADERS}
 
-${NAME}: ${OBJS}	include/so_long.h
+${NAME}: ${OBJS}	include/pipex.h
 	${CC} ${CFLAGS} ${OBJS} ${LIBS} ${HEADERS} -o ${NAME}
 
 clean:
@@ -38,6 +38,7 @@ clean:
 
 fclean:		clean
 	@rm -rf ${NAME}
+	@rm -rf ${LIBS}
 	
 
 re:		clean all
