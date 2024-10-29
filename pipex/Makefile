@@ -6,7 +6,8 @@ LIBS		= ${LIBFT}/libft.a
 
 SRCS_DIR	= src/
 
-SRC 		= read.c
+SRC 		= read.c \
+				read_two.c
 
 SRCS    	= ${addprefix ${SRCS_DIR}, ${SRC}}
 
