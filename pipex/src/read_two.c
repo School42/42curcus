@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 15:39:37 by talin             #+#    #+#             */
-/*   Updated: 2024/10/29 15:58:27 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/30 14:04:33 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,50 +33,89 @@ int	ft_check_access(int ac, char **av, t_array *new)
 	return (1);
 }
 
-void	ft_pipe(t_array *new, char **envp, int i)
+int	ft_check_access_here(int ac, char **av, t_array *new)
 {
-	pid_t	pid;
-	int		pd[2];
-
-	if (pipe(pd) == -1)
-		exit(0);
-	pid = fork();
-	if (pid == -1)
-		exit(0);
-	if (!pid)
+	if (access(av[ac - 1], F_OK) != 0)
 	{
-		close(pd[0]);
-		dup2(pd[1], 1);
-		execve(new->filename[i], new->cmd[i], envp);
+		new->outfd = open(av[ac - 1], O_CREAT | O_RDWR | O_APPEND);
+		if (new->outfd < 0)
+		{
+			perror("Error opening file");
+			return (-1);
+		}
 	}
 	else
 	{
-		close(pd[1]);
-		dup2(pd[0], 0);
+		new->outfd = open(av[ac - 1], O_RDWR | O_APPEND);
+		if (new->outfd < 0)
+		{
+			perror("Error opening file");
+			return (-1);
+		}
 	}
+	return (1);
 }
 
-int	main(int ac, char **av, char **envp)
+char	*remove_newline(char *s)
+{
+	char	*ptr;
+	int		i;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	i = ft_strlen(s);
+	ptr = (char *)malloc((i + 1) * sizeof(char));
+	if (!ptr)
+		return (NULL);
+	i = 0;
+	while (s[i] != '\0' && s[i] != '\n')
+	{
+		ptr[i] = s[i];
+		i++;
+	}
+	ptr[i] = '\0';
+	return (ptr);
+}
+
+void	ft_pipex(int ac, char **av, char **envp)
 {
 	t_array	*new;
+	int		i;
 
-	if (ac < 2)
-		return (ft_printf("Error!\n"));
-	if ((ft_strncmp(av[1], "here_doc", 9) != 0))
+	new = (t_array *)malloc(sizeof(t_array) * 1);
+	ft_make_array(ac, av, envp, new);
+	ft_check_access(ac, av, new);
+	new->infd = open(av[1], O_RDONLY);
+	dup2(new->infd, 0);
+	i = -1;
+	while (++i < ac - 4)
+		ft_pipe(new, envp, i);
+	dup2(new->outfd, 1);
+	execve(new->filename[i], new->cmd[i], envp);
+}
+
+void	ft_heredoc(int ac, char **av, char **envp)
+{
+	t_array	*new;
+	int		i;
+	char	*str;
+
+	new = (t_array *)malloc(sizeof(t_array) * 1);
+	ft_make_array_here(ac, av, envp, new);
+	ft_check_access_here(ac, av, new);
+	ft_printf("pipe heredoc> ");
+	str = remove_newline(get_next_line(0));
+	while (str)
 	{
-		new = (t_array *)malloc(sizeof(t_array) * 1);
-		ft_make_array(ac, av, envp, new);
-		ft_check_access(ac, av, new);
-		new->infd = open(av[1], O_RDONLY);
-		dup2(new->infd, 0);
-		int	i;
-		i = -1;
-		while (++i < ac - 4)
-			ft_pipe(new, envp, i);
-		dup2(new->outfd, 1);
-		execve(new->filename[i], new->cmd[i], envp);
+		if (ft_strncmp(av[2], str, (int)ft_strlen(av[2]) + 1) == 0)
+			break ;
+		ft_printf("pipe heredoc> ");
+		str = remove_newline(get_next_line(0));
 	}
-	else
-		ft_printf("here\n");
-	ft_printf("good\n");
+	i = -1;
+	while (++i < ac - 5)
+		ft_pipe(new, envp, i);
+	dup2(new->outfd, 1);
+	execve(new->filename[i], new->cmd[i], envp);
 }

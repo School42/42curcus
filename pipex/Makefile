@@ -7,7 +7,8 @@ LIBS		= ${LIBFT}/libft.a
 SRCS_DIR	= src/
 
 SRC 		= read.c \
-				read_two.c
+				read_two.c \
+				pipex.c
 
 SRCS    	= ${addprefix ${SRCS_DIR}, ${SRC}}
 
