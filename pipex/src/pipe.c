@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2024/11/04 09:33:58 by talin            ###   ########.fr       */
+/*   Updated: 2024/11/04 22:33:47 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,15 @@ void	ft_pipe(t_array *new, char **envp, int i)
 	{
 		close(pd[0]);
 		dup2(pd[1], 1);
-		execve(new->filename[i], new->cmd[i], envp);
+		if (execve(new->filename[i], new->cmd[i], envp) == -1)
+		{
+			perror("Execution Error");
+			return ;
+		}
 	}
 	else
 	{
 		close(pd[1]);
 		dup2(pd[0], 0);
-		waitpid(pid, NULL, 0);
 	}
 }

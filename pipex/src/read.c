@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 15:20:07 by talin             #+#    #+#             */
-/*   Updated: 2024/11/04 16:25:14 by talin            ###   ########.fr       */
+/*   Updated: 2024/11/04 22:46:24 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,10 @@ int	ft_make_array(int ac, char **av, char **envp, t_array *new)
 			ft_cat(new, i, av, 2);
 	}
 	if (access(new->cmd[i - 1][0], X_OK) != 0)
+	{
+		ft_printf("Good\n");
 		return (ft_free_arr(new, ac));
+	}
 	return (1);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 14:01:49 by talin             #+#    #+#             */
-/*   Updated: 2024/11/04 16:44:16 by talin            ###   ########.fr       */
+/*   Updated: 2024/11/04 20:00:57 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	ft_write_output(char **av, int ac, int x)
 	}
 	write(fd, "", 0);
 }
-
 int	main(int ac, char **av, char **envp)
 {
 	if (ac < 5)
