@@ -8,7 +8,9 @@ SRCS_DIR	= src/
 
 SRC 		= read.c \
 				read_two.c \
-				pipex.c
+				pipex_bonus.c \
+				free_arr.c \
+				pipe.c
 
 SRCS    	= ${addprefix ${SRCS_DIR}, ${SRC}}
 
@@ -45,5 +47,7 @@ fclean:		clean
 
 re:		clean all
 
+bonus: all
 
-.PHONY:	 all, clean , fclean, re , libft , libmlx , norm
+
+.PHONY:	 all, clean , fclean, re , libft , libmlx , norm , bonus

@@ -1,28 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   free_arr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/30 14:01:49 by talin             #+#    #+#             */
-/*   Updated: 2024/10/30 14:02:13 by talin            ###   ########.fr       */
+/*   Created: 2024/10/30 15:21:47 by talin             #+#    #+#             */
+/*   Updated: 2024/11/04 13:09:17 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-int	main(int ac, char **av, char **envp)
+int	ft_free_arr(t_array *new, int ac)
 {
+	int	i;
+	int	j;
+	int	k;
 
-	if (ac < 2)
-		return (ft_printf("Error!\n"));
-	if ((ft_strncmp(av[1], "here_doc", 9) != 0))
+	i = -1;
+	while (++i < ac - 3)
 	{
-		ft_pipex(ac, av, envp);
+		j = -1;
+		free(new->filename[i]);
+		while (new->cmd[i][++j])
+			free(new->cmd[i][j]);
+		k = -1;
+		if (new->path_arr[i])
+		{
+			while (new->path_arr[i][++k])
+				free(new->path_arr[i][k]);
+			free(new->path_arr[i]);
+		}
+		free(new->cmd[i]);
 	}
-	else
-	{
-		ft_heredoc(ac, av, envp);
-	}
+	free(new->filename);
+	free(new->cmd);
+	free(new->path_arr);
+	return (0);
 }

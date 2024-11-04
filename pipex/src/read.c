@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 15:20:07 by talin             #+#    #+#             */
-/*   Updated: 2024/10/30 14:02:21 by talin            ###   ########.fr       */
+/*   Updated: 2024/11/04 16:25:14 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,81 +43,78 @@ char	**ft_path_arr(char **envp)
 	return (path_arr);
 }
 
-void	ft_make_array(int ac, char **av, char **envp, t_array *new)
+void	ft_cat(t_array *new, int j, char **av, int k)
 {
-	int		i;
-	int		j;
+	int	i;
+
+	i = -1;
+	new->cmd[j] = ft_split(av[j + k], ' ');
+	while (new->path_arr[j][++i] != NULL)
+	{
+		ft_strlcat(new->path_arr[j][i], "/", \
+		ft_strlen(new->path_arr[j][i]) + 2);
+		ft_strlcat(new->path_arr[j][i], new->cmd[j][0], \
+		ft_strlen(new->path_arr[j][i]) + ft_strlen(new->cmd[j][0]) + 1);
+		if (access(new->path_arr[j][i], X_OK) == 0)
+		{
+			new->filename[j] = ft_strdup(new->path_arr[j][i]);
+			free(new->cmd[j][0]);
+			new->cmd[j][0] = ft_strdup(new->path_arr[j][i]);
+			break ;
+		}
+	}
+}
+
+int	ft_make_array(int ac, char **av, char **envp, t_array *new)
+{
+	int	i;
 
 	new->cmd = (char ***)malloc(sizeof(char **) * (ac - 2));
 	new->filename = (char **)malloc(sizeof(char *) * (ac - 2));
-	j = -1;
-	while (++j < (ac - 3))
+	new->path_arr = (char ***)malloc(sizeof(char **) * (ac - 2));
+	i = -1;
+	while (++i < ac - 3)
 	{
-		i = -1;
-		new->path_arr = ft_path_arr(envp);
-		new->cmd[j] = ft_split(av[j + 2], ' ');
-		while (new->path_arr[++i] != NULL)
+		new->path_arr[i] = ft_path_arr(envp);
+		if (av[i + 2][0] == '/' || av[i + 2][0] == '.')
 		{
-			ft_strlcat(new->path_arr[i], "/", ft_strlen(new->path_arr[i]) + 2);
-			ft_strlcat(new->path_arr[i], new->cmd[j][0], \
-			ft_strlen(new->path_arr[i]) + ft_strlen(new->cmd[j][0]) + 1);
-			if (access(new->path_arr[i], X_OK) == 0)
+			new->cmd[i] = ft_split(av[i + 2], ' ');
+			if (access(new->cmd[i][0], X_OK) == 0)
 			{
-				new->filename[j] = ft_strdup(new->path_arr[i]);
-				new->cmd[j][0] = ft_strdup(new->path_arr[i]);
-				break ;
+				new->filename[i] = ft_strdup(new->cmd[i][0]);
 			}
 		}
+		else
+			ft_cat(new, i, av, 2);
 	}
+	if (access(new->cmd[i - 1][0], X_OK) != 0)
+		return (ft_free_arr(new, ac));
+	return (1);
 }
 
-void	ft_make_array_here(int ac, char **av, char **envp, t_array *new)
+int	ft_make_array_here(int ac, char **av, char **envp, t_array *new)
 {
-	int		i;
-	int		j;
+	int	i;
 
 	new->cmd = (char ***)malloc(sizeof(char **) * (ac - 3));
 	new->filename = (char **)malloc(sizeof(char *) * (ac - 3));
-	j = -1;
-	while (++j < (ac - 4))
+	new->path_arr = (char ***)malloc(sizeof(char **) * (ac - 3));
+	i = -1;
+	while (++i < ac - 4)
 	{
-		i = -1;
-		new->path_arr = ft_path_arr(envp);
-		new->cmd[j] = ft_split(av[j + 3], ' ');
-		while (new->path_arr[++i] != NULL)
+		new->path_arr[i] = ft_path_arr(envp);
+		if (av[i + 3][0] == '/' || av[i + 3][0] == '.')
 		{
-			ft_strlcat(new->path_arr[i], "/", ft_strlen(new->path_arr[i]) + 2);
-			ft_strlcat(new->path_arr[i], new->cmd[j][0], \
-			ft_strlen(new->path_arr[i]) + ft_strlen(new->cmd[j][0]) + 1);
-			if (access(new->path_arr[i], X_OK) == 0)
+			new->cmd[i] = ft_split(av[i + 3], ' ');
+			if (access(new->cmd[i][0], X_OK) == 0)
 			{
-				new->filename[j] = ft_strdup(new->path_arr[i]);
-				new->cmd[j][0] = ft_strdup(new->path_arr[i]);
-				break ;
+				new->filename[i] = ft_strdup(new->cmd[i][0]);
 			}
 		}
+		else
+			ft_cat(new, i, av, 3);
 	}
-}
-
-void	ft_pipe(t_array *new, char **envp, int i)
-{
-	pid_t	pid;
-	int		pd[2];
-
-	if (pipe(pd) == -1)
-		exit(0);
-	pid = fork();
-	if (pid == -1)
-		exit(0);
-	if (!pid)
-	{
-		close(pd[0]);
-		dup2(pd[1], 1);
-		execve(new->filename[i], new->cmd[i], envp);
-	}
-	else
-	{
-		close(pd[1]);
-		dup2(pd[0], 0);
-	}
+	if (access(new->cmd[i - 1][0], X_OK) != 0)
+		return (ft_free_arr(new, ac - 1));
+	return (1);
 }
