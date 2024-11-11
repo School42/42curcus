@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_two.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 15:39:37 by talin             #+#    #+#             */
-/*   Updated: 2024/11/04 22:30:22 by ubuntu           ###   ########.fr       */
+/*   Updated: 2024/11/11 15:38:50 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,21 +94,27 @@ int	ft_pipex(int ac, char **av, char **envp)
 	int		i;
 
 	new = (t_array *)malloc(sizeof(t_array) * 1);
+	if (!new)
+		return (0);
 	if (!ft_check_access(ac, av, new))
 		return (0);
 	if (!ft_make_array(ac, av, envp, new))
-	{
-		close(new->outfd);
-		free(new);
-		return (0);
-	}
+		return (ft_close_and_free(new));
 	new->infd = open(av[1], O_RDONLY);
+	if (new->infd < 0)
+		exit(EXIT_FAILURE);
 	dup2(new->infd, 0);
+	close(new->infd);
 	i = -1;
 	while (++i < ac - 4)
-		ft_pipe(new, envp, i);
+		ft_pipe(new, envp, i, ac);
 	dup2(new->outfd, 1);
-	execve(new->filename[i], new->cmd[i], envp);
+	close(new->outfd);
+	if (execve(new->filename[i], new->cmd[i], envp) == -1)
+	{
+		ft_free_arr(new, ac);
+		exit(EXIT_FAILURE);
+	}
 	return (1);
 }
 
@@ -119,6 +125,8 @@ int	ft_heredoc(int ac, char **av, char **envp)
 	char	*str;
 
 	new = (t_array *)malloc(sizeof(t_array) * 1);
+	if (!new)
+		return (0);
 	if (!ft_check_access_here(ac, av, new))
 		return (0);
 	while (1)
@@ -130,15 +138,16 @@ int	ft_heredoc(int ac, char **av, char **envp)
 	}
 	free(str);
 	if (!ft_make_array_here(ac, av, envp, new))
-	{
-		close(new->outfd);
-		free(new);
-		return (0);
-	}
+		return (ft_close_and_free(new));
 	i = -1;
 	while (++i < ac - 5)
-		ft_pipe(new, envp, i);
+		ft_pipe(new, envp, i, ac);
 	dup2(new->outfd, 1);
-	execve(new->filename[i], new->cmd[i], envp);
+	close(new->outfd);
+	if (execve(new->filename[i], new->cmd[i], envp) == -1)
+	{
+		ft_free_arr(new, ac);
+		exit(EXIT_FAILURE);
+	}
 	return (1);
 }

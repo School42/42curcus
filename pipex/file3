@@ -1,1 +1,14 @@
-131
+total 68
+-rw-r--r-- 1 talin 2024_event    30 Nov  5 11:27 file2
+-rw---S--T 1 talin 2024_event     0 Nov 11 15:39 file3
+-rw-r-x--T 1 talin 2024_event   536 Nov  5 15:12 file4
+-r--r-x--T 1 talin 2024_event     0 Nov  5 16:51 fileout2
+drwxr-xr-x 2 talin 2024_event    21 Oct 24 15:21 include
+drwxr-xr-x 2 talin 2024_event  4096 Nov 11 15:39 libft
+-rw-r--r-- 1 talin 2024_event  1208 Nov 11 15:26 Makefile
+-rw---S--T 1 talin 2024_event    32 Nov  5 16:50 outfile
+-r--r-x--T 1 talin 2024_event     0 Nov  5 16:50 outfile2
+-r--r-x--T 1 talin 2024_event     0 Nov  5 16:51 outfile3
+-r--r-x--T 1 talin 2024_event     0 Nov  5 16:52 outunset
+-rwxr-xr-x 1 talin 2024_event 44176 Nov 11 15:39 pipex
+drwxr-xr-x 2 talin 2024_event   215 Nov 11 15:39 src
