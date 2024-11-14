@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2024/11/14 16:44:16 by talin            ###   ########.fr       */
+/*   Updated: 2024/11/14 22:46:31 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,18 +83,19 @@ char	*ft_getenv(char *name, char **envp)
 		free(str);
 		i++;
 	}
+	ft_printf("unset\n");
 	return (NULL);
 }
 
-char	*ft_get_path(char *cmd, char **envp)
+char	*ft_get_path(char *cmd, char **envp, int i)
 {
-	int		i;
 	char	*exec;
 	char	**allpath;
 	char	*path_part;
 	char	**s_cmd;
 
-	i = -1;
+	if (ft_check_set_unset(envp) == 0)
+		return (cmd);
 	allpath = ft_split(ft_getenv("PATH", envp), ':');
 	s_cmd = ft_split(cmd, ' ');
 	while (allpath[++i])

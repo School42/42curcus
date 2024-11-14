@@ -3,49 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   utils_three.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2024/11/14 16:38:20 by talin            ###   ########.fr       */
+/*   Updated: 2024/11/14 22:45:09 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-void	ft_exec(char *cmd, char **envp, int ext)
+void	ft_exec(char *cmd, char **envp, t_file *pipe_new)
 {
 	char	**s_cmd;
 	char	*path;
 
 	s_cmd = ft_split(cmd, ' ');
-	path = ft_get_path(s_cmd[0], envp);
+	path = ft_get_path(s_cmd[0], envp, -1);
 	if (execve(path, s_cmd, envp) == -1)
 	{
 		ft_putstr_fd("pipex: command not found: ", 2);
 		ft_putendl_fd(s_cmd[0], 2);
 		ft_free_arr(s_cmd);
-		if (ext == 1)
+		if (pipe_new->ext == 2)
 			exit(127);
-		else if (ext == 0)
+		else if (pipe_new->ext == 1)
 			exit(0);
 	}
 }
 
-void	ft_execute_cmd(char *cmd, char **envp, t_file pipe_new, int ext)
+void	ft_execute_cmd(char *cmd, char **envp, t_file *pipe_new)
 {
-	if (pipe_new.in_fd != STDIN_FILENO)
+	if (pipe_new->in_fd != STDIN_FILENO)
 	{
-		if (dup2(pipe_new.in_fd, STDIN_FILENO) == -1)
+		if (dup2(pipe_new->in_fd, STDIN_FILENO) == -1)
 			exit(EXIT_FAILURE);
-		close(pipe_new.in_fd);
+		close(pipe_new->in_fd);
 	}
-	if (pipe_new.out_fd != STDOUT_FILENO)
+	if (pipe_new->out_fd != STDOUT_FILENO)
 	{
-		if (dup2(pipe_new.out_fd, STDOUT_FILENO) == -1)
+		if (dup2(pipe_new->out_fd, STDOUT_FILENO) == -1)
 			exit(EXIT_FAILURE);
-		close(pipe_new.out_fd);
+		close(pipe_new->out_fd);
 	}
-	ft_exec(cmd, envp, ext);
+	ft_exec(cmd, envp, pipe_new);
 }
 
 char	*ft_remove_newline(char *s)
@@ -71,10 +71,11 @@ char	*ft_remove_newline(char *s)
 	return (ptr);
 }
 
-void	ft_heredoc_input(char **av)
+void	ft_heredoc_input(char **av, int *p_fd)
 {
 	char	*str;
 
+	close(p_fd[0]);
 	while (1)
 	{
 		str = ft_remove_newline(get_next_line(0));
@@ -83,83 +84,27 @@ void	ft_heredoc_input(char **av)
 			free(str);
 			exit(0);
 		}
-		// ft_putstr_fd(str, p_fd[1]);
+		ft_putstr_fd(str, p_fd[1]);
 		free(str);
 	}
 }
 
 void	ft_heredoc(char **av)
 {
-	// int		p_fd[2];
-	// pid_t	pid1;
-	// pid_t	pid2;
+	int		p_fd[2];
+	pid_t	pid;
 
-	// if (pipe(p_fd) == -1)
-	// 	exit(0);
-	ft_heredoc_input(av);
-	// pid1 = fork();
-	// pid = fork();
-	// if (pid == -1)
-	// 	exit(0);
-	// if (!pid)
-	// 	ft_heredoc_input(av, p_fd);
-	// else
-	// {
-	// 	close(p_fd[1]);
-	// 	dup2(p_fd[0], 0);
-	// 	wait(NULL);
-	// }
-}
-
-void	ft_pipe(char **cmd, char **envp, int size, t_file new)
-{
-	pid_t	*pids;
-	int		pipes[2];
-	int		i;
-	int		prev_pipe;
-	t_file	pipe_new;
-
-	prev_pipe = -1;
-	pids = malloc(sizeof(pid_t) * size);
-	if (!pids)
-		exit(EXIT_FAILURE);
-	i = -1;
-	while (++i < size)
+	if (pipe(p_fd) == -1)
+		exit(0);
+	pid = fork();
+	if (pid == -1)
+		exit(0);
+	if (!pid)
+		ft_heredoc_input(av, p_fd);
+	else
 	{
-		if (i < size - 1)
-		{
-			if (pipe(pipes) == -1)
-				exit(EXIT_FAILURE);
-		}
-		pids[i] = fork();
-		if (pids[i] == -1)
-			exit(EXIT_FAILURE);
-		if (pids[i] == 0)
-		{
-			if (i == 0)
-				pipe_new.in_fd = new.in_fd;
-			else
-				pipe_new.in_fd = prev_pipe;
-			if (i == size - 1)
-				pipe_new.out_fd = new.out_fd;
-			else
-				pipe_new.out_fd = pipes[1];
-			if (i < size - 1)
-				close(pipes[0]);
-			ft_execute_cmd(cmd[i + new.num], envp, pipe_new, (i == size - 1));
-		}
-		if (i > 0)
-			close(prev_pipe);
-		if (i < size - 1)
-		{
-			close(pipes[1]);
-			prev_pipe = pipes[0];
-		}
+		close(p_fd[1]);
+		dup2(p_fd[0], 0);
+		wait(NULL);
 	}
-	close(new.in_fd);
-	close(new.out_fd);
-	i = -1;
-	while (++i < size)
-		waitpid(pids[i], &pipe_new.status, 0);
-	free(pids);
 }

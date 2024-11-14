@@ -6,12 +6,12 @@ LIBS        = ${LIBFT}/libft.a
 
 SRCS_DIR    = src/
 
-SRC         = pipex.c utils_bonus.c utils_two.c utils_three.c
+SRC         = pipex.c utils_bonus.c utils_one.c utils_two.c utils_three.c
 
 SRCS        = $(addprefix ${SRCS_DIR}, ${SRC})
 OBJS        = ${SRCS:.c=.o}
 
-SRC_B       = pipex_bonus.c utils_bonus.c utils_two.c utils_three.c
+SRC_B       = pipex_bonus.c utils_bonus.c utils_one.c utils_two.c utils_three.c
 
 SRCS_B      = $(addprefix ${SRCS_DIR}, ${SRC_B})
 OBJS_B      = ${SRCS_B:.c=.o}
