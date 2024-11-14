@@ -3,35 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2024/11/14 10:34:38 by ubuntu           ###   ########.fr       */
+/*   Updated: 2024/11/14 16:44:16 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-void	ft_exit(int n_exit)
+int	ft_open_infile(char *file)
 {
-	if (n_exit == 1)
-		ft_putstr_fd("./pipex infile cmd cmd outfile\n", 2);
-	exit(0);
+	int	fd;
+
+	if (access(file, R_OK) != 0 || access(file, F_OK) != 0)
+	{
+		ft_printf("%s: No such file or directory\n", file);
+		fd = 4;
+	}
+	else
+		fd = open(file, O_RDONLY, 0777);
+	return (fd);
 }
 
 int	ft_open_file(char *file, int in_or_out)
 {
-	int	ret;
+	int	fd;
 
 	if (in_or_out == 0)
-		ret = open(file, O_RDONLY, 0777);
+		fd = ft_open_infile(file);
 	if (in_or_out == 1)
-		ret = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	{
+		if (access(file, W_OK) != 0)
+			ft_printf("%s: Permission denied\n", file);
+		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	}
 	if (in_or_out == 2)
-		ret = open(file, O_WRONLY | O_CREAT | O_APPEND, 0777);
-	if (ret == -1)
-		exit(0);
-	return (ret);
+	{
+		if (access(file, W_OK) != 0)
+			ft_printf("%s: Permission denied\n", file);
+		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0777);
+	}
+	if (fd == -1)
+		exit(EXIT_FAILURE);
+	return (fd);
 }
 
 void	ft_free_arr(char **arr)
