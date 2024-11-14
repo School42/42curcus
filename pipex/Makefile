@@ -6,22 +6,12 @@ LIBS        = ${LIBFT}/libft.a
 
 SRCS_DIR    = src/
 
-SRC         = read.c \
-              read_two.c \
-              pipex.c \
-              free_arr.c \
-              pipe.c \
-              write.c 
+SRC         = pipex.c utils_bonus.c utils_two.c utils_three.c
 
 SRCS        = $(addprefix ${SRCS_DIR}, ${SRC})
 OBJS        = ${SRCS:.c=.o}
 
-SRC_B       = read.c \
-              read_two.c \
-              pipex_bonus.c \
-              free_arr.c \
-              pipe.c \
-              write.c 
+SRC_B       = pipex_bonus.c utils_bonus.c utils_two.c utils_three.c
 
 SRCS_B      = $(addprefix ${SRCS_DIR}, ${SRC_B})
 OBJS_B      = ${SRCS_B:.c=.o}
@@ -52,7 +42,7 @@ clean:
 	@rm -rf ${LIBFT}/*.o
 
 fclean:     clean
-	@rm -rf ${NAME} ${NAME}_bonus
+	@rm -rf ${NAME}
 	@rm -rf ${LIBS}
 
 re:         fclean all

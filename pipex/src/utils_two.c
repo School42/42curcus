@@ -1,42 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_bonus.c                                      :+:      :+:    :+:   */
+/*   utils_two.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2024/11/14 10:29:23 by ubuntu           ###   ########.fr       */
+/*   Updated: 2024/11/14 10:28:56 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-int	main(int ac, char **av, char **env)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	int		i;
-	int		fd_in;
-	int		fd_out;
+	size_t	i;
 
-	if (ac < 5)
-		ft_exit(1);
-	if (ft_strcmp(av[1], "here_doc") == 0)
+	i = 0;
+	while (s1[i] || s2[i])
 	{
-		if (ac < 6)
-			ft_exit(1);
-		i = 3;
-		fd_out = ft_open_file(av[ac - 1], 2);
-		ft_heredoc(av);
+		if ((unsigned char)s1[i] != (unsigned char)s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
 	}
-	else
-	{
-		i = 2;
-		fd_in = ft_open_file(av[1], 0);
-		fd_out = ft_open_file(av[ac - 1], 1);
-		dup2(fd_in, 0);
-	}
-	while (i < ac - 2)
-		ft_pipe(av[i++], env);
-	dup2(fd_out, 1);
-	ft_exec(av[ac - 2], env);
+	return (0);
 }

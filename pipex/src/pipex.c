@@ -3,24 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:18:11 by talin             #+#    #+#             */
-/*   Updated: 2024/11/11 15:38:44 by talin            ###   ########.fr       */
+/*   Updated: 2024/11/14 10:29:11 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-int	main(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **env)
 {
+	int		i;
+	int		fd_in;
+	int		fd_out;
+
 	if (ac != 5)
-		return (ft_printf("./pipex infile cmd cmd1 outfile\n"));
-	if (!ft_pipex(ac, av, envp))
-	{
-		ft_write_output_one(av, ac);
-		ft_printf("Error\n");
-		return (1);
-	}
-	return (0);
+		ft_exit(1);
+	i = 2;
+	fd_in = ft_open_file(av[1], 0);
+	fd_out = ft_open_file(av[ac - 1], 1);
+	dup2(fd_in, 0);
+	while (i < ac - 2)
+		ft_pipe(av[i++], env);
+	dup2(fd_out, 1);
+	ft_exec(av[ac - 2], env);
 }
