@@ -6,7 +6,16 @@ LIBS        = ${LIBFT}/libft.a
 
 SRCS_DIR    = src/
 
-SRC         = 
+SRC         = create_stack.c \
+				handle.c \
+				push_swap.c \
+				quick_sort.c \
+				push_operations.c \
+				reverse_rotate_operations.c \
+				rotate_operations.c \
+				swap_operations.c \
+				utils_init.c \
+				utils.c
 
 SRCS        = $(addprefix ${SRCS_DIR}, ${SRC})
 OBJS        = ${SRCS:.c=.o}
@@ -24,10 +33,10 @@ norm:
 libft:
 	@${MAKE} -C ${LIBFT}
 
-%.o: %.c include/pipex.h
+%.o: %.c include/push_swap.h
 	${CC} ${CFLAGS} -o $@ -c $< ${HEADERS}
 
-${NAME}: ${OBJS} include/pipex.h Makefile
+${NAME}: ${OBJS} include/push_swap.h Makefile
 	${CC} ${CFLAGS} ${OBJS} ${LIBS} ${HEADERS} -o ${NAME}
 
 
