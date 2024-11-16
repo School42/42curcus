@@ -51,10 +51,11 @@ ${NAME}: ${OBJS}	include/so_long.h
 clean:
 	@rm -rf ${OBJS}
 	@rm -rf ${LIBMLX}/build
-	@rm -rf ${LIBFT}/build
+	@rm -rf ${LIBFT}/*.o
 
 fclean:		clean
 	@rm -rf ${NAME}
+	@rm -rf ${LIBFT}/libft.a
 	
 
 re:		clean all

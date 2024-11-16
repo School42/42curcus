@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 11:53:34 by talin             #+#    #+#             */
-/*   Updated: 2024/10/22 12:48:51 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/28 12:26:00 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ mlx_image_t	*ft_asset_to_image(mlx_t *mlx, char *img_path)
 	mlx_texture_t	*texture;
 
 	if (ft_open(img_path) == FALSE)
-		ft_printf("Error: can't open !\n");
+	{
+		ft_printf("Error: can't open the image!\n");
+		return (NULL);
+	}
 	texture = mlx_load_png(img_path);
 	if (!texture)
 		ft_printf("no texture\n");
@@ -41,7 +44,7 @@ mlx_image_t	*ft_asset_to_image(mlx_t *mlx, char *img_path)
 	return (img);
 }
 
-void	ft_load_assets(t_mapping *game)
+int	ft_load_assets(t_mapping *game)
 {
 	game->assets.rock = ft_asset_to_image(game->mlx, "assets/rock.png");
 	game->assets.dino = ft_asset_to_image(game->mlx, "assets/dino.png");
@@ -49,6 +52,11 @@ void	ft_load_assets(t_mapping *game)
 	game->assets.meat = ft_asset_to_image(game->mlx, "assets/meat.png");
 	game->assets.portal = ft_asset_to_image(game->mlx, "assets/portal.png");
 	game->assets.enemy = ft_asset_to_image(game->mlx, "assets/enemy.png");
+	if (!game->assets.rock || !game->assets.dino || \
+	!game->assets.grass || !game->assets.meat || \
+	!game->assets.portal || !game->assets.enemy)
+		return (0);
+	return (1);
 }
 
 void	ft_delete_assets(t_mapping *game)

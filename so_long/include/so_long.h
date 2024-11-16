@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 10:45:00 by talin             #+#    #+#             */
-/*   Updated: 2024/10/22 12:49:03 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/28 12:46:01 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ t_mapping	ft_creat_game_map(char **av, int fd);
 int			ft_collectible(t_mapping new);
 int			ft_free(t_mapping game);
 void		ft_game_window(t_mapping game);
-void		ft_load_assets(t_mapping *game);
+int			ft_load_assets(t_mapping *game);
 void		ft_key_hook(mlx_key_data_t keydata, void *param);
 int			ft_check_count(t_mapping *game, char c);
 void		ft_put_img(t_mapping *game);

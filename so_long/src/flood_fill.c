@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 09:24:10 by talin             #+#    #+#             */
-/*   Updated: 2024/10/22 16:35:59 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/28 11:19:37 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,17 @@ t_point	ft_get_exit(t_mapping new, char c)
 
 int	ft_player_exit(t_mapping new, t_point size)
 {
-	if (new.map[size.y - 1][size.x] == 'F')
+	if (new.map[size.y - 1][size.x] == 'F' || \
+	new.map[size.y - 1][size.x] == 'P')
 		return (1);
-	else if (new.map[size.y + 1][size.x] == 'F')
+	else if (new.map[size.y + 1][size.x] == 'F' || \
+	new.map[size.y + 1][size.x] == 'P')
 		return (1);
-	else if (new.map[size.y][size.x - 1] == 'F')
+	else if (new.map[size.y][size.x - 1] == 'F' || \
+	new.map[size.y][size.x - 1] == 'P')
 		return (1);
-	else if (new.map[size.y][size.x + 1] == 'F')
+	else if (new.map[size.y][size.x + 1] == 'F' || \
+	new.map[size.y][size.x + 1] == 'P')
 		return (1);
 	else
 		return (0);

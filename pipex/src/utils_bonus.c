@@ -3,22 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2024/11/14 22:46:31 by ubuntu           ###   ########.fr       */
+/*   Updated: 2024/11/15 15:51:20 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-int	ft_open_infile(char *file)
+int	ft_open_infile(char *file, t_file *new)
 {
 	int	fd;
 
 	if (access(file, R_OK) != 0 || access(file, F_OK) != 0)
 	{
-		ft_printf("%s: No such file or directory\n", file);
+		if (access(file, F_OK) != 0)
+			ft_printf("%s: No such file or directory\n", file);
+		else
+			ft_printf("%s: permission denied\n", file);
+		new->exitcode = 1;
 		fd = 4;
 	}
 	else
@@ -26,26 +30,29 @@ int	ft_open_infile(char *file)
 	return (fd);
 }
 
-int	ft_open_file(char *file, int in_or_out)
+int	ft_open_file(char *file, int in_or_out, t_file *new)
 {
 	int	fd;
 
 	if (in_or_out == 0)
-		fd = ft_open_infile(file);
+		fd = ft_open_infile(file, new);
 	if (in_or_out == 1)
 	{
+		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		if (access(file, W_OK) != 0)
 			ft_printf("%s: Permission denied\n", file);
-		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	}
 	if (in_or_out == 2)
 	{
+		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0777);
 		if (access(file, W_OK) != 0)
 			ft_printf("%s: Permission denied\n", file);
-		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0777);
 	}
 	if (fd == -1)
+	{
+		new->exitcode = 1;
 		exit(EXIT_FAILURE);
+	}
 	return (fd);
 }
 
@@ -83,7 +90,6 @@ char	*ft_getenv(char *name, char **envp)
 		free(str);
 		i++;
 	}
-	ft_printf("unset\n");
 	return (NULL);
 }
 
@@ -105,6 +111,7 @@ char	*ft_get_path(char *cmd, char **envp, int i)
 		free(path_part);
 		if (access(exec, F_OK | X_OK) == 0)
 		{
+			ft_free_arr(allpath);
 			ft_free_arr(s_cmd);
 			return (exec);
 		}

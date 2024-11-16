@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 15:46:46 by talin             #+#    #+#             */
-/*   Updated: 2024/10/21 16:55:04 by talin            ###   ########.fr       */
+/*   Updated: 2024/10/28 12:43:38 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	ft_game_window(t_mapping game)
 	game.mlx = mlx_init(window.x, window.y, "So_Long", TRUE);
 	if (!game.mlx)
 		exit(EXIT_FAILURE);
-	ft_load_assets(&game);
+	if (!ft_load_assets(&game))
+		return ;
 	ft_game_over_window(&game);
 	ft_print_strings(&game);
 	mlx_loop_hook(game.mlx, &hook, &game);
