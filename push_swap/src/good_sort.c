@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   good_sort.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 20:09:54 by ubuntu            #+#    #+#             */
-/*   Updated: 2024/11/17 09:21:04 by ubuntu           ###   ########.fr       */
+/*   Updated: 2024/11/18 09:51:21 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	ft_sort_two(t_stack *a)
 
 void	ft_sort_three(t_stack *a)
 {
-	int	tmp;
 	int	i;
+	int	tmp;
 	int	x;
 
 	if (ft_check_sorting(a))
@@ -46,8 +46,8 @@ void	ft_sort_three(t_stack *a)
 
 void	ft_sort_four(t_stack *a, t_stack *b)
 {
-	int	tmp;
 	int	i;
+	int	tmp;
 
 	if (ft_check_sorting(a))
 		return ;
