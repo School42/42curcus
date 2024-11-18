@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   error_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/16 09:52:32 by talin             #+#    #+#             */
-/*   Updated: 2024/11/18 15:23:51 by talin            ###   ########.fr       */
+/*   Created: 2024/11/18 13:30:47 by talin             #+#    #+#             */
+/*   Updated: 2024/11/18 13:51:18 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-int	main(int ac, char **av)
+void	ft_error_free_all(t_stack *a, t_stack *b, t_sorted *tmp, t_moves *move)
 {
-	t_stack	*a;
-	t_stack	*b;
+	free(a->arr);
+	free(b->arr);
+	free(a);
+	free(b);
+	free(tmp->arr);
+	free(tmp);
+	free(move);
+	exit(EXIT_FAILURE);
+}
 
-	a = ft_create_stack(ac, av);
-	b = NULL;
-	ft_init_statck(a, &b);
-	ft_check_sorted(a, b);
-	if (a->len == 2)
-		ft_sort_two(a);
-	if (a->len == 3)
-		ft_sort_three(a);
-	if (a->len == 4)
-		ft_sort_four(a, b);
-	if (a->len == 5)
-		ft_sort_five(a, b);
-	if (a->len > 5)
-		ft_sort_main(a, b);
-	ft_free_stack(a, b);
-	return (0);
+void	ft_error_free(t_stack *a, t_stack *b, t_sorted *tmp)
+{
+	free(a->arr);
+	free(b->arr);
+	free(a);
+	free(b);
+	free(tmp->arr);
+	free(tmp);
+	exit(EXIT_FAILURE);
 }

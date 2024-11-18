@@ -15,7 +15,11 @@ SRC         = create_stack.c \
 				rotate_operations.c \
 				swap_operations.c \
 				utils_init.c \
-				utils.c
+				utils.c \
+				good_sort.c \
+				main_sort.c \
+				moves.c \
+				error_free.c 
 
 SRCS        = $(addprefix ${SRCS_DIR}, ${SRC})
 OBJS        = ${SRCS:.c=.o}
