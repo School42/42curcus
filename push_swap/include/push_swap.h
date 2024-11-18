@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 09:52:16 by talin             #+#    #+#             */
-/*   Updated: 2024/11/16 16:35:52 by talin            ###   ########.fr       */
+/*   Updated: 2024/11/16 20:24:30 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,5 @@ void	ft_init_statck(t_stack *a, t_stack **b);
 void	ft_free_stack(t_stack *a, t_stack *b);
 void	ft_stack_error(t_stack *a, t_stack *b);
 void	ft_check_sorted(t_stack *a, t_stack *b);
+int		ft_check_sorting(t_stack *a);
 #endif
