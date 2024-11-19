@@ -16,6 +16,7 @@ SRC         = create_stack.c \
 				swap_operations.c \
 				utils_init.c \
 				utils.c \
+				utils_two.c \
 				good_sort.c \
 				main_sort.c \
 				moves.c \
@@ -54,4 +55,4 @@ fclean:     clean
 
 re:         fclean all
 
-.PHONY:     all clean fclean re libft norm bonus
+.PHONY:     all clean fclean re libft norm

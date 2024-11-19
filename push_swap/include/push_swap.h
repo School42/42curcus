@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 09:52:16 by talin             #+#    #+#             */
-/*   Updated: 2024/11/18 15:23:37 by talin            ###   ########.fr       */
+/*   Updated: 2024/11/19 13:08:38 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,14 @@ typedef struct s_moves
 t_stack		*ft_create_stack(int ac, char **av);
 void		ft_create_list(char	*str, t_list **lst);
 void		ft_parse_str(char *str, t_list **lst);
-void		ft_add_node(t_list **lst, char *str);
+void		ft_add_node(t_list **lst, char *str, char **result);
 t_stack		*ft_lst_to_stack(t_list **lst, t_stack *a);
 void		delete(int i);
 void		ft_handle_error(t_list **lst);
+void		ft_handle_error_and_free(t_list **lst, char **result);
 int			ft_handle_outsider(char *str);
 void		ft_handle_sign_order(char *str, t_list **lst);
+void		ft_handle_sign_order_two(char *str, t_list **lst, char **result);
 int			ft_find_double(t_list *lst, int n);
 void		quick_sort(int *arr, int low, int high);
 void		ft_swap_num(int *a, int *b);
@@ -92,4 +94,5 @@ void		ft_movement(t_stack *a, t_stack *b, t_moves *move);
 void		ft_max_stack(t_stack *a, t_stack *b, t_sorted *tmp);
 void		ft_push_median(t_stack *a, t_stack *b, int median);
 void		ft_copy_moves(t_moves *tmp_move, t_moves *move);
+void		ft_add_node_two(t_list **lst, char *str);
 #endif

@@ -6,26 +6,11 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 10:42:28 by talin             #+#    #+#             */
-/*   Updated: 2024/11/16 13:28:31 by talin            ###   ########.fr       */
+/*   Updated: 2024/11/19 11:44:30 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
-
-void	ft_add_node(t_list **lst, char *str)
-{
-	long	res;
-	t_list	*node;
-
-	ft_handle_sign_order(str, lst);
-	res = ft_atoi(str);
-	if ((res > INT_MAX || res < INT_MIN) || ft_find_double(*lst, res))
-		ft_handle_error(lst);
-	node = ft_lstnew((int)res);
-	if (!node)
-		ft_handle_error(lst);
-	ft_lstadd_back(lst, node);
-}
 
 void	ft_parse_str(char *str, t_list **lst)
 {
@@ -37,7 +22,7 @@ void	ft_parse_str(char *str, t_list **lst)
 		ft_handle_error(lst);
 	i = -1;
 	while (res[++i])
-		ft_add_node(lst, res[i]);
+		ft_add_node(lst, res[i], res);
 	i = -1;
 	while (res[++i])
 		free(res[i]);
@@ -51,7 +36,7 @@ void	ft_create_list(char	*str, t_list **lst)
 	if (ft_strchr(str, ' '))
 		ft_parse_str(str, lst);
 	else
-		ft_add_node(lst, str);
+		ft_add_node_two(lst, str);
 }
 
 t_stack	*ft_lst_to_stack(t_list **lst, t_stack *a)
