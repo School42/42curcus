@@ -5,7 +5,9 @@ LIBS        = ${LIBFT}/libft.a
 
 SRCS_DIR    = src/
 
-SRC         = 
+SRC         = philo.c \
+				utils.c \
+				utils_two.c
 
 SRCS        = $(addprefix ${SRCS_DIR}, ${SRC})
 OBJS        = ${SRCS:.c=.o}
