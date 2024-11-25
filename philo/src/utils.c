@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 14:08:32 by ubuntu            #+#    #+#             */
-/*   Updated: 2024/11/23 20:04:49 by ubuntu           ###   ########.fr       */
+/*   Updated: 2024/11/25 09:50:14 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,12 @@ int	ft_atoi(char *str)
 		i++;
 	if (str[i] == '+' && str[i + 1] != '-')
 		i++;
-	if (str[i++] == '-')
+	if (str[i] == '-')
+	{
 		sign = -1;
-	while (str[i] && str[i] >= 48 && str[i] <= 57)
+		i++;
+	}
+	while (str[i] && str[i] >= '0' && str[i] <= '9')
 		res = res * 10 + (str[i++] - '0');
 	if ((res * sign) < 0)
 		ft_exit("No negative value!");

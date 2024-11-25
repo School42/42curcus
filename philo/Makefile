@@ -7,7 +7,10 @@ SRCS_DIR    = src/
 
 SRC         = philo.c \
 				utils.c \
-				utils_two.c
+				utils_two.c \
+				init.c \
+				routine.c \
+				life.c
 
 SRCS        = $(addprefix ${SRCS_DIR}, ${SRC})
 OBJS        = ${SRCS:.c=.o}
