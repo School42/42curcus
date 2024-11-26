@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 19:18:20 by ubuntu            #+#    #+#             */
-/*   Updated: 2024/11/25 16:04:20 by talin            ###   ########.fr       */
+/*   Updated: 2024/11/26 11:38:32 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,25 +55,19 @@ void	monitor_msg(t_philo *philo, int code)
 	if (ft_check_end(philo->data) && code != DIE)
 		code = -1;
 	if (code == EAT)
-		printf("%010zu %d is eating\n", \
-		ft_get_current_time() - philo->data->t_start, philo->id);
+		printf("%zu %d is eating\n", \
+		ft_get_current_time(), philo->id);
 	else if (code == SLEEP)
-		printf("%010zu %d is sleeping\n", \
-		ft_get_current_time() - philo->data->t_start, philo->id);
+		printf("%zu %d is sleeping\n", \
+		ft_get_current_time(), philo->id);
 	else if (code == THINK)
-		printf("%010zu %d is thinking\n", \
-		ft_get_current_time() - philo->data->t_start, philo->id);
+		printf("%zu %d is thinking\n", \
+		ft_get_current_time(), philo->id);
 	else if (code == DIE)
-		printf("%010zu %d died\n", \
-		ft_get_current_time() - philo->data->t_start, philo->id);
-	else if (code == RIGHT_FORK)
-		printf("%010zu %d has taken right fork\n", \
-		ft_get_current_time() - philo->data->t_start, philo->id);
-	else if (code == LEFT_FORK)
-		printf("%010zu %d has taken left fork\n", \
-		ft_get_current_time() - philo->data->t_start, philo->id);
-	else if (code == WAIT)
-		printf("%010zu %d is waiting for fork\n", \
-		ft_get_current_time() - philo->data->t_start, philo->id);
+		printf("%zu %d died\n", \
+		ft_get_current_time(), philo->id);
+	else if (code == TAKE_FORK)
+		printf("%zu %d has taken a fork\n", \
+		ft_get_current_time(), philo->id);
 	pthread_mutex_unlock(&philo->data->mutex_log);
 }

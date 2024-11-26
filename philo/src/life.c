@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 15:28:03 by talin             #+#    #+#             */
-/*   Updated: 2024/11/25 16:06:10 by talin            ###   ########.fr       */
+/*   Updated: 2024/11/26 12:30:03 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	*life(void *arg)
 	return (NULL);
 }
 
-void	ft_start_simu(t_data *data)
+int	ft_start_simu(t_data *data)
 {
 	int	i;
 
@@ -85,16 +85,17 @@ void	ft_start_simu(t_data *data)
 	{
 		if (pthread_create(&data->philos[i].thread, NULL, \
 		&routine, &data->philos[i]) != 0)
-			return ;
+			return (1);
 	}
 	if (pthread_create(&data->life, NULL, &life, data) != 0)
-		return ;
+		return (1);
 	i = -1;
 	while (++i < data->num_philo)
 	{
 		if (pthread_join(data->philos[i].thread, NULL) != 0)
-			return ;
+			return (1);
 	}
 	if (pthread_join(data->life, NULL) != 0)
-		return ;
+		return (1);
+	return (0);
 }

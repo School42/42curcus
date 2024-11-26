@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:33:59 by talin             #+#    #+#             */
-/*   Updated: 2024/11/25 15:28:25 by talin            ###   ########.fr       */
+/*   Updated: 2024/11/26 12:30:09 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,14 @@ int	main(int ac, char **av)
 
 	if (ac != 5 && ac != 6)
 		ft_exit("Need to run with four or five args!");
-	ft_init_data(av, ac, &data);
-	data.t_start = ft_get_current_time() + (data.num_philo * 20);
+	if (ft_init_data(av, ac, &data))
+		ft_exit_free("Initialization error!", &data);
+	data.t_start = ft_get_current_time() + (data.num_philo * 10);
 	pthread_mutex_lock(&data.mutex_log);
 	printf("Simulation started...\n");
 	pthread_mutex_unlock(&data.mutex_log);
-	ft_start_simu(&data);
+	if (ft_start_simu(&data))
+		ft_exit_free("Simulation error!", &data);
+	ft_closing_simu(&data);
+	return (0);
 }

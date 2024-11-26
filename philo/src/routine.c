@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:50:53 by talin             #+#    #+#             */
-/*   Updated: 2024/11/25 16:04:51 by talin            ###   ########.fr       */
+/*   Updated: 2024/11/26 12:30:00 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	ft_eat(t_philo *philo)
 {
 	pthread_mutex_lock(philo->left_fork);
-	monitor_msg(philo, LEFT_FORK);
+	monitor_msg(philo, TAKE_FORK);
 	pthread_mutex_lock(philo->right_fork);
-	monitor_msg(philo, RIGHT_FORK);
+	monitor_msg(philo, TAKE_FORK);
 	if (ft_check_end(philo->data))
 	{
 		pthread_mutex_unlock(philo->left_fork);
@@ -63,10 +63,11 @@ void	ft_think(t_philo *philo)
 	else
 	{
 		t_think -= x;
-		t_think -= philo->data->t_sleep;
+		t_think -= philo->data->t_eat;
 	}
 	monitor_msg(philo, THINK);
 	ft_wait(philo->data, t_think);
+	return ;
 }
 
 void	*routine(void *arg)
@@ -74,19 +75,21 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (ft_get_current_time() < philo->data->t_start)
-		continue ;
 	pthread_mutex_lock(&philo->data->mutex_last_meal);
 	philo->last_dine = philo->data->t_start;
 	pthread_mutex_unlock(&philo->data->mutex_last_meal);
+	while (ft_get_current_time() < philo->data->t_start)
+		continue ;
 	if (philo->data->num_philo == 1)
 	{
 		pthread_mutex_lock(philo->left_fork);
-		monitor_msg(philo, LEFT_FORK);
+		monitor_msg(philo, TAKE_FORK);
 		pthread_mutex_unlock(philo->left_fork);
 		ft_wait(philo->data, philo->data->t_die);
 		return (NULL);
 	}
+	if (philo->id % 2)
+		ft_wait(philo->data, philo->data->t_eat / 2);
 	while (!ft_check_end(philo->data))
 	{
 		ft_eat(philo);

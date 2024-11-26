@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:31:25 by talin             #+#    #+#             */
-/*   Updated: 2024/11/25 16:00:17 by talin            ###   ########.fr       */
+/*   Updated: 2024/11/26 11:38:42 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,27 +53,27 @@ typedef struct s_philo
 
 enum
 {
-	LEFT_FORK = 1,
-	RIGHT_FORK = 2,
-	DIE = 3,
-	EAT = 4,
-	SLEEP = 5,
-	THINK = 6,
-	WAIT = 7
+	TAKE_FORK = 1,
+	DIE = 2,
+	EAT = 3,
+	SLEEP = 4,
+	THINK = 5
 };
 
 time_t	ft_get_current_time(void);
 int		ft_atoi(char *str);
 void	ft_exit(char *str);
 int		ft_strlen(char *str);
-void	ft_init_data(char **av, int ac, t_data *data);
-void	ft_init_mutex(t_data *data);
-void	ft_init_philo(t_data *data);
+int		ft_init_data(char **av, int ac, t_data *data);
+int		ft_init_mutex(t_data *data);
+int		ft_init_philo(t_data *data);
 void	ft_assign_forks(int i, t_philo *philo);
 int		ft_check_end(t_data *data);
 void	ft_wait(t_data *data, time_t num_time);
 void	monitor_msg(t_philo *philo, int code);
 void	*routine(void *arg);
 void	*life(void *arg);
-void	ft_start_simu(t_data *data);
+int		ft_start_simu(t_data *data);
+void	ft_closing_simu(t_data *data);
+void	ft_exit_free(char *str, t_data *data);
 #endif
