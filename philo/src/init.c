@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 13:43:36 by talin             #+#    #+#             */
-/*   Updated: 2024/11/26 11:28:57 by talin            ###   ########.fr       */
+/*   Updated: 2024/11/26 14:03:55 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	ft_init_data(char **av, int ac, t_data *data)
 	int	status;
 
 	status = 0;
+	data->dead = 0;
 	data->num_philo = ft_atoi(av[1]);
 	data->t_die = ft_atoi(av[2]);
 	data->t_eat = ft_atoi(av[3]);

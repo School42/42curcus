@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:50:53 by talin             #+#    #+#             */
-/*   Updated: 2024/11/26 12:30:00 by talin            ###   ########.fr       */
+/*   Updated: 2024/11/26 14:13:51 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ void	ft_think(t_philo *philo)
 		t_think = 0;
 	else
 	{
-		t_think -= x;
-		t_think -= philo->data->t_eat;
+		if (t_think > 500)
+			t_think = 150;
 	}
 	monitor_msg(philo, THINK);
 	ft_wait(philo->data, t_think);
