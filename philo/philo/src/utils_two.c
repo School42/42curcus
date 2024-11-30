@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_two.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 19:18:20 by ubuntu            #+#    #+#             */
-/*   Updated: 2024/11/26 11:38:32 by talin            ###   ########.fr       */
+/*   Updated: 2024/11/30 11:21:49 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_wait(t_data *data, time_t num_time)
 
 	x = ft_get_current_time() + num_time;
 	while (!ft_check_end(data) && ft_get_current_time() < x)
-		usleep(500);
+		usleep(1000);
 }
 
 void	monitor_msg(t_philo *philo, int code)
