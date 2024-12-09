@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 15:28:03 by talin             #+#    #+#             */
-/*   Updated: 2024/11/26 14:05:24 by talin            ###   ########.fr       */
+/*   Updated: 2024/12/09 12:39:12 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	ft_check_philo_dead(t_philo *philo)
 		pthread_mutex_lock(&philo->data->mutex_dead);
 		philo->data->dead = 1;
 		pthread_mutex_unlock(&philo->data->mutex_dead);
-		usleep(1000);
 		monitor_msg(philo, DIE);
 		return (1);
 	}
@@ -71,7 +70,6 @@ void	*life(void *arg)
 	{
 		if (ft_check_dead(data))
 			break ;
-		usleep(1000);
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:33:59 by talin             #+#    #+#             */
-/*   Updated: 2024/11/26 14:16:11 by talin            ###   ########.fr       */
+/*   Updated: 2024/12/09 12:35:51 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int ac, char **av)
 {
 	t_data	data;
 
-	if (ac != 5 && ac != 6)
+	if (!(ac == 5 || ac == 6))
 		ft_exit("Need to run with four or five args!");
 	if (ft_init_data(av, ac, &data))
 		ft_exit_free("Initialization error!", &data);
