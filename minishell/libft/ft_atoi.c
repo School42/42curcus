@@ -6,13 +6,13 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 13:17:28 by talin             #+#    #+#             */
-/*   Updated: 2024/09/09 16:16:46 by talin            ###   ########.fr       */
+/*   Updated: 2025/01/15 10:47:53 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_isspace(const char str)
+int	ft_isspace(const char str)
 {
 	if ((str >= 9 && str <= 13) || str == 32)
 		return (1);

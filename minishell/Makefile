@@ -6,7 +6,9 @@ LIBS        = ${LIBFT}/libft.a
 
 SRCS_DIR    = src/
 
-SRC         = test.c
+SRC         = token.c \
+				utils.c \
+				minishell.c
 
 SRCS        = $(addprefix ${SRCS_DIR}, ${SRC})
 OBJS        = ${SRCS:.c=.o}
@@ -14,6 +16,8 @@ OBJS        = ${SRCS:.c=.o}
 CC          = cc
 
 CFLAGS      = -Wall -Werror -Wextra
+
+LDFLAGS 	= -lreadline -lncurses
 
 all:        libft ${NAME}
 
@@ -27,7 +31,7 @@ libft:
 	${CC} ${CFLAGS} -o $@ -c $< ${HEADERS}
 
 ${NAME}: ${OBJS} include/minishell.h Makefile
-	${CC} ${CFLAGS} ${OBJS} ${LIBS} ${HEADERS} -o ${NAME}
+	${CC} ${CFLAGS} ${OBJS} ${LIBS} ${HEADERS} -o ${NAME} ${LDFLAGS}
 
 
 clean:
