@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:35:12 by talin             #+#    #+#             */
-/*   Updated: 2025/01/15 16:13:31 by talin            ###   ########.fr       */
+/*   Updated: 2025/01/15 20:25:26 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,23 @@ int	main(void)
 	input = readline("minishell > ");
 	input[ft_strcspn(input, "\n")] = '\0';
 	lexer = tokenize(input);
+	
+	if (lexer)
+	{
+		printf("Tokens:\n");
+		i = 0;
+		while (lexer->tokens[i])
+		{
+			printf("[%s]\n", lexer->tokens[i]);
+			i++;
+		}
+		// free_lexer(lexer);
+	}
 	commands = parse_tokens(lexer);
 
 	if (commands) {
 		print_commands(commands);
 		free_commands(commands);
     }
-	// if (lexer)
-	// {
-	// 	printf("Tokens:\n");
-	// 	i = 0;
-	// 	while (lexer->tokens[i])
-	// 	{
-	// 		printf("[%s]\n", lexer->tokens[i]);
-	// 		i++;
-	// 	}
-	// 	free_lexer(lexer);
-	// }
 	return (0);
 }

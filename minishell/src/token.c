@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 09:50:51 by talin             #+#    #+#             */
-/*   Updated: 2025/01/15 11:47:04 by talin            ###   ########.fr       */
+/*   Updated: 2025/01/15 20:24:29 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,25 @@ int	ft_tokenize_one(t_lexer *lexer, char *input, int *i)
 {
 	char	*token;
 
-	token = malloc(2);
-	if (!token)
-		return (free_lexer(lexer), 0);
-	token[0] = input[(*i)++];
-	token[1] = '\0';
-	add_token(lexer, token);
+	if ((input[*i] == '>' && input[(*i + 1)] == '>') || (input[*i] == '<' && input[(*i + 1)] == '<'))
+	{
+		token = malloc(3);
+		if (!token)
+			return (free_lexer(lexer), 0);
+		token[0] = input[(*i)++];
+		token[1] = input[(*i)++];
+		token[2] = '\0';
+		add_token(lexer, token);
+	}
+	else
+	{
+		token = malloc(2);
+		if (!token)
+			return (free_lexer(lexer), 0);
+		token[0] = input[(*i)++];
+		token[1] = '\0';
+		add_token(lexer, token);
+	}
 	return (1);
 }
 

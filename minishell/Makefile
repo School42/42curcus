@@ -8,7 +8,8 @@ SRCS_DIR    = src/
 
 SRC         = token.c \
 				utils.c \
-				minishell.c
+				minishell.c \
+				parsing.c
 
 SRCS        = $(addprefix ${SRCS_DIR}, ${SRC})
 OBJS        = ${SRCS:.c=.o}
