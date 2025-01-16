@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:35:12 by talin             #+#    #+#             */
-/*   Updated: 2025/01/15 20:25:26 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/01/16 10:39:57 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,6 @@ t_lexer	*tokenize(char *input)
 	lexer->tokens = new_tokens;
 	lexer->tokens[lexer->token_count] = NULL;
 	return (lexer);
-}
-
-void	free_lexer(t_lexer *lexer)
-{
-	int	i;
-
-	i = -1;
-	while (++i < lexer->token_count)
-		free(lexer->tokens[i]);
-	free(lexer->tokens);
-	free(lexer);
 }
 
 int	main(void)

@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 10:40:15 by talin             #+#    #+#             */
-/*   Updated: 2025/01/15 11:47:20 by talin            ###   ########.fr       */
+/*   Updated: 2025/01/16 10:37:53 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,20 @@ size_t	ft_strcspn(const char *str, const char *reject)
 		i++;
 	}
 	return (i);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	int	i;
+
+	i = 0;
+	if (!s1 && !s2)
+		return (0);
+	if (!s1)
+		return (0 - ((unsigned char)s2[i]));
+	if (!s2)
+		return ((unsigned char)s1[i]);
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
