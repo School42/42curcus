@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2025/01/15 21:33:19 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/01/18 13:36:40 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@
 # include <stdlib.h>
 # include <string.h>
 # include <ctype.h>
+
+# define ERROR_INVALID_QUOTE 1
+# define ERROR_INVALID_REDIRECTION 2
+# define ERROR_INVALID_PIPE 3
 
 typedef struct s_lexer
 {
@@ -80,4 +84,5 @@ void		add_argument(t_command *cmd, char *arg);
 t_command	*create_command(void);
 t_io_file	*create_io_file(char *file_name, int redirect_type);
 int			ft_strcmp(const char *s1, const char *s2);
+int			sanitize_tokens(char **tokens);
 #endif

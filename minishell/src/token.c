@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 09:50:51 by talin             #+#    #+#             */
-/*   Updated: 2025/01/15 20:24:29 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/01/18 13:29:25 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,15 @@ int	ft_tokenize_two(t_lexer *lexer, char *input, int *i)
 	char	quote;
 	int		start;
 
-	quote = input[(*i)++];
+	quote = input[(*i)];
 	start = *i;
+	if (input[(*i) + 1])
+		(*i)++;
 	while (input[*i] && input[*i] != quote)
 		(*i)++;
 	if (input[*i] == quote)
 	{
-		token = ft_strndup(input + start, *i - start);
+		token = ft_strndup(input + start, *i - start + 1);
 		add_token(lexer, token);
 		(*i)++;
 	}

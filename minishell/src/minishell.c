@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:35:12 by talin             #+#    #+#             */
-/*   Updated: 2025/01/16 10:39:57 by talin            ###   ########.fr       */
+/*   Updated: 2025/01/18 13:37:41 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@ int	main(void)
 		{
 			printf("[%s]\n", lexer->tokens[i]);
 			i++;
+		}
+		if (sanitize_tokens(lexer->tokens) != 0)
+		{
+			free_lexer(lexer);
+			printf("Error\n");
+			return (0);
 		}
 		// free_lexer(lexer);
 	}
