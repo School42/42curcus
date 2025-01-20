@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2025/01/18 13:36:40 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/01/20 13:40:30 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_command
 	char				**args;
 	t_io_file			*infile;
 	t_io_file			*outfile;
+	t_io_file			*delimeter;
 	struct s_command	*next;
 }	t_command;
 
@@ -80,9 +81,22 @@ void		free_commands(t_command *cmd);
 void		ft_free_io_file(t_io_file *file);
 void		print_commands(t_command *cmd);
 t_command	*parse_tokens(t_lexer *lexer);
-void		add_argument(t_command *cmd, char *arg);
+int			add_argument(t_command *cmd, char *arg);
 t_command	*create_command(void);
 t_io_file	*create_io_file(char *file_name, int redirect_type);
 int			ft_strcmp(const char *s1, const char *s2);
 int			sanitize_tokens(char **tokens);
+int			ft_parse_pipe(t_command **command_list, t_command **current_cmd);
+int			ft_parse_in_red_two(t_command **command_list, \
+t_command **current_cmd, int *i, t_lexer *lexer);
+int			ft_parse_in_red(t_command **command_list, \
+t_command **current_cmd, int *i, t_lexer *lexer);
+int			ft_parse_out_red_two(t_command **command_list, \
+t_command **current_cmd, int *i, t_lexer *lexer);
+int			ft_parse_out_red(t_command **command_list, \
+t_command **current_cmd, int *i, t_lexer *lexer);
+int			ft_parse_cmd_arg(t_command **command_list, \
+t_command **current_cmd, char *token);
+int			parse_tokens_statement(t_command **command_list, \
+t_command **current_cmd, int *i, t_lexer *lexer);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 09:50:51 by talin             #+#    #+#             */
-/*   Updated: 2025/01/18 13:29:25 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/01/20 13:42:41 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	ft_tokenize_one(t_lexer *lexer, char *input, int *i)
 {
 	char	*token;
 
-	if ((input[*i] == '>' && input[(*i + 1)] == '>') || (input[*i] == '<' && input[(*i + 1)] == '<'))
+	if ((input[*i] == '>' && input[(*i + 1)] == '>') || \
+	(input[*i] == '<' && input[(*i + 1)] == '<'))
 	{
 		token = malloc(3);
 		if (!token)

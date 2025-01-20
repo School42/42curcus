@@ -10,6 +10,8 @@ SRC         = token.c \
 				utils.c \
 				minishell.c \
 				parsing.c \
+				parsing_one.c \
+				parsing_two.c \
 				free.c \
 				sanitize.c
 

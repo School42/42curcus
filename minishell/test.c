@@ -5,144 +5,95 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/15 14:30:12 by talin             #+#    #+#             */
-/*   Updated: 2025/01/15 14:35:44 by talin            ###   ########.fr       */
+/*   Created: 2025/01/20 15:28:50 by talin             #+#    #+#             */
+/*   Updated: 2025/01/20 15:31:06 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/wait.h>
+#include <errno.h>
+#include "./include/minishell.h"
 
-typedef struct s_redirection {
-    char *file;
-    int type;  // 0 for input redirection (<), 1 for output redirection (>), 2 for append redirection (>>)
-} t_redirection;
+char *find_command_path(char *cmd) {
+    char *path_env = getenv("PATH");
+    char *path = strdup(path_env);
+    char *token = strtok(path, ":");
+    char *full_path = NULL;
 
-typedef struct s_command {
-    char *cmd;  // Command (e.g., "echo")
-    char **args;  // Arguments (e.g., ["hello", "world"])
-    t_redirection *input_redirect;  // Input redirection
-    t_redirection *output_redirect; // Output redirection
-    struct s_command *next;  // Next command in a pipeline
-} t_command;
-
-void add_argument_to_command(t_command *cmd, char *arg) {
-	printf("^^^\n");
-    if (!cmd->args) {
-		printf("&&&\n");
-        cmd->args = malloc(sizeof(char *) * 2);  // Allocate space for 1 argument + NULL terminator
-        if (!cmd->args) {
+    while (token) {
+        full_path = malloc(strlen(token) + strlen(cmd) + 2);
+        if (!full_path) {
             perror("malloc");
-            return;
+            free(path);
+            return NULL;
         }
-        cmd->args[0] = NULL;  // NULL-terminate the args array
-    }
-	printf("+++\n");
-    // Find the current size of the args array
-    int i = 0;
-    while (cmd->args[i] != NULL) {
-        i++;
+        sprintf(full_path, "%s/%s", token, cmd);
+        if (access(full_path, X_OK) == 0) {
+            free(path);
+            return full_path;
+        }
+        free(full_path);
+        token = strtok(NULL, ":");
     }
 
-    // Resize the array to hold one more argument
-    char **new_args = realloc(cmd->args, sizeof(char *) * (i + 2));  // +1 for the new argument, +1 for the NULL terminator
-    if (!new_args) {
-        perror("realloc");
-        return;
-    }
-    cmd->args = new_args;
-
-    // Allocate memory for the new argument and copy the token into it
-    cmd->args[i] = strdup(arg);
-    if (!cmd->args[i]) {
-        perror("strdup");
-        return;
-    }
-	printf("---\n");
-    cmd->args[i + 1] = NULL;  // Null-terminate the arguments array
+    free(path);
+    return NULL;
 }
 
-// Function to initialize a new command
-t_command *create_command(char *cmd) {
-    t_command *new_cmd = malloc(sizeof(t_command));
-    if (!new_cmd) {
-        perror("malloc");
-        return NULL;
+void execute_single_command(t_command *cmd) {
+    pid_t pid = fork();
+    if (pid == 0) {
+        if (cmd->infile) {
+            int fd_in = open(cmd->infile->file_name, O_RDONLY);
+            if (fd_in == -1) {
+                perror("open infile");
+                exit(EXIT_FAILURE);
+            }
+            dup2(fd_in, STDIN_FILENO);
+            close(fd_in);
+        }
+        if (cmd->outfile) {
+            int fd_out;
+            if (cmd->outfile->redirect_type == 1)
+                fd_out = open(cmd->outfile->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+            else
+                fd_out = open(cmd->outfile->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+            if (fd_out == -1) {
+                perror("open outfile");
+                exit(EXIT_FAILURE);
+            }
+            dup2(fd_out, STDOUT_FILENO);
+            close(fd_out);
+        }
+        char *cmd_path = find_command_path(cmd->cmd);
+        if (!cmd_path) {
+            fprintf(stderr, "Command not found: %s\n", cmd->cmd);
+            exit(EXIT_FAILURE);
+        }
+        execve(cmd_path, cmd->args, environ);
+        perror("execve");
+        free(cmd_path);
+        exit(EXIT_FAILURE);
+    } else if (pid > 0) {
+        int status;
+        waitpid(pid, &status, 0);
+        if (WIFEXITED(status)) {
+            printf("Command exited with status: %d\n", WEXITSTATUS(status));
+        }
+    } else {
+        perror("fork");
     }
-
-    new_cmd->cmd = strdup(cmd);  // Duplicate the command string
-    new_cmd->args = NULL;         // Initialize args to NULL
-    new_cmd->input_redirect = NULL;
-    new_cmd->output_redirect = NULL;
-    new_cmd->next = NULL;
-
-    return new_cmd;
 }
 
-// Function to handle redirection
-void handle_redirection(t_command *cmd, char *token) {
-    if (token[0] == '<') {
-        // Handle input redirection
-        cmd->input_redirect = malloc(sizeof(t_redirection));
-        cmd->input_redirect->file = strdup(token + 1);  // Skip the '<' character
-        cmd->input_redirect->type = 0;  // Input redirection
-    } else if (token[0] == '>') {
-        // Handle output redirection
-        cmd->output_redirect = malloc(sizeof(t_redirection));
-        cmd->output_redirect->file = strdup(token + 1);  // Skip the '>' character
-        cmd->output_redirect->type = (token[1] == '>') ? 2 : 1;  // Append or overwrite
+void execute_commands(t_command *commands) {
+    t_command *current = commands;
+    while (current) {
+        execute_single_command(current);
+        current = current->next;
     }
-}
-
-// Main function for parsing
-t_command *parse_tokens(char **tokens) {
-    t_command *head = NULL;
-    t_command *current = NULL;
-
-    for (int i = 0; tokens[i] != NULL; i++) {
-		printf("%d\n", i);
-        if (strcmp(tokens[i], "|") == 0) {
-            // Create a new command for pipeline
-            current->next = create_command(tokens[++i]);  // Skip the pipe and start a new command
-            printf("testing\n");
-			current = current->next;
-        } else if (strcmp(tokens[i], "<") == 0 || strcmp(tokens[i], ">") == 0 || strcmp(tokens[i], ">>") == 0) {
-            // Handle redirection
-            handle_redirection(current, tokens[i]);
-        } else {
-            // Add argument to current command
-			printf("...\n");
-            add_argument_to_command(current, tokens[i]);
-			printf(".....\n");
-        }
-    }
-
-    return head;
-}
-
-int main() {
-    // Sample tokens from a simple input: "echo hello > out.txt | cat < in.txt"
-    char *tokens[] = {"echo", "hello", ">", "out.txt", "|", "cat", "<", "in.txt", NULL};
-	printf("hi\n");
-    t_command *parsed_commands = parse_tokens(tokens);
-	printf("test\n");
-    // Output parsed commands for testing
-    t_command *cmd = parsed_commands;
-	printf("hello\n");
-    while (cmd) {
-        printf("Command: %s\n", cmd->cmd);
-        for (int i = 0; cmd->args[i] != NULL; i++) {
-            printf("  Arg %d: %s\n", i, cmd->args[i]);
-        }
-        if (cmd->input_redirect) {
-            printf("  Input redirect: %s\n", cmd->input_redirect->file);
-        }
-        if (cmd->output_redirect) {
-            printf("  Output redirect: %s\n", cmd->output_redirect->file);
-        }
-        cmd = cmd->next;
-    }
-
-    return 0;
 }

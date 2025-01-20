@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:35:12 by talin             #+#    #+#             */
-/*   Updated: 2025/01/18 13:37:41 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/01/20 14:23:27 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,34 +42,44 @@ int	main(void)
 	char		*input;
 	t_lexer		*lexer;
 	t_command	*commands;
-	int		i;
+	int			i;
 
-	input = readline("minishell > ");
-	input[ft_strcspn(input, "\n")] = '\0';
-	lexer = tokenize(input);
-	
-	if (lexer)
+	while (1)
 	{
-		printf("Tokens:\n");
-		i = 0;
-		while (lexer->tokens[i])
+		input = readline("minishell > ");
+		if (!input)
+			break ;
+		if (ft_strcmp(input, "exit") == 0)
 		{
-			printf("[%s]\n", lexer->tokens[i]);
-			i++;
+			free(input);
+			break;
 		}
-		if (sanitize_tokens(lexer->tokens) != 0)
+		if (*input)
+			add_history(input);
+		input[ft_strcspn(input, "\n")] = '\0';
+		lexer = tokenize(input);
+		if (lexer)
 		{
-			free_lexer(lexer);
-			printf("Error\n");
-			return (0);
+			printf("Tokens:\n");
+			i = 0;
+			while (lexer->tokens[i])
+			{
+				printf("[%s]\n", lexer->tokens[i]);
+				i++;
+			}
+			if (sanitize_tokens(lexer->tokens) != 0)
+			{
+				free_lexer(lexer);
+				return (0);
+			}
 		}
-		// free_lexer(lexer);
+		commands = parse_tokens(lexer);
+		if (commands) {
+			print_commands(commands);
+			free_commands(commands);
+	    }
+		free_lexer(lexer);
+		free(input);
 	}
-	commands = parse_tokens(lexer);
-
-	if (commands) {
-		print_commands(commands);
-		free_commands(commands);
-    }
 	return (0);
 }
