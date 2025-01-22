@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:35:12 by talin             #+#    #+#             */
-/*   Updated: 2025/01/20 14:23:27 by talin            ###   ########.fr       */
+/*   Updated: 2025/01/22 16:39:53 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,25 @@ t_lexer	*tokenize(char *input)
 	return (lexer);
 }
 
-int	main(void)
+int	main(int ac, char **av, char **env)
 {
 	char		*input;
 	t_lexer		*lexer;
-	t_command	*commands;
+	t_data		data;
 	int			i;
+	(void)ac;
+	(void)av;
 
+	i = 0;
+	while (env[i])
+		i++;
+	data.env = (char **)malloc(sizeof(char *) * (i + 1));
+	if (!data.env)
+		return (1);
+	i = -1;
+	while (env[++i])
+		data.env[i] = ft_strdup(env[i]);
+	data.env[i] = NULL;
 	while (1)
 	{
 		input = readline("minishell > ");
@@ -72,14 +84,19 @@ int	main(void)
 				free_lexer(lexer);
 				return (0);
 			}
+			data.commands = parse_tokens(lexer);
+			if (data.commands) {
+				parameter_expansion(data.commands, data.env);
+				// print_commands(data.commands);
+				free_commands(data.commands);
+		    }
 		}
-		commands = parse_tokens(lexer);
-		if (commands) {
-			print_commands(commands);
-			free_commands(commands);
-	    }
 		free_lexer(lexer);
 		free(input);
 	}
+	i = -1;
+	while (data.env[++i])
+		free(data.env[i]);
+	free(data.env);
 	return (0);
 }

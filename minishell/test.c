@@ -5,95 +5,90 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/20 15:28:50 by talin             #+#    #+#             */
-/*   Updated: 2025/01/20 15:31:06 by talin            ###   ########.fr       */
+/*   Created: 2025/01/22 10:46:19 by talin             #+#    #+#             */
+/*   Updated: 2025/01/22 15:27:26 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <sys/wait.h>
-#include <errno.h>
-#include "./include/minishell.h"
+#include <string.h>
 
-char *find_command_path(char *cmd) {
-    char *path_env = getenv("PATH");
-    char *path = strdup(path_env);
-    char *token = strtok(path, ":");
-    char *full_path = NULL;
-
-    while (token) {
-        full_path = malloc(strlen(token) + strlen(cmd) + 2);
-        if (!full_path) {
-            perror("malloc");
-            free(path);
-            return NULL;
-        }
-        sprintf(full_path, "%s/%s", token, cmd);
-        if (access(full_path, X_OK) == 0) {
-            free(path);
-            return full_path;
-        }
-        free(full_path);
-        token = strtok(NULL, ":");
+char	**print_env_from_proc() {
+	char	**env;
+	int		count;
+    int fd = open("/proc/self/environ", O_RDONLY);
+    if (fd == -1) {
+        perror("open");
+        return (NULL);
     }
-
-    free(path);
-    return NULL;
+    size_t buffer_size = 10;
+    char *buffer = malloc(buffer_size);
+    if (!buffer) {
+        perror("malloc");
+        close(fd);
+        return (NULL);
+    }
+    ssize_t bytes_read = 0;
+    size_t total_read = 0;
+	count = 0;
+    while ((bytes_read = read(fd, buffer + total_read, buffer_size - total_read)) > 0) {
+        total_read += bytes_read;
+        if (total_read == buffer_size) {
+            size_t new_size = buffer_size * 2;
+            char *new_buffer = malloc(new_size);
+            if (!new_buffer) {
+                perror("malloc");
+                free(buffer);
+                close(fd);
+                return (NULL);
+            }
+            memcpy(new_buffer, buffer, buffer_size);
+            free(buffer);
+            buffer = new_buffer;
+            buffer_size = new_size;
+        }
+    }
+    close(fd);
+    if (bytes_read == -1) {
+        perror("read");
+        free(buffer);
+        return (NULL);
+    }
+    buffer[total_read] = '\0';
+    char *var = buffer;
+    while (var < buffer + total_read) {
+        var += strlen(var) + 1;
+		count++;
+    }
+	env = (char **)malloc(sizeof(char *) * (count + 1));
+	if (!env)
+	{
+		free(buffer);
+		return (NULL);
+	}
+	var = buffer;
+	count = 0;
+	while (var < buffer + total_read)
+	{
+		env[count++] = strdup(var); 
+		var += strlen(var)+1;
+	}
+	env[count] = NULL;
+    free(buffer);
+	return (env);
 }
 
-void execute_single_command(t_command *cmd) {
-    pid_t pid = fork();
-    if (pid == 0) {
-        if (cmd->infile) {
-            int fd_in = open(cmd->infile->file_name, O_RDONLY);
-            if (fd_in == -1) {
-                perror("open infile");
-                exit(EXIT_FAILURE);
-            }
-            dup2(fd_in, STDIN_FILENO);
-            close(fd_in);
-        }
-        if (cmd->outfile) {
-            int fd_out;
-            if (cmd->outfile->redirect_type == 1)
-                fd_out = open(cmd->outfile->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
-            else
-                fd_out = open(cmd->outfile->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-            if (fd_out == -1) {
-                perror("open outfile");
-                exit(EXIT_FAILURE);
-            }
-            dup2(fd_out, STDOUT_FILENO);
-            close(fd_out);
-        }
-        char *cmd_path = find_command_path(cmd->cmd);
-        if (!cmd_path) {
-            fprintf(stderr, "Command not found: %s\n", cmd->cmd);
-            exit(EXIT_FAILURE);
-        }
-        execve(cmd_path, cmd->args, environ);
-        perror("execve");
-        free(cmd_path);
-        exit(EXIT_FAILURE);
-    } else if (pid > 0) {
-        int status;
-        waitpid(pid, &status, 0);
-        if (WIFEXITED(status)) {
-            printf("Command exited with status: %d\n", WEXITSTATUS(status));
-        }
-    } else {
-        perror("fork");
-    }
-}
-
-void execute_commands(t_command *commands) {
-    t_command *current = commands;
-    while (current) {
-        execute_single_command(current);
-        current = current->next;
-    }
+int main() {
+    char **env = print_env_from_proc();
+	int i = -1;
+	while (env[++i])
+	{
+		printf("%s\n", env[i]);
+		free(env[i]);
+	}
+	free(env);
+    return 0;
 }

@@ -13,7 +13,8 @@ SRC         = token.c \
 				parsing_one.c \
 				parsing_two.c \
 				free.c \
-				sanitize.c
+				sanitize.c \
+				expansion.c
 
 SRCS        = $(addprefix ${SRCS_DIR}, ${SRC})
 OBJS        = ${SRCS:.c=.o}

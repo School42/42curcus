@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 13:18:38 by talin             #+#    #+#             */
-/*   Updated: 2025/01/01 13:50:16 by talin            ###   ########.fr       */
+/*   Updated: 2025/01/22 09:52:53 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int main() {
 	const char *name = "PATH";
-	const char *env_p = getenv(name);
+	const char *env_p = getenv(NULL);
 	if (env_p) {
 		printf("Your %s is %s\n", name, env_p);
 	}

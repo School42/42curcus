@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2025/01/20 13:40:30 by talin            ###   ########.fr       */
+/*   Updated: 2025/01/22 15:56:42 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,19 @@ typedef struct s_command
 	struct s_command	*next;
 }	t_command;
 
-typedef enum e_redirect_type {
+typedef enum e_redirect_type
+{
 	REDIRECT_INPUT,
 	REDIRECT_OUTPUT,
 	REDIRECT_APPEND,
 	REDIRECT_HEREDOC
 }	t_redirect_type;
+
+typedef struct s_data
+{
+	char		**env;
+	t_command	*commands;
+}	t_data;
 
 int			ft_isspace(const char str);
 size_t		ft_strnlen(const char *s, size_t max_len);
@@ -99,4 +106,5 @@ int			ft_parse_cmd_arg(t_command **command_list, \
 t_command **current_cmd, char *token);
 int			parse_tokens_statement(t_command **command_list, \
 t_command **current_cmd, int *i, t_lexer *lexer);
+void		parameter_expansion(t_command *commands, char **env);
 #endif
