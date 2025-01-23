@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 16:24:43 by talin             #+#    #+#             */
-/*   Updated: 2024/12/30 12:09:03 by talin            ###   ########.fr       */
+/*   Updated: 2025/01/23 15:49:17 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,30 @@
 
 int main(int ac, char **av) {
 
-	struct stat fileStat;
+	// struct stat fileStat;
 
-	if (lstat("test.sh", &fileStat) < 0) {
-		perror("lstat");
-		return (1);
-	}
+	// if (lstat("test.sh", &fileStat) < 0) {
+	// 	perror("lstat");
+	// 	return (1);
+	// }
 
-	printf("Perm: %o, UID: %d, GID: %d, Links: %ld, Size: %ld\n", fileStat.st_mode & 0777, fileStat.st_uid, fileStat.st_gid, fileStat.st_nlink, fileStat.st_size);
+	// printf("Perm: %o, UID: %d, GID: %d, Links: %ld, Size: %ld\n", fileStat.st_mode & 0777, fileStat.st_uid, fileStat.st_gid, fileStat.st_nlink, fileStat.st_size);
 
 
-	int fd = open("test.sh", O_RDONLY);
-	if (fd < 0) {
-		perror("open");
-		return (1);
-	}
+	// int fd = open("test.sh", O_RDONLY);
+	// if (fd < 0) {
+	// 	perror("open");
+	// 	return (1);
+	// }
 	
-	struct stat fStat;
-	if (fstat(fd, &fStat) < 0) {
-		perror("fstat");
-		close(fd);
-		return (1);
-	}
-	printf("Perm: %o, UID: %d, GID: %d, Links: %ld, Size: %ld\n", fStat.st_mode & 0777, fStat.st_uid, fStat.st_gid, fStat.st_nlink, fStat.st_size);
-	close(fd);
+	// struct stat fStat;
+	// if (fstat(fd, &fStat) < 0) {
+	// 	perror("fstat");
+	// 	close(fd);
+	// 	return (1);
+	// }
+	// printf("Perm: %o, UID: %d, GID: %d, Links: %ld, Size: %ld\n", fStat.st_mode & 0777, fStat.st_uid, fStat.st_gid, fStat.st_nlink, fStat.st_size);
+	// close(fd);
 	
 	char *buf;
 	(void)ac;

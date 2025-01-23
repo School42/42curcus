@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:35:12 by talin             #+#    #+#             */
-/*   Updated: 2025/01/22 16:39:53 by talin            ###   ########.fr       */
+/*   Updated: 2025/01/23 16:02:49 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,6 @@ int	main(int ac, char **av, char **env)
 		input = readline("minishell > ");
 		if (!input)
 			break ;
-		if (ft_strcmp(input, "exit") == 0)
-		{
-			free(input);
-			break;
-		}
 		if (*input)
 			add_history(input);
 		input[ft_strcspn(input, "\n")] = '\0';
@@ -79,6 +74,7 @@ int	main(int ac, char **av, char **env)
 				printf("[%s]\n", lexer->tokens[i]);
 				i++;
 			}
+			printf("........................................\n");
 			if (sanitize_tokens(lexer->tokens) != 0)
 			{
 				free_lexer(lexer);
@@ -87,9 +83,11 @@ int	main(int ac, char **av, char **env)
 			data.commands = parse_tokens(lexer);
 			if (data.commands) {
 				parameter_expansion(data.commands, data.env);
-				// print_commands(data.commands);
-				free_commands(data.commands);
+				print_commands(data.commands);
+				// free_commands(data.commands);
 		    }
+			if (!execute_commands(&data))
+				break ;
 		}
 		free_lexer(lexer);
 		free(input);

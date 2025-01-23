@@ -6,100 +6,138 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 15:54:59 by talin             #+#    #+#             */
-/*   Updated: 2025/01/22 16:25:46 by talin            ###   ########.fr       */
+/*   Updated: 2025/01/23 13:21:36 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-
-char *get_env_value(char *env[], const char *var_name)
+char	*get_env_value(char *env[], const char *var_name)
 {
-    for (int i = 0; env[i]; i++) {
-        if (strncmp(env[i], var_name, strlen(var_name)) == 0 && env[i][strlen(var_name)] == '=') {
-            return &env[i][strlen(var_name) + 1];
-        }
-    }
-    return NULL;
+	int	i;
+
+	i = -1;
+	while (env[++i])
+	{
+		if (strncmp(env[i], var_name, strlen(var_name)) == 0 && \
+		env[i][strlen(var_name)] == '=')
+			return (&env[i][strlen(var_name) + 1]);
+	}
+	return (NULL);
 }
 
-char *expand_variable(char *input, char **env)
+int	ft_is_valid_name_character(const char c)
 {
-    char *expanded_str = malloc(strlen(input) + 1);
-    if (!expanded_str) {
-        perror("malloc");
-        return NULL;
-    }
-    char *ptr = input;
-    char *output_ptr = expanded_str;
-    int inside_single_quote = 0;
-    int inside_double_quote = 0;
-    while (*ptr) {
-        if (*ptr == '\'' && !inside_double_quote) {
-            inside_single_quote = !inside_single_quote;
-            *output_ptr = *ptr;
-            output_ptr++;
-            ptr++;
-            continue;
-        }
-        if (*ptr == '\"' && !inside_single_quote) {
-            inside_double_quote = !inside_double_quote;
-            *output_ptr = *ptr;
-            output_ptr++;
-            ptr++;
-            continue;
-        }
-        if (*ptr == '$' && !inside_single_quote) {
-            ptr++;
-            char var_name[256];
-            int var_index = 0;
-            while ((*ptr >= 'A' && *ptr <= 'Z') || (*ptr >= 'a' && *ptr <= 'z') || (*ptr >= '0' && *ptr <= '9') || *ptr == '_') {
-                var_name[var_index++] = *ptr++;
-            }
-            var_name[var_index] = '\0';
-            char *var_value = get_env_value(env, var_name);
-            if (var_value) {
-                strcpy(output_ptr, var_value);
-                output_ptr += strlen(var_value);
-            }
-        } else {
-            *output_ptr = *ptr;
-            output_ptr++;
-            ptr++;
-        }
-    }
-    *output_ptr = '\0';
-    return expanded_str;
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || \
+	(c >= '0' && c <= '9') || c == '_')
+		return (1);
+	return (0);
 }
 
-void parameter_expansion(t_command *commands, char **env)
+void	get_value(char **ptr, char **env, char **output_ptr)
 {
-    if (commands->cmd) {
-        char *expanded_cmd = expand_variable(commands->cmd, env);
-        if (expanded_cmd) {
-            free(commands->cmd);
-            commands->cmd = expanded_cmd;
-        }
-    }
-    for (int i = 0; commands->args && commands->args[i]; i++) {
-        char *expanded_arg = expand_variable(commands->args[i], env);
-        if (expanded_arg) {
-            free(commands->args[i]);
-            commands->args[i] = expanded_arg;
-        }
-    }
-    if (commands->infile && commands->infile->file_name) {
-        char *expanded_infile = expand_variable(commands->infile->file_name, env);
-        if (expanded_infile) {
-            free(commands->infile->file_name);
-            commands->infile->file_name = expanded_infile;
-        }
-    }
-    if (commands->outfile && commands->outfile->file_name) {
-        char *expanded_outfile = expand_variable(commands->outfile->file_name, env);
-        if (expanded_outfile) {
-            free(commands->outfile->file_name);
-            commands->outfile->file_name = expanded_outfile;
-        }
-    }
+	char	*var_name;
+	int		var_index;
+	char	*var_value;
+
+	(*ptr)++;
+	var_index = 0;
+	while (ft_is_valid_name_character(**ptr))
+	{
+		var_index++;
+		(*ptr)++;
+	}
+	var_name = ft_strndup(*ptr - var_index, var_index);
+	if (!var_name)
+		return ;
+	var_value = get_env_value(env, var_name);
+	free(var_name);
+	if (var_value)
+	{
+		while (*var_value)
+		{
+			**output_ptr = *var_value;
+			(*output_ptr)++;
+			var_value++;
+		}
+	}
+}
+
+void	ft_quote_handle(char **ptr, char **output_ptr, \
+int *inside_single_quote, int *inside_double_quote)
+{
+	if (**ptr == '\'' && !(*inside_double_quote))
+	{
+		*inside_single_quote = !(*inside_single_quote);
+		**output_ptr = **ptr;
+		(*output_ptr)++;
+		(*ptr)++;
+	}
+	if (**ptr == '\"' && !(*inside_single_quote))
+	{
+		*inside_double_quote = !(*inside_double_quote);
+		**output_ptr = **ptr;
+		(*output_ptr)++;
+		(*ptr)++;
+	}
+}
+
+char	*expand_variable(char *input, char **env)
+{
+	char	*expanded_str;
+	char	*ptr;
+	char	*output_ptr;
+	int		inside_single_quote;
+	int		inside_double_quote;
+
+	expanded_str = malloc(ft_strlen(input) + 1);
+	if (!expanded_str)
+		return (perror("malloc"), NULL);
+	ptr = input;
+	output_ptr = expanded_str;
+	inside_single_quote = 0;
+	inside_double_quote = 0;
+	while (*ptr)
+	{
+		if (*ptr == '\'' || *ptr == '\"')
+			ft_quote_handle(&ptr, &output_ptr, \
+			&inside_single_quote, &inside_double_quote);
+		if (*ptr == '$' && !inside_single_quote)
+			get_value(&ptr, env, &output_ptr);
+		else
+			*output_ptr++ = *ptr++;
+	}
+	*output_ptr = '\0';
+	return (expanded_str);
+}
+
+void	expand_var(char **cmd, char **env)
+{
+	char	*expanded_cmd;
+
+	expanded_cmd = expand_variable(*cmd, env);
+	if (expanded_cmd)
+	{
+		free(*cmd);
+		*cmd = expanded_cmd;
+	}
+}
+
+void	parameter_expansion(t_command *commands, char **env)
+{
+	int		i;
+
+	while (commands)
+	{
+		if (commands->cmd)
+			expand_var(&(commands->cmd), env);
+		i = -1;
+		while (commands->args[++i])
+			expand_var(&(commands->args[i]), env);
+		if (commands->infile && commands->infile->file_name)
+			expand_var(&(commands->infile->file_name), env);
+		if (commands->outfile && commands->outfile->file_name)
+			expand_var(&(commands->outfile->file_name), env);
+		commands = commands->next;
+	}
 }

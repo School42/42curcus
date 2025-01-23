@@ -1,0 +1,16 @@
+a.out
+bash1.txt
+bash.txt
+in
+include
+libft
+Makefile
+minishell
+out
+out.txt
+src
+test
+test.c
+test.txt
+tmp.c
+zsh.txt

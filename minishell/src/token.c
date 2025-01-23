@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 09:50:51 by talin             #+#    #+#             */
-/*   Updated: 2025/01/20 13:42:41 by talin            ###   ########.fr       */
+/*   Updated: 2025/01/23 13:19:35 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,29 @@ int	ft_tokenize_one(t_lexer *lexer, char *input, int *i)
 	return (1);
 }
 
+char	*ft_tokenize_two_token(int start, int *i, char *input)
+{
+	char	*token;
+	char	*combined;
+	char	*temp;
+
+	token = ft_strndup(input + start, *i - start + 1);
+	(*i)++;
+	start = *i;
+	while (input[*i] && !ft_isspace(input[*i]) && \
+	input[*i] != '|' && input[*i] != '<' && input[*i] != '>')
+		(*i)++;
+	if (start < *i)
+	{
+		combined = ft_strndup(input + start, *i - start);
+		temp = ft_strjoin(token, combined);
+		free(token);
+		free(combined);
+		token = temp;
+	}
+	return (token);
+}
+
 int	ft_tokenize_two(t_lexer *lexer, char *input, int *i)
 {
 	char	*token;
@@ -73,9 +96,8 @@ int	ft_tokenize_two(t_lexer *lexer, char *input, int *i)
 		(*i)++;
 	if (input[*i] == quote)
 	{
-		token = ft_strndup(input + start, *i - start + 1);
+		token = ft_tokenize_two_token(start, i, input);
 		add_token(lexer, token);
-		(*i)++;
 	}
 	else
 	{

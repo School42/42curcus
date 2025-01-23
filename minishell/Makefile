@@ -14,7 +14,8 @@ SRC         = token.c \
 				parsing_two.c \
 				free.c \
 				sanitize.c \
-				expansion.c
+				expansion.c \
+				execute.c
 
 SRCS        = $(addprefix ${SRCS_DIR}, ${SRC})
 OBJS        = ${SRCS:.c=.o}
