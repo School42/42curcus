@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 14:08:32 by ubuntu            #+#    #+#             */
-/*   Updated: 2024/11/25 09:50:14 by talin            ###   ########.fr       */
+/*   Updated: 2025/03/05 13:58:47 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_atoi(char *str)
 	sign = 1;
 	i = 0;
 	if (!str || ft_check_input(str))
-		ft_exit("Invalid input!");
+		return (ft_exit("Invalid input!"), -1);
 	while (ft_isspace(str[i]))
 		i++;
 	if (str[i] == '+' && str[i + 1] != '-')
@@ -76,6 +76,6 @@ int	ft_atoi(char *str)
 	while (str[i] && str[i] >= '0' && str[i] <= '9')
 		res = res * 10 + (str[i++] - '0');
 	if ((res * sign) < 0)
-		ft_exit("No negative value!");
+		return (ft_exit("No negative value!"), -1);
 	return (res * sign);
 }

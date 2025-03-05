@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 13:43:36 by talin             #+#    #+#             */
-/*   Updated: 2024/11/26 14:03:55 by talin            ###   ########.fr       */
+/*   Updated: 2025/03/05 13:55:23 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	ft_init_philo(t_data *data)
 {
 	int	i;
 
+	if (!data->num_philo)
+		return (1);
 	data->philos = malloc(sizeof(t_philo) * data->num_philo);
 	data->fork = malloc(sizeof(pthread_mutex_t) * data->num_philo);
 	if (!data->philos || !data->fork)
@@ -63,27 +65,31 @@ int	ft_init_mutex(t_data *data)
 	return (0);
 }
 
-int	ft_init_data(char **av, int ac, t_data *data)
+int	ft_init_data(char **av, t_data *data)
 {
 	int	status;
 
 	status = 0;
 	data->dead = 0;
 	data->num_philo = ft_atoi(av[1]);
+	if (!data->num_philo || data->num_philo == -1)
+		return (write(2, "Initialization error!\n", 23), 1);
 	data->t_die = ft_atoi(av[2]);
 	data->t_eat = ft_atoi(av[3]);
 	data->t_sleep = ft_atoi(av[4]);
-	if (ac == 6)
+	if (data->t_die == -1 || data->t_eat == -1 || data->t_sleep == -1)
+		return (write(2, "Initialization error!\n", 23), 1);
+	if (av[5])
 	{
 		data->num_eat = ft_atoi(av[5]);
-		if (data->num_eat == 0)
-			status = 1;
+		if (data->num_eat == 0 || data->num_eat == -1)
+			return (write(2, "Initialization error!\n", 23), 1);
 	}
 	else
 		data->num_eat = 0;
-	if (ft_init_philo(data))
+	if (ft_init_philo(data) || ft_init_mutex(data))
 		status = 1;
-	if (ft_init_mutex(data))
-		status = 1;
+	if (status)
+		ft_exit_free("Initialization error!", data);
 	return (status);
 }

@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:31:25 by talin             #+#    #+#             */
-/*   Updated: 2024/11/26 14:19:37 by talin            ###   ########.fr       */
+/*   Updated: 2025/03/05 13:18:35 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ time_t	ft_get_current_time(void);
 int		ft_atoi(char *str);
 void	ft_exit(char *str);
 int		ft_strlen(char *str);
-int		ft_init_data(char **av, int ac, t_data *data);
+int		ft_init_data(char **av, t_data *data);
 int		ft_init_mutex(t_data *data);
 int		ft_init_philo(t_data *data);
 void	ft_assign_forks(int i, t_philo *philo);

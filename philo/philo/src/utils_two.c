@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_two.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 19:18:20 by ubuntu            #+#    #+#             */
-/*   Updated: 2024/11/30 11:21:49 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/05 13:17:26 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	ft_exit(char *str)
 {
 	write(2, str, ft_strlen(str));
 	write(2, "\n", 1);
-	exit(1);
 }
 
 time_t	ft_get_current_time(void)
