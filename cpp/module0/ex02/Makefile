@@ -1,9 +1,9 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-TARGET = phonebook
+TARGET = bankaccount
 
-SRCS = main.cpp PhoneBook.cpp Contact.cpp
+SRCS = Account.cpp tests.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(TARGET)
