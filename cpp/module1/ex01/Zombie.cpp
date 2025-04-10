@@ -1,7 +1,11 @@
 #include "Zombie.hpp"
 
-Zombie::Zombie(std::string zbName): name(zbName){
-	std::cout << name << " is called!" << std::endl;
+Zombie::Zombie() {
+	std::cout << "a zombie is coming" << std::endl;
+}
+
+void Zombie::set_values(std::string name) {
+	this->name = name;
 }
 
 Zombie::~Zombie() {
@@ -10,14 +14,4 @@ Zombie::~Zombie() {
 
 void Zombie::announce(void) {
 	std::cout << name << ": BraiiiiiiinnnzzzZ..." << std::endl;
-}
-
-Zombie* Zombie::zombieHorde(int N, std::string name) {
-	Zombie* horde = new Zombie[N];
-
-	for (int i = 0; i < N ; i++) {
-		horde[i] = Zombie(name);
-		horde[i].announce();
-	}
-	return &horde[0];
 }

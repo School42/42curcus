@@ -1,7 +1,7 @@
 #include "Zombie.hpp"
 
 Zombie::Zombie(std::string zbName): name(zbName){
-	std::cout << name << " is called!" << std::endl;
+	std::cout << name << " is coming!" << std::endl;
 }
 
 Zombie::~Zombie() {

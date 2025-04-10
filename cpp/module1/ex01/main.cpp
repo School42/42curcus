@@ -13,8 +13,11 @@ int main(){
 		std::cout << "Please enter valid input!" << std::endl;
 		return (1);
 	}
-	Zombie* firstZombie = NULL;
-	firstZombie = firstZombie->zombieHorde(N, "zombie");
+	if (N > 100){
+		std::cout << "Dude, don't count the zombies! Just run!!!" << std::endl;
+		return (0);
+	}
+	Zombie* firstZombie = zombieHorde(N, "zombie777");
 	delete[] firstZombie;
 	return (0);
 }
