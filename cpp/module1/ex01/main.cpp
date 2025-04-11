@@ -17,7 +17,7 @@ int main(){
 		std::cout << "Dude, don't count the zombies! Just run!!!" << std::endl;
 		return (0);
 	}
-	Zombie* firstZombie = zombieHorde(N, "zombie777");
+	Zombie* firstZombie = zombieHorde(N, "zombie");
 	delete[] firstZombie;
 	return (0);
 }

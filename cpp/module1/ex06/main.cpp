@@ -8,4 +8,5 @@ int main(int ac, char **av) {
 	Harl complain;
 	std::string level = av[1];
 	complain.complain(level);
+	return 0;
 }

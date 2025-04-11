@@ -29,22 +29,12 @@ void Harl::complain(std::string level) {
 			break;
 		}
 	}
-	switch (lvl)
-	{
-		case 0:
-			this->debug();
-			break;
-		case 1:
-			this->info();
-			break;
-		case 2:
-			this->warning();
-			break;
-		case 3:
-			this->error();
-			break;
-		default:
-			std::cerr << "Please enter valid input!!!" << std::endl;
-			break;
+	void    (Harl::*funcPtr)(void) = NULL;
+   	void    (Harl::*arrayPtr[4])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
+	if (lvl != -1){
+		funcPtr = arrayPtr[lvl];
+		(this->*funcPtr)();
+		return;
 	}
+	std::cerr << "Please enter valid input!!!" << std::endl;
 }
