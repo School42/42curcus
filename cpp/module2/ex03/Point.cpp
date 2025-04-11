@@ -7,7 +7,10 @@ Point::Point(const float xVal, const float yVal) : x(xVal), y(yVal) {}
 Point::Point(const Point &other) : x(other.getX()), y(other.getY()) {}
 
 Point &Point::operator=(const Point &other) {
-	(void)other;
+	if (this != &other) {
+        x = other.getX();
+        y = other.getY();
+    }
 	return *this;
 }
 

@@ -19,8 +19,10 @@ bool bsp(const Point a, const Point b, const Point c, const Point point) {
 	Fixed areaPBC = area(point, b, c);
 	Fixed areaPCA = area(point, c, a);
 
-	if (areaPAB == 0 || areaPBC == 0 || areaPCA == 0)
+	if (areaPAB == 0 || areaPBC == 0 || areaPCA == 0) {
+		std::cerr << "Not a triangle" << std::endl;
 		return false;
+	}
 
 	return (areaPAB + areaPBC + areaPCA == areaABC);
 }
