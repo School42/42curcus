@@ -1,9 +1,9 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-TARGET = polymorphism
+TARGET = abstract
 
-SRCS = main.cpp WrongCat.cpp WrongAnimal.cpp Dog.cpp Cat.cpp Animal.cpp
+SRCS = main.cpp WrongCat.cpp WrongAnimal.cpp Dog.cpp Cat.cpp Animal.cpp Brain.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(TARGET)
