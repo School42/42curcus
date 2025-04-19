@@ -3,10 +3,11 @@
 #define ICHARACTER_HPP
 
 #include "AMateria.hpp"
+#include "Forward.hpp"
 
 class	ICharacter
 {
-	private:
+	protected:
 		std::string name;
 	public:
 		ICharacter();

@@ -3,6 +3,7 @@
 #define IMATERIASOURCE_HPP
 
 #include "AMateria.hpp"
+#include "Forward.hpp"
 
 class IMateriaSource
 {

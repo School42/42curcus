@@ -1,6 +1,7 @@
 #include "AMateria.hpp"
+#include "ICharacter.hpp"
 
-AMateria::AMateria() {
+AMateria::AMateria() : type("") {
 	std::cout << "AMateria Default Constructor called" << std::endl;
 }
 
@@ -31,4 +32,6 @@ std::string const &AMateria::getType() const {
 	return this->type;
 }
 
-void AMateria::use(ICharacter& target){}
+void AMateria::use(ICharacter& target){
+	std::cout << target.getName() << " uses a meterial" << std::endl;
+}

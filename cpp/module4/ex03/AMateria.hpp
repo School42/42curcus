@@ -4,6 +4,7 @@
 
 #include <string>
 #include <iostream>
+#include "Forward.hpp"
 #include "ICharacter.hpp"
 
 class AMateria {
@@ -12,7 +13,7 @@ class AMateria {
 	public:
 		AMateria();
 		AMateria(std::string const &type);
-		~AMateria();
+		virtual ~AMateria();
 		AMateria(const AMateria &other);
 		AMateria &operator=(const AMateria &other);
 
