@@ -16,7 +16,7 @@ int	main()
 	Mario.attack("Shadow Queen");
 	Mario.takeDamage(3);
 	Mario.takeDamage(4);
-	Mario.beRepaired(10);
+	Mario.beRepaired(100);
 	Mario.attack("Bowser");
 	Mario.attack("King Boo");
 	Mario.attack("Kamek");

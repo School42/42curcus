@@ -95,6 +95,14 @@ void ClapTrap::beRepaired(unsigned int amount)
 		std::cout << "<ClapTrap " << this->name << " cannot repair. ";
 		std::cout << "Energy: " << this->energyPoint << " HP: " << this->hitPoint << " Status: Exhausted>" << std::endl;
 	}
+	else if (this->hitPoint + amount >= 100){
+		if (this->hitPoint < 100) {
+			this->energyPoint -= 1;
+			this->hitPoint = 100;
+		}
+		std::cout << "<ClapTrap " << this->name << " cannot regain HP more than 100. ";
+		std::cout << "Energy: " << this->energyPoint << " HP: " << this->hitPoint << " Status: Fully Repaired>" << std::endl;
+	}
 	else
 	{
 		this->energyPoint -= 1;
