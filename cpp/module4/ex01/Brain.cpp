@@ -38,7 +38,7 @@ Brain &Brain::operator=(const Brain &other) {
 
 std::string Brain::getIdea(int Index) {
 	if (Index < 0 || Index >= 100) {
-		return NULL;
+		return "";
 	}
 	return this->ideas[Index];
 }

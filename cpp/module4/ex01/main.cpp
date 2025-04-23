@@ -13,15 +13,20 @@ int main()
     std::getline(std::cin, count);
     std::stringstream(count) >> number;
     if (number <= 0 || number > 100) {
-        std::cout << "Please enter a number between 0 and 100" << std::endl;
+        std::cout << "Please enter a number between 1 and 100" << std::endl;
         return 0;
     }
     
     Dog dog("Rex");
     Cat cat("Whiskers");
-    
-    std::cout << "Dog's idea: " << dog.getIdea(0) << std::endl;
-    std::cout << "Cat's idea: " << cat.getIdea(0) << std::endl;
+    std::string dogIdea = dog.getIdea(10);
+	std::string catIdea = cat.getIdea(0);
+	if (dogIdea.empty() || catIdea.empty()) {
+		std::cout << "Please get the idea from the valid list\n" ;
+		return 1;
+	}
+    std::cout << "Dog's idea: " << dogIdea << std::endl;
+    std::cout << "Cat's idea: " << catIdea << std::endl;
     
     const Animal* j = new Dog();
     const Animal* i = new Cat();

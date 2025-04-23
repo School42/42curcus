@@ -45,7 +45,7 @@ Character &Character::operator=(const Character &other) {
 
 Character::~Character() {
 	std::cout << "Character Destructor called" << std::endl;
-	for (int i = 0; i < this->size; i++) {
+	for (int i = 0; i < 4; i++) {
 		if (this->inventory[i])
 			delete this->inventory[i];
 	}

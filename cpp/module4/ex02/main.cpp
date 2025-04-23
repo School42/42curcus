@@ -28,7 +28,6 @@ int main()
     
     Dog directDog("Buddy");
     Cat directCat("Felix");
-    
     std::cout << "Dog's idea: " << directDog.getIdea(0) << std::endl;
     std::cout << "Cat's idea: " << directCat.getIdea(1) << std::endl;
     
@@ -96,6 +95,11 @@ int main()
     wrongCat->makeSound();
     
     delete wrongCat;
+
+	// std::cout << "\n====== Abstract Class TEST ===== " << std::endl;
+	// Animal* testingdog;
+	// testingdog = new Animal();
+	// delete testingdog;
     
     return 0;
 }

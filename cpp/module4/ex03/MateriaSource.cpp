@@ -44,7 +44,7 @@ MateriaSource &MateriaSource::operator=(const MateriaSource &other) {
 
 MateriaSource::~MateriaSource() {
 	std::cout << "MateriaSource destructor called" << std::endl;
-	for (int i = 0 ; i < this->size ; i++) {
+	for (int i = 0 ; i < 4 ; i++) {
 		if (this->materia[i])
 			delete this->materia[i];
 	}

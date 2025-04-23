@@ -3,7 +3,7 @@
 Brain::Brain() {
 	std::cout << "Brain Default Constructor Called" << std::endl;
 	for (int i = 0; i < 100 ; i++) {
-		this->ideas[i] = "Good Idea " + (i + 1);
+		this->ideas[i] = "Good Idea ";
 	}
 }
 
@@ -11,7 +11,6 @@ Brain::Brain(const std::string &type) {
 	std::cout << "Brain Default Constructor Called" << std::endl;
 	for (int i = 0; i < 100 ; i++) {
 		this->ideas[i] = type + "'s Good Idea ";
-		this->ideas[i] += (i + 1);
 	}
 }
 
@@ -39,7 +38,7 @@ Brain &Brain::operator=(const Brain &other) {
 
 std::string Brain::getIdea(int Index) {
 	if (Index < 0 || Index >= 100) {
-		return NULL;
+		return "";
 	}
 	return this->ideas[Index];
 }
