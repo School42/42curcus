@@ -13,9 +13,10 @@ class Dog : public Animal {
 		Dog(std::string);
 		~Dog();
 		Dog(const Dog &other);
-		using Animal::operator=;
+		Dog &operator=(const Dog &other);
 		void makeSound(void) const;
 		std::string getIdea(int Index) {return this->brain->getIdea(Index);}
+		Brain* getBrain() const {return brain;}
 };
 
 #endif

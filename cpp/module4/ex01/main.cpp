@@ -7,50 +7,86 @@
 
 int main()
 {
-    std::string count;
-    int number;
-    std::cout << "Enter the count of animals : ";
-    std::getline(std::cin, count);
-    std::stringstream(count) >> number;
-    if (number <= 0 || number > 100) {
-        std::cout << "Please enter a number between 1 and 100" << std::endl;
-        return 0;
-    }
+	Dog dog1;
+	dog1.getBrain()->setIdea(0, "I want a bone.");
+
+	Dog dog2 = dog1;
+
+	std::cout << "Dog1 idea[0]: " << dog1.getIdea(0) << std::endl;
+	std::cout << "Dog2 idea[0]: " << dog2.getIdea(0) << std::endl;
+
+	dog2.getBrain()->setIdea(0, "I want to chase a cat.");
+
+	std::cout << "\nAfter changing dog2's idea:\n";
+	std::cout << "Dog1 idea[0]: " << dog1.getIdea(0) << std::endl;
+	std::cout << "Dog2 idea[0]: " << dog2.getIdea(0) << std::endl;
+
+	std::cout << "Brain address dog1: " << dog1.getBrain() << "\n";
+	std::cout << "Brain address dog2: " << dog2.getBrain() << "\n";
+	
+	std::cout << "\n##############################\n" << std::endl;
+	Cat cat1;
+	cat1.getBrain()->setIdea(0, "I want a fish.");
+
+	Cat cat2 = cat1;
+
+	std::cout << "Cat1 idea[0]: " << cat1.getIdea(0) << std::endl;
+	std::cout << "Cat2 idea[0]: " << cat2.getIdea(0) << std::endl;
+
+	cat2.getBrain()->setIdea(0, "I want to chase a mouse.");
+
+	std::cout << "\nAfter changing cat2's idea:\n";
+	std::cout << "Cat1 idea[0]: " << cat1.getIdea(0) << std::endl;
+	std::cout << "Cat2 idea[0]: " << cat2.getIdea(0) << std::endl;
+
+	std::cout << "Brain address cat1: " << cat1.getBrain() << "\n";
+	std::cout << "Brain address cat2: " << cat2.getBrain() << "\n";
+    // std::string count;
+    // int number;
+    // std::cout << "Enter the count of animals : ";
+    // std::getline(std::cin, count);
+    // std::stringstream(count) >> number;
+    // if (number <= 0 || number > 100) {
+    //     std::cout << "Please enter a number between 1 and 100" << std::endl;
+    //     return 0;
+    // }
     
-    Dog dog("Rex");
-    Cat cat("Whiskers");
-    std::string dogIdea = dog.getIdea(10);
-	std::string catIdea = cat.getIdea(0);
-	if (dogIdea.empty() || catIdea.empty()) {
-		std::cout << "Please get the idea from the valid list\n" ;
-		return 1;
-	}
-    std::cout << "Dog's idea: " << dogIdea << std::endl;
-    std::cout << "Cat's idea: " << catIdea << std::endl;
+    // Dog dog("Rex");
+    // Cat cat("Whiskers");
+    // std::string dogIdea = dog.getIdea(10);
+	// std::string catIdea = cat.getIdea(0);
+	// if (dogIdea.empty() || catIdea.empty()) {
+	// 	std::cout << "Please get the idea from the valid list\n" ;
+	// 	return 1;
+	// }
+    // std::cout << "Dog's idea: " << dogIdea << std::endl;
+    // std::cout << "Cat's idea: " << catIdea << std::endl;
     
-    const Animal* j = new Dog();
-    const Animal* i = new Cat();
-    i->makeSound();
-    j->makeSound();
-    delete j;
-    delete i;
+    // const Animal* j = new Dog();
+    // const Animal* i = new Cat();
+    // i->makeSound();
+    // j->makeSound();
+    // delete j;
+    // delete i;
     
-    std::cout << "############################" << std::endl;
-    std::cout << "####### Start of test ######" <<std::endl;
-    std::cout << "############################" << std::endl << std::endl;
+    // std::cout << "############################" << std::endl;
+    // std::cout << "####### Start of test ######" <<std::endl;
+    // std::cout << "############################" << std::endl << std::endl;
     
-    Animal* animals[number];
-    for (int k = 0 ; k < number ; k++) {
-        if (k % 2 == 0) {
-            animals[k] = new Cat();
-        } else {
-            animals[k] = new Dog();
-        }
-    }
+    // Animal* animals[number];
+    // for (int k = 0 ; k < number ; k++) {
+    //     if (k % 2 == 0) {
+    //         animals[k] = new Cat();
+	// 		std::cout << "Animal " << k << " , Cat " << (k / 2) << std::endl;
+    //     } else {
+    //         animals[k] = new Dog();
+	// 		std::cout << "Animal " << k << " , Dog " << (k / 2) << std::endl;
+    //     }
+    // }
     
-    for (int l = 0; l < number ; l++) {
-        delete animals[l];
-    }
+    // for (int l = 0; l < number ; l++) {
+    //     delete animals[l];
+    // }
     
     return 0;
 }

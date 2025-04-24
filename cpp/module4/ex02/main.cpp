@@ -59,10 +59,10 @@ int main()
     for (int i = 0; i < number; i++) {
         if (i % 2 == 0) {
             animals[i] = new Cat();
-            std::cout << "Created Cat #" << i << std::endl;
+            std::cout << "Animal " << i << " , Dog " << (i / 2) << std::endl;
         } else {
             animals[i] = new Dog();
-            std::cout << "Created Dog #" << i << std::endl;
+            std::cout << "Animal " << i << " , Dog " << (i / 2) << std::endl;
         }
     }
     
