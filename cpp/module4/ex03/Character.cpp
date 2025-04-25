@@ -57,7 +57,7 @@ std::string const &Character::getName() const {
 
 void Character::equip(AMateria* m) {
 	if (m == NULL) {
-        std::cout << "Cannot equip NULL materia" << std::endl;
+        std::cout << "Cannot equip outsider materia" << std::endl;
         return;
     }
 	if (this->size < 4) {
