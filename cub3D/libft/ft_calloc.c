@@ -1,49 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/25 16:00:37 by talin             #+#    #+#             */
-/*   Updated: 2025/05/13 11:08:48 by talin            ###   ########.fr       */
+/*   Created: 2024/08/25 13:50:29 by talin             #+#    #+#             */
+/*   Updated: 2024/10/07 13:20:28 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	char	*ptr;
-	int		i;
-	int		j;
+	void	*ptr;
+	size_t	req;
 
-	ptr = (char *)malloc(sizeof(char)
-			* (ft_strlen((char *) s1) + ft_strlen((char *) s2) + 1));
+	req = (size_t)(nmemb * size);
+	if ((long) nmemb == 0 || (long) size == 0)
+		req = 1;
+	else if ((long) nmemb < 0 || (long) size < 0)
+		return (NULL);
+	ptr = malloc(req);
 	if (!ptr)
 		return (NULL);
-	i = 0;
-	j = 0;
-	while (s1[i])
-	{
-		ptr[i] = s1[i];
-		i++;
-	}
-	while (s2[j])
-	{
-		ptr[i] = s2[j];
-		j++;
-		i++;
-	}
-	ptr[i] = '\0';
+	ft_bzero(ptr, req);
 	return (ptr);
 }
 /*
 #include <stdio.h>
-
 int	main()
 {
-	char	*ptr = ft_strjoin("hello ", "world");
-	printf("ptr: %s\n", ptr);
+	int	n = -5;
+	int	*array;
+
+	array = (int *)ft_calloc(n, sizeof(int));
+	if (array == NULL)
+	{
+		return (0);
+	}
+	for (int i = 0; i < n; i++)
+	{
+		printf("%d ", array[i]);
+	}
+	printf("\n");
+	free(array);
+	return (0);
 }
 */

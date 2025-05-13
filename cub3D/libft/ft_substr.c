@@ -1,41 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/25 16:00:37 by talin             #+#    #+#             */
-/*   Updated: 2025/05/13 11:08:48 by talin            ###   ########.fr       */
+/*   Created: 2024/08/25 15:48:36 by talin             #+#    #+#             */
+/*   Updated: 2024/11/15 14:00:25 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*ptr;
-	int		i;
-	int		j;
+	char	*tmp;
+	size_t	i;
+	size_t	s_len;
 
-	ptr = (char *)malloc(sizeof(char)
-			* (ft_strlen((char *) s1) + ft_strlen((char *) s2) + 1));
+	if (!s)
+		return (NULL);
+	s_len = ft_strlen(s);
+	if (s == NULL || s_len < start)
+		return (ft_strdup(""));
+	if (start + len < s_len)
+		ptr = (char *)malloc((len + 1) * sizeof(char));
+	else
+		ptr = (char *)malloc((s_len - start + 1) * sizeof(char));
 	if (!ptr)
 		return (NULL);
-	i = 0;
-	j = 0;
-	while (s1[i])
-	{
-		ptr[i] = s1[i];
-		i++;
-	}
-	while (s2[j])
-	{
-		ptr[i] = s2[j];
-		j++;
-		i++;
-	}
-	ptr[i] = '\0';
+	i = start;
+	tmp = ptr;
+	while (i < (start + len) && s[i])
+		*tmp++ = *(s + i++);
+	*tmp = '\0';
 	return (ptr);
 }
 /*
@@ -43,7 +42,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 int	main()
 {
-	char	*ptr = ft_strjoin("hello ", "world");
-	printf("ptr: %s\n", ptr);
+	char	*ptr = ft_substr("hello world", 3, 5);
+	printf("%s\n", ptr);
 }
 */

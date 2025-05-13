@@ -1,49 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/25 16:00:37 by talin             #+#    #+#             */
-/*   Updated: 2025/05/13 11:08:48 by talin            ###   ########.fr       */
+/*   Created: 2024/08/24 18:07:28 by talin             #+#    #+#             */
+/*   Updated: 2024/09/09 16:17:13 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	char	*ptr;
-	int		i;
-	int		j;
+	size_t	i;
 
-	ptr = (char *)malloc(sizeof(char)
-			* (ft_strlen((char *) s1) + ft_strlen((char *) s2) + 1));
-	if (!ptr)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (s1[i])
+	if (!src)
+		return (0);
+	i = ft_strlen(src);
+	if (size == 0)
+		return (i);
+	if (i < size - 1)
+		ft_memcpy(dst, src, i + 1);
+	else if (size != 0)
 	{
-		ptr[i] = s1[i];
-		i++;
+		ft_memcpy(dst, src, size - 1);
+		dst[size - 1] = '\0';
 	}
-	while (s2[j])
-	{
-		ptr[i] = s2[j];
-		j++;
-		i++;
-	}
-	ptr[i] = '\0';
-	return (ptr);
+	return (i);
 }
 /*
 #include <stdio.h>
+#include <bsd/string.h>
 
 int	main()
 {
-	char	*ptr = ft_strjoin("hello ", "world");
-	printf("ptr: %s\n", ptr);
+	char	src[10] = "hello";
+	char	dest[10] = "AAAAA";
+	size_t	n = ft_strlcpy(dest, src, 3);
+	printf("n: %zu, dest: %s\n", n , dest);
 }
 */

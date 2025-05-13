@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: talin <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/24 15:39:48 by talin             #+#    #+#             */
-/*   Updated: 2025/05/13 11:05:59 by talin            ###   ########.fr       */
+/*   Created: 2024/08/27 13:52:51 by talin             #+#    #+#             */
+/*   Updated: 2024/08/27 14:07:58 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isalnum(int c)
+int	ft_isdigit(int c)
 {
-	int	n;
-
-	n = 0;
-	if ((c >= '0' && c <= '9')
-		|| (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-	{
-		n = 8;
-	}
-	return (n);
+	if (c >= 48 && c <= 57)
+		return (2048);
+	return (0);
 }
+/*
+#include <stdio.h>
+#include <ctype.h>
+
+int	main()
+{
+	int	n = isdigit(49);
+	printf("n: %d\n", n);
+}
+*/

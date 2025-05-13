@@ -1,26 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/24 15:39:48 by talin             #+#    #+#             */
-/*   Updated: 2025/05/13 11:05:59 by talin            ###   ########.fr       */
+/*   Created: 2024/08/25 10:52:33 by talin             #+#    #+#             */
+/*   Updated: 2024/08/28 14:33:15 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isalnum(int c)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int	n;
+	unsigned char	*tmp;
+	unsigned char	chr;
+	size_t			i;
 
-	n = 0;
-	if ((c >= '0' && c <= '9')
-		|| (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+	tmp = (unsigned char *)s;
+	chr = (unsigned char)c;
+	i = 0;
+	while (i < n)
 	{
-		n = 8;
+		if (tmp[i] == chr)
+			return ((void *)(tmp + i));
+		i++;
 	}
-	return (n);
+	return (NULL);
 }
+/*
+#include <stdio.h>
+#include <string.h>
+
+int	main()
+{
+	const char	str[6] = "hello";
+	char	*r;
+	r = ft_memchr(str, 'l', 5);
+	printf("str: %s\n", r);
+}
+*/

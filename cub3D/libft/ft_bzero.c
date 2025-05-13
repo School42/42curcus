@@ -1,26 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/24 15:39:48 by talin             #+#    #+#             */
-/*   Updated: 2025/05/13 11:05:59 by talin            ###   ########.fr       */
+/*   Created: 2024/08/24 17:12:20 by talin             #+#    #+#             */
+/*   Updated: 2024/08/28 19:36:24 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isalnum(int c)
+void	ft_bzero(void *s, size_t n)
 {
-	int	n;
+	size_t	i;
+	char	*str;
 
-	n = 0;
-	if ((c >= '0' && c <= '9')
-		|| (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-	{
-		n = 8;
-	}
-	return (n);
+	if (!n)
+		return ;
+	i = 0;
+	str = s;
+	while (i < n)
+		*(str + i++) = '\0';
 }
+/*
+#include <stdio.h>
+#include <strings.h>
+int	main()
+{
+	char	str[20] = "hello world";
+	ft_bzero(str + 2, 5);
+	printf("%s\n", str);
+}
+*/

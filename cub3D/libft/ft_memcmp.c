@@ -1,49 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/25 16:00:37 by talin             #+#    #+#             */
-/*   Updated: 2025/05/13 11:08:48 by talin            ###   ########.fr       */
+/*   Created: 2024/08/25 11:50:52 by talin             #+#    #+#             */
+/*   Updated: 2024/10/07 13:35:06 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	char	*ptr;
-	int		i;
-	int		j;
+	unsigned char	*d1;
+	unsigned char	*d2;
+	size_t			i;
 
-	ptr = (char *)malloc(sizeof(char)
-			* (ft_strlen((char *) s1) + ft_strlen((char *) s2) + 1));
-	if (!ptr)
-		return (NULL);
 	i = 0;
-	j = 0;
-	while (s1[i])
+	if (n == 0)
+		return (0);
+	d1 = (unsigned char *)s1;
+	d2 = (unsigned char *)s2;
+	while (i < n)
 	{
-		ptr[i] = s1[i];
+		if ((unsigned char)d1[i] != (unsigned char)d2[i])
+			return ((unsigned char)d1[i] - (unsigned char)d2[i]);
 		i++;
 	}
-	while (s2[j])
-	{
-		ptr[i] = s2[j];
-		j++;
-		i++;
-	}
-	ptr[i] = '\0';
-	return (ptr);
+	return (0);
 }
 /*
 #include <stdio.h>
-
+#include <string.h>
 int	main()
 {
-	char	*ptr = ft_strjoin("hello ", "world");
-	printf("ptr: %s\n", ptr);
+	int	n = ft_memcmp("hello1", "hello2", 6);
+	printf("n: %i\n", n);
 }
 */

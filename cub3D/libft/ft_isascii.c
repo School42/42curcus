@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/24 15:39:48 by talin             #+#    #+#             */
-/*   Updated: 2025/05/13 11:05:59 by talin            ###   ########.fr       */
+/*   Created: 2024/08/24 16:00:39 by talin             #+#    #+#             */
+/*   Updated: 2024/08/27 13:51:06 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isalnum(int c)
+int	ft_isascii(int c)
 {
-	int	n;
-
-	n = 0;
-	if ((c >= '0' && c <= '9')
-		|| (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+	if (c >= 0 && c <= 127)
 	{
-		n = 8;
+		return (1);
 	}
-	return (n);
+	return (0);
 }
+/*
+#include <stdio.h>
+#include <ctype.h>
+
+int	main()
+{
+	int	n = ft_isascii(0);
+	int	x = ft_isascii(-1);
+	int	y = ft_isascii(128);
+	int	z = ft_isascii(127);
+	printf("n: %d, x: %d, y: %d, z: %d\n", n, x, y, z);
+}
+*/

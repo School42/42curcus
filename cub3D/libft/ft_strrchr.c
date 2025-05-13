@@ -1,26 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/24 15:39:48 by talin             #+#    #+#             */
-/*   Updated: 2025/05/13 11:05:59 by talin            ###   ########.fr       */
+/*   Created: 2024/08/25 10:38:24 by talin             #+#    #+#             */
+/*   Updated: 2024/09/09 15:50:16 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isalnum(int c)
+char	*ft_strrchr(const char *s, int c)
 {
-	int	n;
+	int		n;
+	char	chr;
 
-	n = 0;
-	if ((c >= '0' && c <= '9')
-		|| (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+	if (!s)
+		return (NULL);
+	n = ft_strlen((char *)s);
+	chr = (char)c;
+	while (n > 0)
 	{
-		n = 8;
+		if (s[n] == chr)
+			return ((char *)(s + n));
+		n--;
 	}
-	return (n);
+	if (s[n] == chr)
+		return ((char *)(s + n));
+	return (NULL);
 }
+/*
+#include <stdio.h>
+#include <string.h>
+
+int	main()
+{
+	char	str[] = "pepe y cparlos";
+	printf("str: %s\n", ft_strrchr(str, 'c'));
+}
+*/

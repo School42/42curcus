@@ -1,49 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/25 16:00:37 by talin             #+#    #+#             */
-/*   Updated: 2025/05/13 11:08:48 by talin            ###   ########.fr       */
+/*   Created: 2024/08/26 11:53:16 by talin             #+#    #+#             */
+/*   Updated: 2024/09/09 16:02:16 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
 	char	*ptr;
-	int		i;
-	int		j;
+	size_t	i;
 
-	ptr = (char *)malloc(sizeof(char)
-			* (ft_strlen((char *) s1) + ft_strlen((char *) s2) + 1));
-	if (!ptr)
+	if (!s)
 		return (NULL);
 	i = 0;
-	j = 0;
-	while (s1[i])
+	ptr = ft_strdup(s);
+	if (!ptr)
+		return (NULL);
+	while (ptr[i])
 	{
-		ptr[i] = s1[i];
+		ptr[i] = (*f)(i, ptr[i]);
 		i++;
 	}
-	while (s2[j])
-	{
-		ptr[i] = s2[j];
-		j++;
-		i++;
-	}
-	ptr[i] = '\0';
 	return (ptr);
 }
 /*
 #include <stdio.h>
 
+char	ft_f(unsigned int i, char str)
+{
+	printf("index: %d, %c\n", i, str);
+	return (str - 32);
+}
+
 int	main()
 {
-	char	*ptr = ft_strjoin("hello ", "world");
-	printf("ptr: %s\n", ptr);
+	char	str[10] = "hello";
+	char	*ptr = ft_strmapi(str, ft_f);
+	printf("result : %s\n", ptr);
+	return 0;
 }
 */

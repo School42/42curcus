@@ -1,26 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/24 15:39:48 by talin             #+#    #+#             */
-/*   Updated: 2025/05/13 11:05:59 by talin            ###   ########.fr       */
+/*   Created: 2024/08/25 10:14:54 by talin             #+#    #+#             */
+/*   Updated: 2024/10/08 10:25:52 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isalnum(int c)
+char	*ft_strchr(const char *s, int c)
 {
-	int	n;
+	int		i;
+	char	chr;
 
-	n = 0;
-	if ((c >= '0' && c <= '9')
-		|| (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+	if (!s)
+		return (NULL);
+	chr = (char)c;
+	i = 0;
+	while (s[i])
 	{
-		n = 8;
+		if (s[i] == chr)
+			return ((char *)(s + i));
+		i++;
 	}
-	return (n);
+	if (s[i] == chr)
+		return ((char *)(s + i));
+	return (NULL);
 }
+/*
+#include <stdio.h>
+#include <string.h>
+
+int	main()
+{
+	char	str[10] = "hello";
+	printf("str: %s\n", ft_strchr(str, 'a'));
+}
+*/
