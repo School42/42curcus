@@ -14,7 +14,7 @@ LIBS        = ${LIBFT}/libft.a
 
 SRCS_DIR    = ./src/
 
-SRC         = test.c
+SRC         = sprite_animation.c
 
 SRCS        = $(addprefix ${SRCS_DIR}, ${SRC})
 
@@ -24,7 +24,7 @@ OBJS 		= ${addprefix ${OBJ_PATH}, ${OBJ}}
 
 CC          = cc
 
-CFLAGS      = -Wall -Werror -Wextra
+CFLAGS      = -g3
 
 INC 		= -I ./include/\
 				-I ./libft/\
