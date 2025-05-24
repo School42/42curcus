@@ -1,0 +1,70 @@
+function render_scene():
+    for x in 0 to screen_width:
+        calculate ray_direction based on player_direction and camera_plane
+        determine current_map_square from player_position
+        calculate step and initial_side_distance
+        perform DDA:
+            while not hit:
+                if side_distance_x < side_distance_y:
+                    side_distance_x += delta_distance_x
+                    map_x += step_x
+                    side = 0
+                else:
+                    side_distance_y += delta_distance_y
+                    map_y += step_y
+                    side = 1
+                if map_square at (map_x, map_y) is wall:
+                    hit = true
+        calculate perpendicular_distance to wall
+        calculate line_height based on perpendicular_distance
+        determine draw_start and draw_end positions
+        select texture based on wall orientation
+        calculate texture_x coordinate
+        for y in draw_start to draw_end:
+            calculate texture_y coordinate
+            get color from texture at (texture_x, texture_y)
+            draw_pixel(x, y, color)
+
+
+function initialize_player(map_data):
+    for each row in map_data:
+        for each character in row:
+            if character in ['N', 'S', 'E', 'W']:
+                set player_position to current coordinates
+                set player_direction based on character
+                replace character with '0' in map_data
+
+
+function parse_cub_file(file_path):
+    open file
+    for each line in file:
+        if line starts with 'R':
+            parse_resolution(line)
+        else if line starts with 'NO', 'SO', 'WE', 'EA', 'S':
+            parse_texture_path(line)
+        else if line starts with 'F' or 'C':
+            parse_floor_ceiling_color(line)
+        else:
+            append line to map_data
+    validate_map(map_data)
+
+
+function handle_input():
+    if key_pressed == 'W':
+        move_forward()
+    if key_pressed == 'S':
+        move_backward()
+    if key_pressed == 'A':
+        rotate_left()
+    if key_pressed == 'D':
+        rotate_right()
+	if key_pressed == 'Enter':
+		exit_game()
+	
+function render_floor_ceiling():
+    for y in 0 to screen_height / 2:
+        for x in 0 to screen_width:
+            draw_pixel(x, y, ceiling_color)
+    for y in screen_height / 2 to screen_height:
+        for x in 0 to screen_width:
+            draw_pixel(x, y, floor_color)
