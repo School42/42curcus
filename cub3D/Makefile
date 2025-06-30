@@ -8,15 +8,11 @@ MLX_PATH 	= ./minilibx-linux/
 MLX_NAME 	= libmlx.a
 MLX 		= ${MLX_PATH}${MLX_NAME}
 
-HEADERS     = -I ./include -I ${LIBFT}
-
-LIBS        = ${LIBFT}/libft.a
-
 SRCS_DIR    = ./src/
 
-SRC         = sprite_animation.c
-
-SRCS        = $(addprefix ${SRCS_DIR}, ${SRC})
+SRC         = main.c \
+				utility.c \
+				create_game_map.c
 
 OBJ_PATH 	= ./objs/
 OBJ 		= ${SRC:.c=.o}
@@ -24,7 +20,7 @@ OBJS 		= ${addprefix ${OBJ_PATH}, ${OBJ}}
 
 CC          = cc
 
-CFLAGS      = -g3
+CFLAGS      = -Wall -Wextra -Werror -g3
 
 INC 		= -I ./include/\
 				-I ./libft/\
@@ -36,7 +32,7 @@ ${OBJ_PATH}:
 		mkdir -p ${OBJ_PATH}
 
 ${OBJ_PATH}%.o: ${SRCS_DIR}%.c
-		${CC} ${CFLAGS} -c $< -o $@ ${INC}
+		@${CC} ${CFLAGS} -c $< -o $@ ${INC}
 
 ${NAME}: ${OBJS}
 		${CC} ${CFLAGS} ${OBJS} -o $@ ${INC} ${LIBFT} ${MLX} -lXext -lX11 -lm -lz
