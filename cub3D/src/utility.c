@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 11:05:06 by talin             #+#    #+#             */
-/*   Updated: 2025/06/30 13:28:44 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/01 13:05:08 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,45 @@ int	ft_file_extension(char *filename)
 		return (0);
 	if (ft_strcmp(extension + 1, "cub") != 0)
 		return (0);
+	return (1);
+}
+
+size_t	ft_length_str_arr(char **string_arr)
+{
+	size_t	i;
+
+	i = 0;
+	while (string_arr[i])
+	{
+		i++;
+	}
+	return (i);
+}
+
+int	ft_file_exist(char *filename)
+{
+	int	fd;
+
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+		return (0);
+	else
+		close(fd);
+	return (1);
+}
+
+int	ft_check_digit(char *c_code)
+{
+	int	i;
+
+	i = 0;
+	if (!c_code)
+		return (0);
+	while (c_code[i])
+	{
+		if (!ft_isdigit(c_code[i]))
+			return (0);
+		i++;
+	}
 	return (1);
 }

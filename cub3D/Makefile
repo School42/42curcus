@@ -12,7 +12,17 @@ SRCS_DIR    = ./src/
 
 SRC         = main.c \
 				utility.c \
-				create_game_map.c
+				create_game_map.c \
+				check_texture_color.c \
+				copy_texture_color.c \
+				free.c \
+				init.c \
+				print.c \
+				utility_two.c \
+				utility_three.c \
+				validation_texture_color.c \
+				copy_map_lines.c \
+				validate_game_map.c
 
 OBJ_PATH 	= ./objs/
 OBJ 		= ${SRC:.c=.o}
