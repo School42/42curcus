@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2025/07/01 16:52:36 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/02 16:40:18 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,7 @@ int			ft_find_longest_length(t_data *data);
 char		*copy_map_lines(int size, char *src);
 int			validate_game_map(t_game_map *map);
 int			valid_char(int c);
+int			is_player(int c);
+int			is_floor_player(int c);
 
 #endif
