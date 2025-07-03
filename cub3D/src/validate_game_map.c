@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 16:30:05 by talin             #+#    #+#             */
-/*   Updated: 2025/07/02 17:15:27 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/03 10:52:41 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	outsider_found_num_player(t_game_map *map)
 		while (++j < map->width)
 		{
 			if (!valid_char(map->game_map[i][j]))
-				return (printf("outsider character found!\n"), 0);
+				return (printf("outsider character found ->%c<-!\n", map->game_map[i][j]), 0);
 			if (is_player(map->game_map[i][j]))
 			{
 				map->num_player++;
@@ -35,7 +35,7 @@ static int	outsider_found_num_player(t_game_map *map)
 		}
 	}
 	if (map->num_player != 1)
-		return (printf("more than one player!\n"), 0);
+		return (printf("more than one player or none!\n"), 0);
 	return (1);
 }
 
@@ -195,7 +195,7 @@ static int	surrounded_by_walls(t_game_map *map)
 		if (i == 0 || i == map->height - 1)
 		{
 			if (!check_top_bottom(map->game_map[i], map->width))
-				return (printf("top or bottom line of map error!\n"), 0);
+				return (printf("hole in the wall!\n"), 0);
 		}
 		else
 		{

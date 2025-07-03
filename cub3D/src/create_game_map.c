@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 11:52:35 by talin             #+#    #+#             */
-/*   Updated: 2025/07/01 16:53:57 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/03 11:04:18 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,11 @@ char	**ft_making_game_map(t_data *data)
 	int		i;
 	int		j;
 
-	ft_finding_pos_map(data);
+	if (!ft_finding_pos_map(data))
+		return (printf("Map is split by new line!\n"), NULL);
 	size = data->map->end - data->map->start + 1;
-	if (size <= 1)
-		return (NULL);
+	if (size <= 2)
+		return (printf("map is too small!\n"), NULL);
 	data->map->width = ft_find_longest_length(data);
 	data->map->height = size;
 	game_map = (char **)malloc(sizeof(char *) * size + 1);
@@ -77,7 +78,7 @@ t_data	*ft_create_game_map(char **av, int fd)
 		return (printf("Error\n"), NULL);
 	data->map->game_map = ft_making_game_map(data);
 	if (!data->map->game_map)
-		return (printf("game map error!\n"), NULL);
+		return (printf("Error, map is missing!\n"), NULL);
 	if (!validate_game_map(data->map))
 		return (printf("game map error!\n"), NULL);
 	print_game_map(data->map->game_map);

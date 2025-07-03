@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2025/07/02 16:40:18 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/03 11:08:28 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct s_data
 	t_game_map	*map;
 }	t_data;
 
-int			ft_file_extension(char *filename);
+int			ft_file_extension(char *filename, char *ext);
 int			ft_strcmp(char *s1, char *s2);
 t_data		*ft_create_game_map(char **av, int fd);
 void		print_map(t_data *data);
@@ -85,7 +85,7 @@ int			texture_and_color(t_data *data);
 t_data		*init_data(void);
 t_tex_color	*ft_init_tex_color(void);
 int			*copy_codes(char **string_arr);
-void		ft_finding_pos_map(t_data *data);
+int			ft_finding_pos_map(t_data *data);
 void		print_game_map(char **game_map);
 int			ft_find_longest_length(t_data *data);
 char		*copy_map_lines(int size, char *src);
@@ -93,5 +93,6 @@ int			validate_game_map(t_game_map *map);
 int			valid_char(int c);
 int			is_player(int c);
 int			is_floor_player(int c);
+int			contain_only_certain_characters(char *src, char *allowed);
 
 #endif

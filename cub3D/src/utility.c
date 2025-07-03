@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 11:05:06 by talin             #+#    #+#             */
-/*   Updated: 2025/07/01 13:05:08 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/03 11:16:21 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ int	ft_strcmp(char *s1, char *s2)
 	return ((unsigned char)*s1 - (unsigned char)*s2);
 }
 
-int	ft_file_extension(char *filename)
+int	ft_file_extension(char *filename, char *ext)
 {
 	char	*extension;
 
 	extension = ft_strrchr(filename, '.');
 	if (!extension)
 		return (0);
-	if (ft_strcmp(extension + 1, "cub") != 0)
+	if (ft_strcmp(extension + 1, ext) != 0)
 		return (0);
 	return (1);
 }
@@ -46,10 +46,27 @@ size_t	ft_length_str_arr(char **string_arr)
 	return (i);
 }
 
+int	is_dir(char *filename)
+{
+	int	fd;
+
+	fd = open(filename, __O_DIRECTORY);
+	if (fd >= 0)
+	{
+		close(fd);
+		return (1);
+	}
+	return (0);
+}
+
 int	ft_file_exist(char *filename)
 {
 	int	fd;
 
+	if (!ft_file_extension(filename, "png"))
+		return (printf("only png texture file is acceptable!\n"), 0);
+	if (is_dir(filename))
+		return (printf("texture file can't be a directory!\n"), 0);
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return (0);
