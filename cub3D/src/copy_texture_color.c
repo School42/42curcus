@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 13:04:01 by talin             #+#    #+#             */
-/*   Updated: 2025/07/03 14:57:19 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/03 15:39:49 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int	*copy_codes(char **string_arr)
 
 	code = copy_color_codes(string_arr);
 	if (!code)
-		return (printf("invalid color code!\n"), NULL);
+		return (error_ft(ERR_CANT_COPY), NULL);
 	if (!ft_color_check(code))
-		return (printf("invalid color code!\n"), free(code), NULL);
+		return (error_ft(ERR_COLOR_CODE), free(code), NULL);
 	codes = (int *)malloc(sizeof(int) * 4);
 	if (!codes)
 		return (free(code), NULL);

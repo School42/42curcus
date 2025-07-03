@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 16:30:05 by talin             #+#    #+#             */
-/*   Updated: 2025/07/03 10:52:41 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/03 15:55:31 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	outsider_found_num_player(t_game_map *map)
 		while (++j < map->width)
 		{
 			if (!valid_char(map->game_map[i][j]))
-				return (printf("outsider character found ->%c<-!\n", map->game_map[i][j]), 0);
+				return (error_ft(ERR_INV_LETTER), 0);
 			if (is_player(map->game_map[i][j]))
 			{
 				map->num_player++;
@@ -34,8 +34,10 @@ static int	outsider_found_num_player(t_game_map *map)
 			}
 		}
 	}
-	if (map->num_player != 1)
-		return (printf("more than one player or none!\n"), 0);
+	if (map->num_player > 1)
+		return (error_ft(ERR_NUM_PLAYER), 0);
+	if (map->num_player < 1)
+		return (error_ft(ERR_NO_PLAYER), 0);
 	return (1);
 }
 
@@ -153,12 +155,12 @@ int	valid_pos(t_game_map *map, int row, int col)
 	if (is_floor_player(c))
 	{
 		if (touched_with_space(map->game_map, row, col))
-			return (printf("floor is touched with space\n"), 0);
+			return (error_ft(ERR_MAP_SPACE_FLOOR), 0);
 	}
 	else if (c == ' ')
 	{
 		if (!closed_by_wall(map->game_map, row, col))
-			return (printf("sapce is touched with floor or player\n"), 0);
+			return (error_ft(ERR_MAP_SPACE_FLOOR), 0);
 	}
 	return (1);
 }
@@ -175,7 +177,7 @@ static int	check_line_by_line(t_game_map *map, char *line, int row)
 	while (j > 0 && line[j] == ' ')
 		j--;
 	if (line[i] != '1' || !connected_wall(map, row, i) || line[j] != '1' || !connected_wall(map, row, j))
-		return (printf("edge of map error!\n"), 0);
+		return (error_ft(ERR_MAP_NO_WALLS), 0);
 	while (i < j)
 	{
 		if (!valid_pos(map, row, i))
@@ -195,12 +197,12 @@ static int	surrounded_by_walls(t_game_map *map)
 		if (i == 0 || i == map->height - 1)
 		{
 			if (!check_top_bottom(map->game_map[i], map->width))
-				return (printf("hole in the wall!\n"), 0);
+				return (error_ft(ERR_MAP_NO_WALLS), 0);
 		}
 		else
 		{
 			if (!check_line_by_line(map, map->game_map[i], i))
-				return (printf("invalid map!\n"), 0);
+				return (0);
 		}
 	}
 	return (1);

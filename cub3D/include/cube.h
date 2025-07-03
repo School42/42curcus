@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2025/07/03 13:31:10 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/03 16:19:23 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,43 @@
 # include <errno.h>
 # include <stdio.h>
 # include <string.h>
+
+# define ERR_USAGE "usage: ./cub3d <path/to/map.cub>"
+
+# define ERR_FILE_NOT_CUB "Not a .cub file"
+# define ERR_FILE_NOT_PNG "Not an .png file"
+# define ERR_TEXTURE_FILE "More than one texture file is provided"
+# define ERR_EMPTY "Empty file"
+# define ERR_FILE_IS_DIR "Is a directory"
+# define ERR_COLOR_CODE "Not a valid color code"
+# define ERR_MUL_COL "So many color codes than needed"
+# define ERR_INVALID_ELE "Invalid element information is found"
+# define ERR_CANT_COPY "Cannot be copied, system error"
+# define ERR_MAP_NOT_CREATED "Map is not created"
+# define ERR_FLOOR_CEILING "Invalid floor/ceiling RGB color(s)"
+# define ERR_COLOR_FLOOR "Invalid floor RGB color"
+# define ERR_COLOR_CEILING "Invalid ceiling RGB color"
+# define ERR_INVALID_MAP "Map description is either wrong or incomplete"
+# define ERR_INV_LETTER "Invalid character in map"
+# define ERR_NUM_PLAYER "Map has more than one player"
+# define ERR_NO_PLAYER "No player"
+# define ERR_COLOR_RGB_VAL "Invalid RGB value (min: 0, max: 255)"
+# define ERR_TEX_MISSING "Missing texture(s)"
+# define ERR_TEX_INVALID "Invalid texture(s)"
+# define ERR_COLOR_MISSING "Missing color(s)"
+# define ERR_MAP_MISSING "Missing map"
+# define ERR_MAP_TOO_SMALL "Map is not at least 3 lines high"
+# define ERR_MAP_SPACE_FLOOR "Floor is near space"
+# define ERR_MAP_NO_WALLS "Map is not surrounded by walls"
+# define ERR_MAP_NL "New line is found in the map"
+# define ERR_MAP_LAST "Map is not the last element in file"
+# define ERR_PLAYER_POS "Invalid player position"
+# define ERR_PLAYER_DIR "Map has no player position (expected N, S, E or W)"
+# define ERR_MALLOC "Could not allocate memory"
+# define ERR_MLX_START "Could not start mlx"
+# define ERR_MLX_WIN "Could not create mlx window"
+# define ERR_MLX_IMG "Could not create mlx image"
+# define ERR_MUL_ELE "More than needed element informations (duplicate data)"
 
 typedef struct s_tex_color
 {
@@ -64,6 +101,7 @@ typedef struct s_data
 	t_game_map	*map;
 }	t_data;
 
+void		error_ft(char *err);
 void		free_data(t_data *data);
 int			ft_file_extension(char *filename, char *ext);
 int			ft_strcmp(char *s1, char *s2);

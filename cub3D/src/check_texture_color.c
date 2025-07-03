@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 13:06:18 by talin             #+#    #+#             */
-/*   Updated: 2025/07/03 13:57:05 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/03 16:02:15 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_color_check(char *color)
 			return (ft_free_string_arr(colors), 0);
 		c_code = ft_atoi(colors[i]);
 		if (!(0 <= c_code && c_code <= 255))
-			return (ft_free_string_arr(colors), 0);
+			return (error_ft(ERR_COLOR_RGB_VAL), ft_free_string_arr(colors), 0);
 		i++;
 	}
 	ft_free_string_arr(colors);
@@ -41,9 +41,11 @@ int	ft_color_check(char *color)
 
 int	ft_check_texture_color(t_tex_color *tex_color)
 {
-	if (!tex_color->north_texture || !tex_color->south_texture || !tex_color->east_texture || !tex_color->west_texture || !tex_color->floor_color || !tex_color->ceiling_color)
-		return (printf("texture or color code is missing\n"), 0);
+	if (!tex_color->north_texture || !tex_color->south_texture || !tex_color->east_texture || !tex_color->west_texture)
+		return (error_ft(ERR_TEX_MISSING), 0);
+	if (!tex_color->floor_color || !tex_color->ceiling_color)
+		return (error_ft(ERR_COLOR_MISSING), 0);
 	if (!ft_file_exist(tex_color->north_texture) || !ft_file_exist(tex_color->east_texture) || !ft_file_exist(tex_color->west_texture) || !ft_file_exist(tex_color->south_texture))
-		return (printf("texture file not existed\n"), 0);
+		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 11:52:35 by talin             #+#    #+#             */
-/*   Updated: 2025/07/03 14:35:08 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/03 15:47:44 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ char	**ft_making_game_map(t_data *data)
 	int		j;
 
 	if (!ft_finding_pos_map(data))
-		return (printf("Map is split by new line!\n"), NULL);
+		return (error_ft(ERR_MAP_NL), NULL);
 	size = data->map->end - data->map->start + 1;
 	if (size <= 2)
-		return (printf("map is too small!\n"), NULL);
+		return (error_ft(ERR_MAP_TOO_SMALL), NULL);
 	data->map->width = ft_find_longest_length(data);
 	data->map->height = size;
 	game_map = (char **)malloc(sizeof(char *) * (size + 1));
@@ -67,21 +67,20 @@ t_data	*ft_create_game_map(char **av, int fd)
 		return (free_data(data), NULL);
 	data->map->ln_count = ft_size_map(av[1]);
 	if (data->map->ln_count <= 0)
-		return (printf("Error\n"), free_data(data), NULL);
+		return (error_ft(ERR_EMPTY), free_data(data), NULL);
 	data->map->map = ft_making_map(fd, data->map->ln_count);
 	if (!data->map->map)
 	{
-		ft_printf("Error: no map was created.\n");
+		error_ft(ERR_MAP_NOT_CREATED);
 		return (free_data(data), NULL);
 	}
 	if (!texture_and_color(data))
-		return (printf("Error\n"), free_data(data), NULL);
+		return (free_data(data), NULL);
 	data->map->game_map = ft_making_game_map(data);
 	if (!data->map->game_map)
-		return (printf("Error, map is missing!\n"), free_data(data), NULL);
-	printf("after making a game map!\n");
+		return (error_ft(ERR_MAP_NOT_CREATED), free_data(data), NULL);
 	if (!validate_game_map(data->map))
-		return (printf("game map error!\n"), free_data(data), NULL);
+		return (printf("Not a valid game map!\n"), free_data(data), NULL);
 	print_game_map(data->map->game_map);
 	return (data);
 }

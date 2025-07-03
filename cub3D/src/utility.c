@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 11:05:06 by talin             #+#    #+#             */
-/*   Updated: 2025/07/03 11:16:21 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/03 15:51:35 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ int	ft_file_exist(char *filename)
 	int	fd;
 
 	if (!ft_file_extension(filename, "png"))
-		return (printf("only png texture file is acceptable!\n"), 0);
+		return (error_ft(ERR_FILE_NOT_PNG), 0);
 	if (is_dir(filename))
-		return (printf("texture file can't be a directory!\n"), 0);
+		return (error_ft(ERR_FILE_IS_DIR), 0);
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return (0);
