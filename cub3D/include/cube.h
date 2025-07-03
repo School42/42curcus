@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2025/07/03 11:08:28 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/03 13:31:10 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_data
 	t_game_map	*map;
 }	t_data;
 
+void		free_data(t_data *data);
 int			ft_file_extension(char *filename, char *ext);
 int			ft_strcmp(char *s1, char *s2);
 t_data		*ft_create_game_map(char **av, int fd);

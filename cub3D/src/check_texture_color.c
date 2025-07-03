@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 13:06:18 by talin             #+#    #+#             */
-/*   Updated: 2025/07/01 14:47:49 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/03 13:57:05 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,18 @@ int	ft_color_check(char *color)
 	if (!colors)
 		return (0);
 	if (ft_length_str_arr(colors) != 3)
-		return (0);
+		return (ft_free_string_arr(colors), 0);
 	i = 0;
 	while (colors[i])
 	{
 		if (!ft_check_digit(colors[i]))
-			return (0);
+			return (ft_free_string_arr(colors), 0);
 		c_code = ft_atoi(colors[i]);
 		if (!(0 <= c_code && c_code <= 255))
-			return (0);
+			return (ft_free_string_arr(colors), 0);
 		i++;
 	}
+	ft_free_string_arr(colors);
 	return (1);
 }
 

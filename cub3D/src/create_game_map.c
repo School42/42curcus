@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 11:52:35 by talin             #+#    #+#             */
-/*   Updated: 2025/07/03 11:04:18 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/03 14:35:08 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	**ft_making_game_map(t_data *data)
 		return (printf("map is too small!\n"), NULL);
 	data->map->width = ft_find_longest_length(data);
 	data->map->height = size;
-	game_map = (char **)malloc(sizeof(char *) * size + 1);
+	game_map = (char **)malloc(sizeof(char *) * (size + 1));
 	if (!game_map)
 		return (NULL);
 	i = 0;
@@ -64,23 +64,24 @@ t_data	*ft_create_game_map(char **av, int fd)
 
 	data = init_data();
 	if (!data)
-		return (NULL);
+		return (free_data(data), NULL);
 	data->map->ln_count = ft_size_map(av[1]);
 	if (data->map->ln_count <= 0)
-		return (printf("Error\n"), NULL);
+		return (printf("Error\n"), free_data(data), NULL);
 	data->map->map = ft_making_map(fd, data->map->ln_count);
 	if (!data->map->map)
 	{
 		ft_printf("Error: no map was created.\n");
-		return (NULL);
+		return (free_data(data), NULL);
 	}
 	if (!texture_and_color(data))
-		return (printf("Error\n"), NULL);
+		return (printf("Error\n"), free_data(data), NULL);
 	data->map->game_map = ft_making_game_map(data);
 	if (!data->map->game_map)
-		return (printf("Error, map is missing!\n"), NULL);
+		return (printf("Error, map is missing!\n"), free_data(data), NULL);
+	printf("after making a game map!\n");
 	if (!validate_game_map(data->map))
-		return (printf("game map error!\n"), NULL);
+		return (printf("game map error!\n"), free_data(data), NULL);
 	print_game_map(data->map->game_map);
 	return (data);
 }

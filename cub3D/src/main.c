@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:37:04 by talin             #+#    #+#             */
-/*   Updated: 2025/07/03 11:08:39 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/03 13:30:12 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,12 @@ int	main(int ac, char **av)
 	data = ft_create_game_map(av, fd);
 	if (!data)
 	{
+		free_data(data);
 		close(fd);
-		return (0);
+		return (printf("Error\n"), 1);
 	}
 	// print_map(game.map);
+	free_data(data);
 	close(fd);
-	(void) data;
 	return (0);
 }

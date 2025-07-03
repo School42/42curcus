@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 16:16:23 by talin             #+#    #+#             */
-/*   Updated: 2025/07/01 16:26:58 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/03 14:34:42 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,15 @@ char	*copy_map_lines(int size, char *src)
 
 	if (size <= 0 || !src)
 		return (NULL);
-	line = (char *)malloc(sizeof(char) * size + 1);
+	line = (char *)malloc(sizeof(char) * (size + 1));
 	if (!line)
 		return (NULL);
-	i = -1;
-	while (src[++i])
+	i = 0;
+	while (src[i] && i < size)
+	{
 		line[i] = src[i];
+		i++;
+	}
 	if (i < size)
 	{
 		while (i < size)
@@ -33,6 +36,6 @@ char	*copy_map_lines(int size, char *src)
 			i++;
 		}
 	}
-	line[i] = 0;
+	line[i] = '\0';
 	return (line);
 }
