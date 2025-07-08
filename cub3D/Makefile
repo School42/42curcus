@@ -22,7 +22,8 @@ SRC         = main.c \
 				utility_three.c \
 				validation_texture_color.c \
 				copy_map_lines.c \
-				validate_game_map.c
+				validate_game_map.c \
+				render_game.c
 
 OBJ_PATH 	= ./objs/
 OBJ 		= ${SRC:.c=.o}

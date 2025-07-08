@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 13:09:13 by talin             #+#    #+#             */
-/*   Updated: 2025/07/01 16:52:52 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/08 13:48:06 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ t_data	*init_data(void)
 	if (!data->map)
 		return (NULL);
 	data->tex_color = ft_init_tex_color();
-	if (!data->tex_color)
+	data->win = malloc(sizeof(t_window) + 1);
+	if (!data->tex_color || !data->win)
 		return (NULL);
 	return (data);
 }

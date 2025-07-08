@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 10:37:04 by talin             #+#    #+#             */
-/*   Updated: 2025/07/03 15:25:42 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/08 13:27:40 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	main(int ac, char **av)
 		close(fd);
 		return (1);
 	}
+	render_game(data);
 	free_data(data);
 	close(fd);
 	return (0);

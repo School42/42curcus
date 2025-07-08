@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2025/07/03 16:19:23 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/08 14:27:40 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <errno.h>
 # include <stdio.h>
 # include <string.h>
+# include <math.h>
 
 # define ERR_USAGE "usage: ./cub3d <path/to/map.cub>"
 
@@ -62,6 +63,9 @@
 # define ERR_MLX_IMG "Could not create mlx image"
 # define ERR_MUL_ELE "More than needed element informations (duplicate data)"
 
+# define WIN_WIDTH 1920
+# define WIN_HEIGHT 1080
+
 typedef struct s_tex_color
 {
 	char	*north_texture;
@@ -72,6 +76,13 @@ typedef struct s_tex_color
 	int		*ceiling_color;
 	int		check_texture_color;
 }	t_tex_color;
+
+typedef struct s_vec
+{
+	int		x;
+	int		y;
+}	t_vec;
+
 
 typedef struct s_player_pos
 {
@@ -94,11 +105,23 @@ typedef struct s_game_map
 	int		height;
 }	t_game_map;
 
+typedef struct s_window
+{
+	void	*mlx;
+	void	*mlx_win;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_window;
+
 
 typedef struct s_data
 {
 	t_tex_color	*tex_color;
 	t_game_map	*map;
+	t_window	*win;
 }	t_data;
 
 void		error_ft(char *err);
@@ -133,5 +156,6 @@ int			valid_char(int c);
 int			is_player(int c);
 int			is_floor_player(int c);
 int			contain_only_certain_characters(char *src, char *allowed);
+void		render_game(t_data *data);
 
 #endif
