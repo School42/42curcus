@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 11:05:06 by talin             #+#    #+#             */
-/*   Updated: 2025/07/03 15:51:35 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/10 12:35:48 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	ft_file_exist(char *filename)
 {
 	int	fd;
 
-	if (!ft_file_extension(filename, "png"))
-		return (error_ft(ERR_FILE_NOT_PNG), 0);
+	if (!ft_file_extension(filename, "xpm"))
+		return (error_ft(ERR_FILE_NOT_XPM), 0);
 	if (is_dir(filename))
 		return (error_ft(ERR_FILE_IS_DIR), 0);
 	fd = open(filename, O_RDONLY);

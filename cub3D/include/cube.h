@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2025/07/08 14:27:40 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/11 16:05:19 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUBE_H
 
 # include "../libft/libft.h"
+# include "../minilibx-linux/mlx.h"
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/wait.h>
@@ -29,7 +30,7 @@
 # define ERR_USAGE "usage: ./cub3d <path/to/map.cub>"
 
 # define ERR_FILE_NOT_CUB "Not a .cub file"
-# define ERR_FILE_NOT_PNG "Not an .png file"
+# define ERR_FILE_NOT_XPM "Not an .xpm file"
 # define ERR_TEXTURE_FILE "More than one texture file is provided"
 # define ERR_EMPTY "Empty file"
 # define ERR_FILE_IS_DIR "Is a directory"
@@ -66,6 +67,13 @@
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
 
+# define MINI_PIXEL_SIZE 128
+# define MINI_VIEW_DIST 5
+# define MINI_COLOR_PLAYER 0xFFFFFF
+# define MINI_COLOR_WALL 0x808080
+# define MINI_COLOR_FLOOR 0xE6E6E6
+# define MINI_COLOR_SPACE 0x404040
+
 typedef struct s_tex_color
 {
 	char	*north_texture;
@@ -89,6 +97,14 @@ typedef struct s_player_pos
 	int		x;
 	int		y;
 	char	pos;
+	int		dir_x;
+	int		dir_y;
+	int		plane_x;
+	int		plane_y;
+	int		has_moved;
+	int		move_x;
+	int		move_y;
+	int		rotate;
 }	t_player_pos;
 
 
@@ -110,12 +126,12 @@ typedef struct s_window
 	void	*mlx;
 	void	*mlx_win;
 	void	*img;
+	void	*xpm_img;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
 }	t_window;
-
 
 typedef struct s_data
 {
