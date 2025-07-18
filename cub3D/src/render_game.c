@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 13:27:53 by talin             #+#    #+#             */
-/*   Updated: 2025/07/11 16:05:58 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/18 14:59:33 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,20 +156,6 @@ int	key_hook(int keycode, t_window *vars)
 	return (0);
 }
 
-// int mouse_hook(int code, t_window *vars)
-// {
-// 	(void) vars;
-// 	printf("code : %d\n", code);
-// 	return (0);
-// }
-
-int mouse_hook(int x, int y, t_window *vars)
-{
-	(void) vars;
-	printf("x : %d, y : %d\n", x, y);
-	return (0);
-}
-
 int handle_mouse_move(int x, int y, t_data *data)
 {
 	(void) data;
@@ -180,18 +166,6 @@ int handle_mouse_move(int x, int y, t_data *data)
 int	render_frame(t_data *data)
 {
 	add_background(data);
-	if (data->tex_color->ceiling_color[2] < 255)
-		data->tex_color->ceiling_color[2]++;
-	else if (data->tex_color->ceiling_color[2] == 255)
-		data->tex_color->ceiling_color[2] = 0;
-	if (data->tex_color->floor_color[2] < 255)
-		data->tex_color->floor_color[2]++;
-	else if (data->tex_color->floor_color[2] == 255)
-		data->tex_color->floor_color[2] = 0;
-	draw_horizontal_gradient_rect(data->win, 200, 200, 800, 600, 0x00FF0000, 0x000000FF); // Red to Blue gradient
-	draw_ring(data->win, 800, 800, 100, 98, 0x0000FF); // A blue-ish ring
-	draw_filled_circle(data->win, 500, 500, 100, 0x00FF00); // Green circle
-	mlx_put_image_to_window(data->win->mlx, data->win->mlx_win, data->win->img, 0, 0);
 	mlx_put_image_to_window(data->win->mlx, data->win->mlx_win, data->win->img, 0, 0);
 	return (0);
 }
@@ -202,7 +176,6 @@ void	render_game(t_data *data)
 	data->win->mlx_win = mlx_new_window(data->win->mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3D");
 	data->win->img = mlx_new_image(data->win->mlx, WIN_WIDTH, WIN_HEIGHT);
 	data->win->addr = mlx_get_data_addr(data->win->img, &data->win->bits_per_pixel, &data->win->line_length, &data->win->endian);
-	mlx_string_put(data->win->mlx, data->win->mlx_win, 300, 300, 0xFFFFFF, "hello world");
 	mlx_mouse_hide(data->win->mlx, data->win->mlx_win);
 	mlx_key_hook(data->win->mlx_win, key_hook, data->win);
 	mlx_hook(data->win->mlx_win, 6, 1L << 6, handle_mouse_move, data);

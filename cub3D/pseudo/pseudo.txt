@@ -68,3 +68,62 @@ function render_floor_ceiling():
     for y in screen_height / 2 to screen_height:
         for x in 0 to screen_width:
             draw_pixel(x, y, floor_color)
+
+
+init_texture() => {
+	init_texture_img
+	buffer
+	store each addr to buffer 
+}
+
+render() => {
+	player_move
+	render_images
+}
+
+render_images() => {
+	render_raycast()
+	render_minimap
+}
+
+render_raycast() => {
+	init_texture_pixels()
+	init_ray()
+	raycasting()
+	render_frame
+}
+
+init_texture_pixels() => {
+	clean texture_pixels
+	calloc texture_pixels[]
+}
+
+init_ray() => {
+	camera_x
+	dir_x
+	dir_y....
+}
+
+raycasting() => {
+	loop for win_width
+		init_raycasting_info // init_ray(), set camera_x ...
+		set_dda // step_x, sidedis...
+		perform_dda //side, deltadist_x...
+		calculate_line_height // line_height...
+		update_texture_pixels
+}
+
+update_texture_pixels() => {
+	get_texture_index() // NEWS identify
+	draw_start -> draw_end
+		color
+}
+
+render_frame() => {
+	init_img() // addr
+	win_height
+		win_width
+			set_frame_image_pixel()
+
+	put_image_to_window
+}
