@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rick <rick@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 13:07:27 by talin             #+#    #+#             */
-/*   Updated: 2025/07/11 16:05:24 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/19 14:58:57 by rick             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,17 @@ void	free_data(t_data *data)
 		free_tex_color(data->tex_color);
 	if (data)
 		free(data);
+}
+
+void	free_texture_pixels(void **texture_pixels)
+{
+	int	i;	
+
+	i = -1;
+	while (texture_pixels[++i])
+	{
+		if (texture_pixels[i])
+			free(texture_pixels[i]);
+	}
+	free(texture_pixels);
 }

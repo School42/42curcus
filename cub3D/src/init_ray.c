@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_game.c                                      :+:      :+:    :+:   */
+/*   init_ray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rick <rick@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/08 13:27:53 by talin             #+#    #+#             */
-/*   Updated: 2025/07/19 15:40:23 by rick             ###   ########.fr       */
+/*   Created: 2025/07/19 15:01:31 by rick              #+#    #+#             */
+/*   Updated: 2025/07/19 15:02:53 by rick             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cube.h"
 
-void	render_game(t_data *data)
+void	init_ray(t_ray *ray)
 {
-	init_mlx(data);
-	init_textures(data);
-	render_images(data);
-	mlx_hook(data->win->mlx, 33, 1L << 17, handle_close, data);
-	mlx_hook(data->win->mlx_win, 2, 1L << 0, handle_key_press, data);
-	mlx_hook(data->win->mlx_win, 3, 1L << 1, handle_key_release, data);
-	mlx_loop_hook(data->win->mlx, render_frame, data);
-	mlx_loop(data->win->mlx);
+	ray->camera_x = 0;
+	ray->ray_dir_x = 0;
+	ray->ray_dir_y = 0;
+	ray->map_x = 0;
+	ray->map_y = 0;
+	ray->delta_dist_x = 0;
+	ray->delta_dist_y = 0;
+	ray->side_dist_x = 0;
+	ray->side_dist_y = 0;
+	ray->perp_wall_dist = 0;
+	ray->step_x = 0;
+	ray->step_y = 0;
+	ray->hit = 0;
+	ray->side = 0;
+	ray->line_height = 0;
+	ray->draw_start = 0;
+	ray->draw_end = 0;
+	ray->wall_x = 0;
+	ray->wall_dist = 0;
 }

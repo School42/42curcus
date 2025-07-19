@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_game.c                                      :+:      :+:    :+:   */
+/*   mouse_move.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rick <rick@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/08 13:27:53 by talin             #+#    #+#             */
-/*   Updated: 2025/07/19 15:40:23 by rick             ###   ########.fr       */
+/*   Created: 2025/07/19 09:45:21 by rick              #+#    #+#             */
+/*   Updated: 2025/07/19 09:45:32 by rick             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cube.h"
 
-void	render_game(t_data *data)
+int handle_mouse_move(int x, int y, t_data *data)
 {
-	init_mlx(data);
-	init_textures(data);
-	render_images(data);
-	mlx_hook(data->win->mlx, 33, 1L << 17, handle_close, data);
-	mlx_hook(data->win->mlx_win, 2, 1L << 0, handle_key_press, data);
-	mlx_hook(data->win->mlx_win, 3, 1L << 1, handle_key_release, data);
-	mlx_loop_hook(data->win->mlx, render_frame, data);
-	mlx_loop(data->win->mlx);
+	(void) data;
+	printf("Mouse moved to: x = %d, y = %d\n", x, y);
+	return (0);
 }

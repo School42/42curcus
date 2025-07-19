@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rick <rick@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2025/07/11 16:05:19 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/19 15:51:58 by rick             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@
 # include <stdio.h>
 # include <string.h>
 # include <math.h>
+
+# ifndef BONUS
+#  define BONUS 1
+# endif
+
+# define KEY_ESCAPE 53
+# define KEY_W 13
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
 
 # define ERR_USAGE "usage: ./cub3d <path/to/map.cub>"
 
@@ -74,6 +86,14 @@
 # define MINI_COLOR_FLOOR 0xE6E6E6
 # define MINI_COLOR_SPACE 0x404040
 
+enum e_texture_index
+{
+	NORTH = 0,
+	SOUTH = 1,
+	EAST = 2,
+	WEST = 3
+};
+
 typedef struct s_tex_color
 {
 	char	*north_texture;
@@ -83,6 +103,14 @@ typedef struct s_tex_color
 	int		*floor_color;
 	int		*ceiling_color;
 	int		check_texture_color;
+	unsigned int	hex_floor;
+	unsigned int	hex_ceiling;
+	int		size;
+	int		index;
+	double	step;
+	double	pos;
+	int		y;
+	int 	x;
 }	t_tex_color;
 
 typedef struct s_vec
@@ -90,7 +118,6 @@ typedef struct s_vec
 	int		x;
 	int		y;
 }	t_vec;
-
 
 typedef struct s_player_pos
 {
@@ -121,23 +148,71 @@ typedef struct s_game_map
 	int		height;
 }	t_game_map;
 
+typedef struct s_img
+{
+	void 	*img;
+	int		*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_img;
+
+typedef struct s_ray
+{
+	double 	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		map_x;
+	int		map_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	double	line_height;
+	int		draw_start;
+	int		draw_end;
+	int		wall_x;
+	int		wall_dist;
+}	t_ray;
+
 typedef struct s_window
 {
 	void	*mlx;
 	void	*mlx_win;
-	void	*img;
-	void	*xpm_img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
+	int		win_width;
+	int		win_height;
+	int		**texture_pixels;
+	int		**textures;
 }	t_window;
+
+typedef struct s_player
+{
+	char	dir;
+	double	pos_x;
+	double	pos_y;
+	double	plane_x;
+	double	plane_y;
+	double	dir_x;
+	double	dir_y;
+	int		has_moved;
+	int		move_x;
+	int		move_y;
+	int		rotate;
+}	t_player;
+
 
 typedef struct s_data
 {
 	t_tex_color	*tex_color;
 	t_game_map	*map;
 	t_window	*win;
+	t_player	*player;
+	t_ray		ray;
 }	t_data;
 
 void		error_ft(char *err);
@@ -173,5 +248,13 @@ int			is_player(int c);
 int			is_floor_player(int c);
 int			contain_only_certain_characters(char *src, char *allowed);
 void		render_game(t_data *data);
+void		init_mlx(t_data *data);
+void		init_textures(t_data *data);
+int 		handle_mouse_move(int x, int y, t_data *data);
+void		render_frame(t_data *data);\
+void		handle_key_release(int key, t_data *data);
+void		handle_key_press(int key, t_data *data);
+void		quit_game(t_data *data);
+void		handle_close(t_data *data);
 
 #endif

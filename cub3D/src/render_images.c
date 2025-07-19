@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_game.c                                      :+:      :+:    :+:   */
+/*   render_images.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rick <rick@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/08 13:27:53 by talin             #+#    #+#             */
-/*   Updated: 2025/07/19 15:40:23 by rick             ###   ########.fr       */
+/*   Created: 2025/07/19 14:53:25 by rick              #+#    #+#             */
+/*   Updated: 2025/07/19 14:54:20 by rick             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cube.h"
 
-void	render_game(t_data *data)
+void render_images(t_data *data)
 {
-	init_mlx(data);
-	init_textures(data);
-	render_images(data);
-	mlx_hook(data->win->mlx, 33, 1L << 17, handle_close, data);
-	mlx_hook(data->win->mlx_win, 2, 1L << 0, handle_key_press, data);
-	mlx_hook(data->win->mlx_win, 3, 1L << 1, handle_key_release, data);
-	mlx_loop_hook(data->win->mlx, render_frame, data);
-	mlx_loop(data->win->mlx);
+	render_raycast(data);
 }
