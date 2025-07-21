@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 16:30:05 by talin             #+#    #+#             */
-/*   Updated: 2025/07/03 15:55:31 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/21 14:34:52 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static int	outsider_found_num_player(t_game_map *map)
 			{
 				map->num_player++;
 				map->player->pos = map->game_map[i][j];
-				map->player->x = i;
-				map->player->y = j;
+				map->player->x = (double)j + 0.5;
+				map->player->y = (double)i + 0.5;
 			}
 		}
 	}
@@ -214,6 +214,6 @@ int	validate_game_map(t_game_map *map)
 		return (0);
 	if (!surrounded_by_walls(map))
 		return (0);
-	printf("play position : %c, row : %d, col : %d\n", map->player->pos, map->player->x, map->player->y);
+	// printf("play position : %c, row : %d, col : %d\n", map->player->pos, map->player->x, map->player->y);
 	return (1);
 }

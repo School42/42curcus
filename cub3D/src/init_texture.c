@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_texture.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rick <rick@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 09:46:10 by rick              #+#    #+#             */
-/*   Updated: 2025/07/19 15:01:11 by rick             ###   ########.fr       */
+/*   Updated: 2025/07/21 14:38:06 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	init_texture_img(t_data *data, t_img *tmp, char *filename)
 		exit(1);
 	}
 	tmp->addr = (int *)mlx_get_data_addr(tmp->img, &tmp->bits_per_pixel, &tmp->line_length, &tmp->endian);
+	// printf("check point : init_texture_img\n");
 }
 
 static int	*xpm_to_img(t_data *data, char *filename)
@@ -41,20 +42,28 @@ static int	*xpm_to_img(t_data *data, char *filename)
 	int		y;
 
 	init_texture_img(data, &tmp, filename);
-	buffer = ft_calloc(1, sizeof * buffer * data->tex_color->size * data->tex_color->size);
+	// printf("check point : after init_texture_img\n");
+	buffer = ft_calloc(data->tex_color->size * data->tex_color->size, sizeof(int));
 	if (!buffer)
 	{
 		printf("Error\n");
 		exit(1);
 	}
+	// printf("buffer : size : %zu\n", sizeof(buffer));
+	// printf("line_length : %d\n", tmp.line_length);
+	// printf("check point : after ft_calloc\n");
 	y = -1;
+	// printf("tex_color->size : %d\n", data->tex_color->size);
 	while (++y < data->tex_color->size)
 	{
 		x = -1;
-		while (++x < data->tex_color->size)
-			buffer[y * data->tex_color->size + x] = tmp.addr[y * tmp.line_length + x];
+		while (++x < data->tex_color->size) {
+			buffer[y * data->tex_color->size + x] = tmp.addr[y * (tmp.line_length / sizeof(int)) + x];
+		}
 	}
+	// printf("check point : before mlx_destory_image");
 	mlx_destroy_image(data->win->mlx, tmp.img);
+	// printf("check point : xpm_to_img\n");
 	return (buffer);
 }
 
@@ -70,6 +79,7 @@ void	init_textures(t_data *data)
 	data->win->textures[SOUTH] = xpm_to_img(data, data->tex_color->south_texture);
 	data->win->textures[EAST] = xpm_to_img(data, data->tex_color->east_texture);
 	data->win->textures[WEST] = xpm_to_img(data, data->tex_color->west_texture);
+	// printf("check point : init_textures\n");
 }
 
 void	init_texture_pixels(t_data *data)

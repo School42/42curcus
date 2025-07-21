@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rick <rick@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2025/07/19 15:51:58 by rick             ###   ########.fr       */
+/*   Updated: 2025/07/21 14:09:30 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,20 @@
 # include <stdio.h>
 # include <string.h>
 # include <math.h>
+# include <X11/keysym.h>
+# include <X11/X.h>
 
 # ifndef BONUS
 #  define BONUS 1
 # endif
 
-# define KEY_ESCAPE 53
-# define KEY_W 13
-# define KEY_A 0
-# define KEY_S 1
-# define KEY_D 2
-# define KEY_LEFT 123
-# define KEY_RIGHT 124
+// # define KEY_ESCAPE 53
+// # define KEY_W 13
+// # define KEY_A 0
+// # define KEY_S 1
+// # define KEY_D 2
+// # define KEY_LEFT 123
+// # define KEY_RIGHT 124
 
 # define ERR_USAGE "usage: ./cub3d <path/to/map.cub>"
 
@@ -86,6 +88,8 @@
 # define MINI_COLOR_FLOOR 0xE6E6E6
 # define MINI_COLOR_SPACE 0x404040
 
+# define SPEED 0.1
+
 enum e_texture_index
 {
 	NORTH = 0,
@@ -121,17 +125,9 @@ typedef struct s_vec
 
 typedef struct s_player_pos
 {
-	int		x;
-	int		y;
+	double	x;
+	double	y;
 	char	pos;
-	int		dir_x;
-	int		dir_y;
-	int		plane_x;
-	int		plane_y;
-	int		has_moved;
-	int		move_x;
-	int		move_y;
-	int		rotate;
 }	t_player_pos;
 
 
@@ -173,11 +169,10 @@ typedef struct s_ray
 	int		step_y;
 	int		hit;
 	int		side;
-	double	line_height;
+	int		line_height;
 	int		draw_start;
 	int		draw_end;
-	int		wall_x;
-	int		wall_dist;
+	double	wall_x;
 }	t_ray;
 
 typedef struct s_window
@@ -251,10 +246,29 @@ void		render_game(t_data *data);
 void		init_mlx(t_data *data);
 void		init_textures(t_data *data);
 int 		handle_mouse_move(int x, int y, t_data *data);
-void		render_frame(t_data *data);\
-void		handle_key_release(int key, t_data *data);
-void		handle_key_press(int key, t_data *data);
+int			render_frame(t_data *data);
+int			handle_key_release(int key, t_data *data);
+int			handle_key_press(int key, t_data *data);
 void		quit_game(t_data *data);
-void		handle_close(t_data *data);
+int			handle_close(t_data *data);
+void		init_ray(t_ray *ray);
+void		init_img_clean(t_img *img);
+void		init_texture_img(t_data *data, t_img *tmp, char *filename);
+void		init_texture_pixels(t_data *data);
+void		init_raycasting(int x, t_ray *ray, t_player *player);
+int			raycasting(t_player *player, t_data *data);
+void		init_img(t_data *data, t_img *img, int width, int height);
+void		set_image_pixel(t_img *img, int x, int y, int color);
+void		render_images(t_data *data);
+void		render_raycast(t_data *data);
+void		update_texture(t_ray *ray, t_data *data, int x, t_tex_color *tex);
+void		free_texture_pixels(void **texture_pixels);
+int			render(t_data *data);
+int			player_move(t_data *data);
+int			validate_move(t_data *data, double x, double y);
+int			player_rotate(t_data *data, double rotate);
+t_window	*ft_init_win(void);
+t_player	*ft_init_player(void);
+void		init_player_direction(t_data *data);
 
 #endif

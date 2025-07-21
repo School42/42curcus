@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rick <rick@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 09:44:29 by rick              #+#    #+#             */
-/*   Updated: 2025/07/19 14:51:45 by rick             ###   ########.fr       */
+/*   Updated: 2025/07/21 14:37:40 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ void	init_mlx(t_data *data)
 		printf("Error\n");
 		exit(1);
 	}
-	if (BONUS)
-	{
-		mlx_mouse_hide(data->win->mlx, data->win->mlx_win);
-		mlx_hook(data->win->mlx_win, 6, 1L << 6, handle_mouse_move, data);
-	}
+	// printf("check point: init_mlx\n");
+	// if (BONUS)
+	// {
+	// 	mlx_mouse_hide(data->win->mlx, data->win->mlx_win);
+	// 	mlx_hook(data->win->mlx_win, 6, 1L << 6, handle_mouse_move, data);
+	// }
 }

@@ -8,6 +8,9 @@
 		"string_view": "c",
 		"ranges": "c",
 		"span": "c",
-		"mlx.h": "c"
+		"mlx.h": "c",
+		"initializer_list": "c",
+		"utility": "c",
+		"cube.h": "c"
 	}
 }

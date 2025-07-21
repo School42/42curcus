@@ -23,7 +23,21 @@ SRC         = main.c \
 				validation_texture_color.c \
 				copy_map_lines.c \
 				validate_game_map.c \
-				render_game.c 
+				render_game.c \
+				handle_hook.c \
+				init_mlx.c \
+				init_ray.c \
+				init_texture.c \
+				mouse_move.c \
+				render_frame.c \
+				render_images.c \
+				update_texture.c \
+				raycasting.c \
+				render_raycast.c \
+				player_move.c \
+				validate_move.c \
+				player_rotate.c \
+				init_player_dir.c
 
 OBJ_PATH 	= ./objs/
 OBJ 		= ${SRC:.c=.o}

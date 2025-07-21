@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_texture.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rick <rick@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:19:19 by rick              #+#    #+#             */
-/*   Updated: 2025/07/19 15:27:13 by rick             ###   ########.fr       */
+/*   Updated: 2025/07/21 13:36:29 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	update_texture(t_ray *ray, t_data *data, int x, t_tex_color *tex)
 
 	get_texture_index(data, ray);
 	tex->x = (int)ray->wall_x * tex->size;
+	// printf("ray->wall_x : %f tex->size : %d\n", ray->wall_x, tex->size);
 	if ((ray->side == 0 && ray->ray_dir_x < 0) || (ray->side == 1 && ray->ray_dir_y > 0))
 		tex->x = tex->size - tex->x - 1;
 	tex->step = 1.0 * tex->size / ray->line_height;

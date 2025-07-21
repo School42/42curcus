@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 13:09:13 by talin             #+#    #+#             */
-/*   Updated: 2025/07/11 16:04:52 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/21 11:16:01 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,48 @@ t_data	*init_data(void)
 	if (!data->map)
 		return (NULL);
 	data->tex_color = ft_init_tex_color();
-	data->win = malloc(sizeof(t_window) + 1);
-	if (!data->tex_color || !data->win)
+	data->win = ft_init_win();
+	data->player = ft_init_player();
+	if (!data->tex_color || !data->win || !data->player)
 		return (NULL);
 	return (data);
+}
+
+t_player	*ft_init_player(void)
+{
+	t_player	*player;
+
+	player = malloc(sizeof(t_player) + 1);
+	if (!player)
+		return (NULL);
+	player->dir = '\0';
+	player->pos_x = 0.0;
+	player->pos_y = 0.0;
+	player->dir_x = 0.0;
+	player->dir_y = 0.0;
+	player->move_x = 0;
+	player->move_y = 0;
+	player->has_moved = 0;
+	player->rotate = 0;
+	player->plane_x = 0.0;
+	player->plane_y = 0.0;
+	return (player);
+}
+
+t_window	*ft_init_win(void)
+{
+	t_window	*win;
+
+	win = malloc(sizeof(t_window) + 1);
+	if (!win)
+		return (NULL);
+	win->mlx = NULL;
+	win->mlx_win = NULL;
+	win->win_width = WIN_WIDTH;
+	win->win_height = WIN_HEIGHT;
+	win->texture_pixels = NULL;
+	win->textures = NULL;
+	return (win);
 }
 
 t_tex_color	*ft_init_tex_color(void)

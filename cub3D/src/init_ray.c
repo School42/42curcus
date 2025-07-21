@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_ray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rick <rick@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:01:31 by rick              #+#    #+#             */
-/*   Updated: 2025/07/19 15:02:53 by rick             ###   ########.fr       */
+/*   Updated: 2025/07/21 13:15:07 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,4 @@ void	init_ray(t_ray *ray)
 	ray->draw_start = 0;
 	ray->draw_end = 0;
 	ray->wall_x = 0;
-	ray->wall_dist = 0;
 }
