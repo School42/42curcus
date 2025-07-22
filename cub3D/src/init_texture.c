@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 09:46:10 by rick              #+#    #+#             */
-/*   Updated: 2025/07/21 14:38:06 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/22 14:43:29 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static int	*xpm_to_img(t_data *data, char *filename)
 
 	init_texture_img(data, &tmp, filename);
 	// printf("check point : after init_texture_img\n");
-	buffer = ft_calloc(data->tex_color->size * data->tex_color->size, sizeof(int));
+	// printf("size : %d\n", data->tex_color->size);
+	buffer = ft_calloc(1, sizeof * buffer * data->tex_color->size * data->tex_color->size);
 	if (!buffer)
 	{
 		printf("Error\n");
@@ -58,7 +59,7 @@ static int	*xpm_to_img(t_data *data, char *filename)
 	{
 		x = -1;
 		while (++x < data->tex_color->size) {
-			buffer[y * data->tex_color->size + x] = tmp.addr[y * (tmp.line_length / sizeof(int)) + x];
+			buffer[y * data->tex_color->size + x] = tmp.addr[y * data->tex_color->size + x];
 		}
 	}
 	// printf("check point : before mlx_destory_image");

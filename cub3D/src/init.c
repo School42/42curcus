@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 13:09:13 by talin             #+#    #+#             */
-/*   Updated: 2025/07/21 11:16:01 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/22 14:23:27 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,12 @@ t_tex_color	*ft_init_tex_color(void)
 	tex_color->east_texture = NULL;
 	tex_color->floor_color = NULL;
 	tex_color->ceiling_color = NULL;
+	tex_color->hex_ceiling = 0x0;
+	tex_color->hex_floor = 0x0;
+	tex_color->size = TEX_SIZE;
+	tex_color->pos = 0.0;
+	tex_color->x = 0;
+	tex_color->y = 0;
 	tex_color->check_texture_color = 0;
 	return (tex_color);
 }

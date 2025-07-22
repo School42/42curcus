@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 13:24:25 by talin             #+#    #+#             */
-/*   Updated: 2025/07/21 14:10:09 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/22 14:27:25 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,24 @@ static void	init_player_east_west(t_player *player)
 		return ;
 }
 
+static unsigned long	convert_rgb_to_hex(int *rgb)
+{
+	unsigned long	result;
+	int				r;
+	int				g;
+	int				b;
+
+	r = rgb[0];
+	g = rgb[1];
+	b = rgb[2];
+	result = ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
+	return (result);
+}
+
 void	init_player_direction(t_data *data)
 {
+	data->tex_color->hex_ceiling = convert_rgb_to_hex(data->tex_color->ceiling_color);
+	data->tex_color->hex_floor = convert_rgb_to_hex(data->tex_color->floor_color);
 	data->player->dir = data->map->player->pos;
 	data->player->pos_x = data->map->player->x;
 	data->player->pos_y = data->map->player->y;

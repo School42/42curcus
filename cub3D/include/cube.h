@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2025/07/21 14:09:30 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/22 15:31:58 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@
 # define MINI_COLOR_SPACE 0x404040
 
 # define SPEED 0.1
+# define TEX_SIZE 64
 
 enum e_texture_index
 {

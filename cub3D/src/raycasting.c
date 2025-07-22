@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:03:20 by rick              #+#    #+#             */
-/*   Updated: 2025/07/21 14:36:18 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/22 15:25:58 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int	raycasting(t_player *player, t_data *data)
 	x = 0;
 	ray = data->ray;
 	data->map->width = 34;
+	// printf("tex->x : %d\n", data->tex_color->x);
 	// printf("raycasting : win_width : %d \n", data->win->win_width);
 	while (x < data->win->win_width)
 	{

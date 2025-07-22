@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:19:19 by rick              #+#    #+#             */
-/*   Updated: 2025/07/21 13:36:29 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/22 15:25:28 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,14 @@ void	update_texture(t_ray *ray, t_data *data, int x, t_tex_color *tex)
 	int	color;
 
 	get_texture_index(data, ray);
-	tex->x = (int)ray->wall_x * tex->size;
+	tex->x = (int)(ray->wall_x * tex->size);
 	// printf("ray->wall_x : %f tex->size : %d\n", ray->wall_x, tex->size);
 	if ((ray->side == 0 && ray->ray_dir_x < 0) || (ray->side == 1 && ray->ray_dir_y > 0))
 		tex->x = tex->size - tex->x - 1;
 	tex->step = 1.0 * tex->size / ray->line_height;
 	tex->pos = (ray->draw_start - data->win->win_height / 2 + ray->line_height / 2) * tex->step;
 	y = ray->draw_start;
+	// printf("draw_start : %d, step : %f, pos : %f, tex->x: %d, tex->y : %d, \n", ray->draw_start, tex->step, tex->pos, tex->x, tex->y);
 	while (y < ray->draw_end)
 	{
 		tex->y = (int)tex->pos & (tex->size - 1);
@@ -54,4 +55,6 @@ void	update_texture(t_ray *ray, t_data *data, int x, t_tex_color *tex)
 			data->win->texture_pixels[y][x] = color;
 		y++;
 	}
+	// printf("color : %d\n", data->win->texture_pixels[y - 1][x - 1]);
+
 }
