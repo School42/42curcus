@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 09:44:29 by rick              #+#    #+#             */
-/*   Updated: 2025/07/21 14:37:40 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/23 16:15:00 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	init_mlx(t_data *data)
 		exit(1);
 	}
 	// printf("check point: init_mlx\n");
-	// if (BONUS)
-	// {
-	// 	mlx_mouse_hide(data->win->mlx, data->win->mlx_win);
-	// 	mlx_hook(data->win->mlx_win, 6, 1L << 6, handle_mouse_move, data);
-	// }
+	if (BONUS)
+	{
+		mlx_mouse_hide(data->win->mlx, data->win->mlx_win);
+		mlx_mouse_move(data->win->mlx, data->win->mlx_win, data->win->win_width / 2, data->win->win_height / 2);
+	}
 }

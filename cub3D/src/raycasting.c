@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:03:20 by rick              #+#    #+#             */
-/*   Updated: 2025/07/22 15:25:58 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/23 14:32:38 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	perform_dda(t_ray *ray, t_data *data)
 		// printf("sidedist_x : %f, sidedist_y : %f\n", ray->side_dist_x, ray->side_dist_y);
 		if (ray->map_y < 0.25 || ray->map_x < 0.25 || ray->map_y > data->map->height - 0.25 || ray->map_x > data->map->width - 0.25)
 			break;
-		else if (data->map->game_map[ray->map_y][ray->map_x] > '0')
+		else if (data->map->game_map[ray->map_y][ray->map_x] == '1')
 			ray->hit = 1;
 	}
 	// printf("sidedist_x : %f, sidedist_y : %f\n", ray->side_dist_x, ray->side_dist_y);

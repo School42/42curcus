@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 13:09:13 by talin             #+#    #+#             */
-/*   Updated: 2025/07/22 14:23:27 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/23 15:22:32 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_player	*ft_init_player(void)
 	player->rotate = 0;
 	player->plane_x = 0.0;
 	player->plane_y = 0.0;
+	player->mouse_x = __INT_MAX__;
 	return (player);
 }
 

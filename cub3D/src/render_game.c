@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 13:27:53 by talin             #+#    #+#             */
-/*   Updated: 2025/07/22 14:43:14 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/23 16:13:56 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,9 @@ void	render_game(t_data *data)
 	mlx_hook(data->win->mlx_win, 2, 1L << 0, handle_key_press, data);
 	mlx_hook(data->win->mlx_win, 3, 1L << 1, handle_key_release, data);
 	mlx_loop_hook(data->win->mlx, render, data);
+	if (BONUS)
+	{
+		mlx_hook(data->win->mlx_win, 6, 1L << 6, handle_mouse_move, data);
+	}
 	mlx_loop(data->win->mlx);
 }

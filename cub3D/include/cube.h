@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2025/07/22 15:31:58 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/23 16:29:21 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@
 
 # ifndef BONUS
 #  define BONUS 1
+# endif
+
+# ifndef M_PI
+#  define M_PI 3.14159265358979323846
 # endif
 
 // # define KEY_ESCAPE 53
@@ -89,6 +93,8 @@
 # define MINI_COLOR_SPACE 0x404040
 
 # define SPEED 0.1
+# define MOUSE_SPEED 0.03
+# define ROTATE_SPEED 0.05
 # define TEX_SIZE 64
 
 enum e_texture_index
@@ -198,6 +204,7 @@ typedef struct s_player
 	int		has_moved;
 	int		move_x;
 	int		move_y;
+	int		mouse_x;
 	int		rotate;
 }	t_player;
 
@@ -267,9 +274,10 @@ void		free_texture_pixels(void **texture_pixels);
 int			render(t_data *data);
 int			player_move(t_data *data);
 int			validate_move(t_data *data, double x, double y);
-int			player_rotate(t_data *data, double rotate);
+int			player_rotate(t_data *data, double rotate, double mov_speed);
 t_window	*ft_init_win(void);
 t_player	*ft_init_player(void);
 void		init_player_direction(t_data *data);
+int			rotating(t_data *data, double speed);
 
 #endif

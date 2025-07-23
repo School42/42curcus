@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 10:16:40 by talin             #+#    #+#             */
-/*   Updated: 2025/07/21 10:33:53 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/23 16:26:12 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,6 @@ int	player_move(t_data *data)
 	if (data->player->move_x == -1)
 		moved += player_left(data);
 	if (data->player->rotate != 0)
-		moved += player_rotate(data, data->player->rotate);
+		moved += player_rotate(data, data->player->rotate, ROTATE_SPEED);
 	return (moved);
 }

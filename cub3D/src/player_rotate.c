@@ -6,13 +6,13 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 10:34:12 by talin             #+#    #+#             */
-/*   Updated: 2025/07/21 10:41:22 by talin            ###   ########.fr       */
+/*   Updated: 2025/07/23 16:25:36 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cube.h"
 
-static int	rotating(t_data *data, double speed)
+int	rotating(t_data *data, double speed)
 {
 	t_player	*player;
 	double		x;
@@ -27,13 +27,13 @@ static int	rotating(t_data *data, double speed)
 	return (1);
 }
 
-int	player_rotate(t_data *data, double rotate)
+int	player_rotate(t_data *data, double rotate, double mov_speed)
 {
 	int		moved;
 	double	speed;
 
 	moved = 0;
-	speed = SPEED * rotate;
+	speed = mov_speed * rotate;
 	moved += rotating(data, speed);
 	return (moved);
 }
