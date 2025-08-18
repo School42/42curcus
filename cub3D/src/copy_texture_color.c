@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 13:04:01 by talin             #+#    #+#             */
-/*   Updated: 2025/07/03 15:39:49 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/18 16:07:20 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	copy_ptrintcpy(char **src, int **dest)
 
 void	copy_texture_color(t_data *data, char **string_arr)
 {
-	int status;
+	int	status;
 
 	status = 1;
 	if (ft_strcmp(string_arr[0], "NO") == 0)

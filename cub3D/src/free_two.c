@@ -1,36 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utility_three.c                                    :+:      :+:    :+:   */
+/*   free_two.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/01 16:38:26 by talin             #+#    #+#             */
-/*   Updated: 2025/08/18 16:51:48 by talin            ###   ########.fr       */
+/*   Created: 2025/08/18 16:48:47 by talin             #+#    #+#             */
+/*   Updated: 2025/08/18 16:48:56 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cube.h"
 
-int	valid_char(int c)
+void	free_int_arr(int **arr)
 {
-	if (!(c == '0' || c == '1' || c == ' '
-			|| c == 'N' || c == 'S' || c == 'W' || c == 'E'))
-		return (0);
-	return (1);
+	int	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		if (arr[i])
+			free(arr[i]);
+		i++;
+	}
+	if (arr)
+		free(arr);
 }
 
-int	is_player(int c)
+void	free_window(t_window *w)
 {
-	return ((c == 'N' || c == 'S' || c == 'W' || c == 'E'));
-}
-
-int	is_floor_player(int c)
-{
-	return ((c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == '0'));
-}
-
-void	error_ft(char *err)
-{
-	printf("Error\n%s\n", err);
+	if (w->t_pixel)
+		free_int_arr(w->t_pixel);
+	if (w->textures)
+		free_int_arr(w->textures);
+	if (w)
+		free(w);
 }

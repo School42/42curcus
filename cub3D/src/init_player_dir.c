@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 13:24:25 by talin             #+#    #+#             */
-/*   Updated: 2025/08/18 14:14:17 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/18 16:21:07 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ static unsigned long	convert_rgb_to_hex(int *rgb)
 	return (result);
 }
 
-void	init_player_direction(t_data *data)
+void	init_player_direction(t_data *d)
 {
-	data->tex_color->hex_ceiling = convert_rgb_to_hex(data->tex_color->ceiling_color);
-	data->tex_color->hex_floor = convert_rgb_to_hex(data->tex_color->floor_color);
-	data->player->dir = data->map->player->pos;
-	data->player->pos_x = data->map->player->x;
-	data->player->pos_y = data->map->player->y;
-	init_player_north_south(data->player);
-	init_player_east_west(data->player);
+	d->tex_color->hex_ceiling = convert_rgb_to_hex(d->tex_color->ceiling_color);
+	d->tex_color->hex_floor = convert_rgb_to_hex(d->tex_color->floor_color);
+	d->player->dir = d->map->player->pos;
+	d->player->pos_x = d->map->player->x;
+	d->player->pos_y = d->map->player->y;
+	init_player_north_south(d->player);
+	init_player_east_west(d->player);
 }

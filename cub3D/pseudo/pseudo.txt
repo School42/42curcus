@@ -87,15 +87,15 @@ render_images() => {
 }
 
 render_raycast() => {
-	init_texture_pixels()
+	init_t_pixel()
 	init_ray()
 	raycasting()
 	render_frame
 }
 
-init_texture_pixels() => {
-	clean texture_pixels
-	calloc texture_pixels[]
+init_t_pixel() => {
+	clean t_pixel
+	calloc t_pixel[]
 }
 
 init_ray() => {
@@ -110,10 +110,10 @@ raycasting() => {
 		set_dda // step_x, sidedis...
 		perform_dda //side, deltadist_x...
 		calculate_line_height // line_height...
-		update_texture_pixels
+		update_t_pixel
 }
 
-update_texture_pixels() => {
+update_t_pixel() => {
 	get_texture_index() // NEWS identify
 	draw_start -> draw_end
 		color

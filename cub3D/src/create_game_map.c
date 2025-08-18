@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 11:52:35 by talin             #+#    #+#             */
-/*   Updated: 2025/07/21 14:26:39 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/18 17:07:36 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_data	*ft_create_game_map(char **av, int fd)
 		error_ft(ERR_MAP_NOT_CREATED);
 		return (free_data(data), NULL);
 	}
-	if (!texture_and_color(data))
+	if (!texture_and_color(data, 0))
 		return (free_data(data), NULL);
 	data->map->game_map = ft_making_game_map(data);
 	if (!data->map->game_map)

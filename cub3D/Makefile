@@ -16,10 +16,12 @@ SRC         = main.c \
 				check_texture_color.c \
 				copy_texture_color.c \
 				free.c \
+				free_two.c \
 				init.c \
 				print.c \
 				utility_two.c \
 				utility_three.c \
+				utility_four.c \
 				validation_texture_color.c \
 				copy_map_lines.c \
 				validate_game_map.c \
@@ -37,7 +39,10 @@ SRC         = main.c \
 				player_move.c \
 				validate_move.c \
 				player_rotate.c \
-				init_player_dir.c
+				init_player_dir.c \
+				longest_line.c \
+				validate_line_by_line.c \
+				valid_wall.c \
 
 OBJ_PATH 	= ./objs/
 OBJ 		= ${SRC:.c=.o}

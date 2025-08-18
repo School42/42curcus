@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 10:23:30 by talin             #+#    #+#             */
-/*   Updated: 2025/07/23 15:10:24 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/18 16:25:30 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	is_valid_pos(t_data *data, double x, double y)
 
 int	validate_move(t_data *data, double new_x, double new_y)
 {
-	int moved;
+	int	moved;
 
 	moved = 0;
 	if (is_valid_pos(data, new_x, new_y))

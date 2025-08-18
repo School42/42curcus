@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:41:08 by rick              #+#    #+#             */
-/*   Updated: 2025/07/23 13:47:12 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/18 16:47:52 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int	handle_key_release(int key, t_data *data)
 void	quit_game(t_data *data)
 {
 	(void) data;
-	// mlx_destroy_window(data->win->mlx, data->win->mlx_win);
-	// free_data(data);
+	mlx_destroy_window(data->win->mlx, data->win->mlx_win);
+	free_data(data);
 	exit(0);
 }
 

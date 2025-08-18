@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 09:44:29 by rick              #+#    #+#             */
-/*   Updated: 2025/08/18 14:45:01 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/18 16:46:54 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	init_mlx(t_data *data)
 		printf("Error\n");
 		exit(1);
 	}
-	data->win->mlx_win = mlx_new_window(data->win->mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3D");
+	data->win->mlx_win = mlx_new_window(data->win->mlx,
+			WIN_WIDTH, WIN_HEIGHT, "Cub3D");
 	if (!data->win->mlx_win)
 	{
 		printf("Error\n");
@@ -29,6 +30,7 @@ void	init_mlx(t_data *data)
 	if (BONUS)
 	{
 		mlx_mouse_hide(data->win->mlx, data->win->mlx_win);
-		mlx_mouse_move(data->win->mlx, data->win->mlx_win, data->win->win_width / 2, data->win->win_height / 2);
+		mlx_mouse_move(data->win->mlx, data->win->mlx_win,
+			data->win->win_width / 2, data->win->win_height / 2);
 	}
 }

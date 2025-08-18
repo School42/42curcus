@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 13:08:14 by talin             #+#    #+#             */
-/*   Updated: 2025/08/18 12:45:41 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/18 17:07:02 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static int	valid_content_elements(char **s, char *line)
 {
-	if (!ft_strcmp(s[0], "NO") || !ft_strcmp(s[0], "SO") || !ft_strcmp(s[0], "EA") || !ft_strcmp(s[0], "WE"))
+	if (!ft_strcmp(s[0], "NO") || !ft_strcmp(s[0], "SO")
+		|| !ft_strcmp(s[0], "EA") || !ft_strcmp(s[0], "WE"))
 	{
 		if (ft_length_str_arr(s) != 2)
 			return (error_ft(ERR_TEXTURE_FILE), 0);
@@ -32,12 +33,10 @@ static int	valid_content_elements(char **s, char *line)
 	return (1);
 }
 
-int	texture_and_color(t_data *data)
+int	texture_and_color(t_data *data, int i)
 {
-	int		i;
 	char	**string_arr;
 
-	i = 0;
 	while (i < data->map->ln_count)
 	{
 		if (ft_strlen(data->map->map[i]) <= 0)

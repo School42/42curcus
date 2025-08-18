@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utility_three.c                                    :+:      :+:    :+:   */
+/*   longest_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/01 16:38:26 by talin             #+#    #+#             */
-/*   Updated: 2025/08/18 16:51:48 by talin            ###   ########.fr       */
+/*   Created: 2025/08/18 16:15:02 by talin             #+#    #+#             */
+/*   Updated: 2025/08/18 16:15:20 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cube.h"
 
-int	valid_char(int c)
+int	ft_find_longest_length(t_data *data)
 {
-	if (!(c == '0' || c == '1' || c == ' '
-			|| c == 'N' || c == 'S' || c == 'W' || c == 'E'))
-		return (0);
-	return (1);
-}
+	int	max;
+	int	j;
 
-int	is_player(int c)
-{
-	return ((c == 'N' || c == 'S' || c == 'W' || c == 'E'));
-}
-
-int	is_floor_player(int c)
-{
-	return ((c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == '0'));
-}
-
-void	error_ft(char *err)
-{
-	printf("Error\n%s\n", err);
+	max = 0;
+	j = data->map->start;
+	while (j <= data->map->end)
+	{
+		if ((int)ft_strlen(data->map->map[j]) > max)
+			max = (int)ft_strlen(data->map->map[j]);
+		j++;
+	}
+	return (max);
 }

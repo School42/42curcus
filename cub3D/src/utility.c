@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 11:05:06 by talin             #+#    #+#             */
-/*   Updated: 2025/07/10 12:35:48 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/18 16:06:04 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,21 +72,5 @@ int	ft_file_exist(char *filename)
 		return (0);
 	else
 		close(fd);
-	return (1);
-}
-
-int	ft_check_digit(char *c_code)
-{
-	int	i;
-
-	i = 0;
-	if (!c_code)
-		return (0);
-	while (c_code[i])
-	{
-		if (!ft_isdigit(c_code[i]))
-			return (0);
-		i++;
-	}
 	return (1);
 }

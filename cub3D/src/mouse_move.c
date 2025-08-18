@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 09:45:21 by rick              #+#    #+#             */
-/*   Updated: 2025/07/23 16:28:23 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/18 16:46:06 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 static void	wrap_mouse_position(int x, int y, t_data *data)
 {
-	if (x > data->win->win_width - TEX_SIZE || y > data->win->win_height - TEX_SIZE)
+	int	w;
+	int	h;
+
+	w = data->win->win_width;
+	h = data->win->win_height;
+	if (x > w - TEX_SIZE || y > h - TEX_SIZE)
 	{
 		x = TEX_SIZE;
 		y = TEX_SIZE;
@@ -22,13 +27,13 @@ static void	wrap_mouse_position(int x, int y, t_data *data)
 	}
 	if (x < TEX_SIZE || y < TEX_SIZE)
 	{
-		x = data->win->win_width - TEX_SIZE;
-		y = data->win->win_height - TEX_SIZE;
+		x = w - TEX_SIZE;
+		y = h - TEX_SIZE;
 		mlx_mouse_move(data->win->mlx, data->win->mlx_win, x, y);
 	}
 }
 
-int handle_mouse_move(int x, int y, t_data *data)
+int	handle_mouse_move(int x, int y, t_data *data)
 {
 	int	last_x;
 	int	delta_x;
@@ -43,7 +48,7 @@ int handle_mouse_move(int x, int y, t_data *data)
 	delta_x = x - last_x;
 	if (delta_x > 0)
 		data->player->has_moved += player_rotate(data, 1, MOUSE_SPEED);
-    else if (delta_x < 0)
+	else if (delta_x < 0)
 		data->player->has_moved += player_rotate(data, -1, MOUSE_SPEED);
 	data->player->mouse_x = x;
 	return (0);

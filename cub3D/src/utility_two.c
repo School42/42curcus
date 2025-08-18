@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 13:05:27 by talin             #+#    #+#             */
-/*   Updated: 2025/08/18 12:38:47 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/18 16:14:52 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,42 +99,27 @@ int	ft_finding_pos_map(t_data *data)
 {
 	int	x;
 
-	x = data->map->ln_count - 1;
-	while (x > 0)
+	x = data->map->ln_count;
+	while (--x > 0)
 	{
 		if (ft_strcmp(data->map->map[x], "") != 0)
-			break;
-		x--;
+			break ;
 	}
 	data->map->end = x;
 	while (x > 0)
 	{
-		if (ft_strcmp(data->map->map[x], "") == 0 || !contain_only_certain_characters(data->map->map[x], " 01NEWS"))
-			break;
+		if (ft_strcmp(data->map->map[x], "") == 0
+			|| !contain_only_certain_characters(data->map->map[x], " 01NEWS"))
+			break ;
 		x--;
 	}
 	data->map->start = x + 1;
 	while (x > 0)
 	{
-		if (ft_strcmp(data->map->map[x], "") != 0 && contain_only_certain_characters(data->map->map[x], " 01NEWS"))
+		if (ft_strcmp(data->map->map[x], "") != 0
+			&& contain_only_certain_characters(data->map->map[x], " 01NEWS"))
 			return (0);
 		x--;
 	}
 	return (1);
-}
-
-int	ft_find_longest_length(t_data *data)
-{
-	int	max;
-	int	j;
-
-	max = 0;
-	j = data->map->start;
-	while (j <= data->map->end)
-	{
-		if ((int)ft_strlen(data->map->map[j]) > max)
-			max = (int)ft_strlen(data->map->map[j]);
-		j++;
-	}
-	return (max);
 }

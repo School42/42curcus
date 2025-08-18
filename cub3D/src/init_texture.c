@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 09:46:10 by rick              #+#    #+#             */
-/*   Updated: 2025/08/18 14:57:28 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/18 16:43:55 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,76 +24,80 @@ void	init_img_clean(t_img *img)
 void	init_texture_img(t_data *data, t_img *tmp, char *filename)
 {
 	init_img_clean(tmp);
-	tmp->img = mlx_xpm_file_to_image(data->win->mlx, filename, &data->tex_color->size, &data->tex_color->size);
+	tmp->img = mlx_xpm_file_to_image(data->win->mlx, filename,
+			&data->tex_color->size, &data->tex_color->size);
 	if (!tmp->img)
 	{
 		free_data(data);
 		printf("Error\n");
 		exit(1);
 	}
-	tmp->addr = (int *)mlx_get_data_addr(tmp->img, &tmp->bits_per_pixel, &tmp->line_length, &tmp->endian);
+	tmp->addr = (int *)mlx_get_data_addr(tmp->img,
+			&tmp->bits_per_pixel, &tmp->line_length, &tmp->endian);
 }
 
-static int	*xpm_to_img(t_data *data, char *filename)
+static int	*xpm_to_img(t_data *d, char *filename, int s)
 {
 	t_img	tmp;
 	int		*buffer;
 	int		x;
 	int		y;
 
-	init_texture_img(data, &tmp, filename);
-	buffer = ft_calloc(1, sizeof * buffer * data->tex_color->size * data->tex_color->size);
+	init_texture_img(d, &tmp, filename);
+	buffer = ft_calloc(1, sizeof * buffer * s * s);
 	if (!buffer)
 	{
-		free_data(data);
+		free_data(d);
 		printf("Error\n");
 		exit(1);
 	}
 	y = -1;
-	while (++y < data->tex_color->size)
+	while (++y < s)
 	{
 		x = -1;
-		while (++x < data->tex_color->size) {
-			buffer[y * data->tex_color->size + x] = tmp.addr[y * data->tex_color->size + x];
-		}
+		while (++x < s)
+			buffer[y * s + x] = tmp.addr[y * s + x];
 	}
-	mlx_destroy_image(data->win->mlx, tmp.img);
+	mlx_destroy_image(d->win->mlx, tmp.img);
 	return (buffer);
 }
 
-void	init_textures(t_data *data)
+void	init_textures(t_data *d)
 {
-	data->win->textures = ft_calloc(5, sizeof * data->win->textures);
-	if (!data->win->textures)
+	int	s;
+
+	d->win->textures = ft_calloc(5, sizeof * d->win->textures);
+	if (!d->win->textures)
 	{
-		free_data(data);
+		free_data(d);
 		printf("Error\n");
 		exit(1);
 	}
-	data->win->textures[NORTH] = xpm_to_img(data, data->tex_color->north_texture);
-	data->win->textures[SOUTH] = xpm_to_img(data, data->tex_color->south_texture);
-	data->win->textures[EAST] = xpm_to_img(data, data->tex_color->east_texture);
-	data->win->textures[WEST] = xpm_to_img(data, data->tex_color->west_texture);
+	s = d->tex_color->size;
+	d->win->textures[NORTH] = xpm_to_img(d, d->tex_color->north_texture, s);
+	d->win->textures[SOUTH] = xpm_to_img(d, d->tex_color->south_texture, s);
+	d->win->textures[EAST] = xpm_to_img(d, d->tex_color->east_texture, s);
+	d->win->textures[WEST] = xpm_to_img(d, d->tex_color->west_texture, s);
 }
 
-void	init_texture_pixels(t_data *data)
+void	init_t_pixel(t_data *data, int h, int w)
 {
 	int	i;
 
-	if (data->win->texture_pixels)
-		free_texture_pixels((void **)data->win->texture_pixels);
-	data->win->texture_pixels = ft_calloc(data->win->win_height + 1, sizeof * data->win->texture_pixels);
-	if (!data->win->texture_pixels)
+	if (data->win->t_pixel)
+		free_t_pixel((void **)data->win->t_pixel);
+	data->win->t_pixel = ft_calloc(h + 1, sizeof * data->win->t_pixel);
+	if (!data->win->t_pixel)
 	{
 		free_data(data);
 		printf("Error\n");
 		exit(1);
 	}
 	i = -1;
-	while (++i < data->win->win_height)
+	while (++i < h)
 	{
-		data->win->texture_pixels[i] = ft_calloc(data->win->win_width + 1, sizeof * data->win->texture_pixels);
-		if (!data->win->texture_pixels[i])
+		data->win->t_pixel[i] = ft_calloc(w + 1, sizeof * data->win->t_pixel);
+		if (!data->win->t_pixel[i])
 		{
 			free_data(data);
 			printf("Error\n");

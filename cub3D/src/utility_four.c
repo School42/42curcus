@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utility_three.c                                    :+:      :+:    :+:   */
+/*   utility_four.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/01 16:38:26 by talin             #+#    #+#             */
-/*   Updated: 2025/08/18 16:51:48 by talin            ###   ########.fr       */
+/*   Created: 2025/08/18 16:05:54 by talin             #+#    #+#             */
+/*   Updated: 2025/08/18 16:06:23 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cube.h"
 
-int	valid_char(int c)
+int	ft_check_digit(char *c_code)
 {
-	if (!(c == '0' || c == '1' || c == ' '
-			|| c == 'N' || c == 'S' || c == 'W' || c == 'E'))
+	int	i;
+
+	i = 0;
+	if (!c_code)
 		return (0);
+	while (c_code[i])
+	{
+		if (!ft_isdigit(c_code[i]))
+			return (0);
+		i++;
+	}
 	return (1);
-}
-
-int	is_player(int c)
-{
-	return ((c == 'N' || c == 'S' || c == 'W' || c == 'E'));
-}
-
-int	is_floor_player(int c)
-{
-	return ((c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == '0'));
-}
-
-void	error_ft(char *err)
-{
-	printf("Error\n%s\n", err);
 }

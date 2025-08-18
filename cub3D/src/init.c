@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 13:09:13 by talin             #+#    #+#             */
-/*   Updated: 2025/08/18 12:33:28 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/18 16:43:55 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_window	*ft_init_win(void)
 	win->mlx_win = NULL;
 	win->win_width = WIN_WIDTH;
 	win->win_height = WIN_HEIGHT;
-	win->texture_pixels = NULL;
+	win->t_pixel = NULL;
 	win->textures = NULL;
 	return (win);
 }

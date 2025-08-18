@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 10:34:12 by talin             #+#    #+#             */
-/*   Updated: 2025/08/18 16:04:01 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/18 16:19:25 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 int	rotating(t_data *data, double speed)
 {
-	t_player	*player;
+	t_player	*p;
 	double		x;
 
-	player = data->player;
-	x = player->dir_x;
-	player->dir_x = player->dir_x * cos(speed) - player->dir_y * sin(speed);
-	player->dir_y = x * sin(speed) + player->dir_y * cos(speed);
-	x = player->plane_x;
-	player->plane_x = player->plane_x * cos(speed) - player->plane_y * sin(speed);
-	player->plane_y = x * sin(speed) + player->plane_y * cos(speed);
+	p = data->player;
+	x = p->dir_x;
+	p->dir_x = p->dir_x * cos(speed) - p->dir_y * sin(speed);
+	p->dir_y = x * sin(speed) + p->dir_y * cos(speed);
+	x = p->plane_x;
+	p->plane_x = p->plane_x * cos(speed) - p->plane_y * sin(speed);
+	p->plane_y = x * sin(speed) + p->plane_y * cos(speed);
 	return (1);
 }
 

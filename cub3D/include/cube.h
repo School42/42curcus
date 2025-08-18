@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2025/08/18 15:50:20 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/18 17:06:54 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ typedef struct s_window
 	void	*mlx_win;
 	int		win_width;
 	int		win_height;
-	int		**texture_pixels;
+	int		**t_pixel;
 	int		**textures;
 }	t_window;
 
@@ -237,7 +237,7 @@ int			ft_size_map(char *filename);
 char		*ft_strdup_cu(const char *s);
 int			ft_file_exist(char *filename);
 int			ft_check_digit(char *c_code);
-int			texture_and_color(t_data *data);
+int			texture_and_color(t_data *data, int i);
 t_data		*init_data(void);
 t_tex_color	*ft_init_tex_color(void);
 int			*copy_codes(char **string_arr);
@@ -252,7 +252,7 @@ int			is_floor_player(int c);
 int			contain_only_certain_characters(char *src, char *allowed);
 void		render_game(t_data *data);
 void		init_mlx(t_data *data);
-void		init_textures(t_data *data);
+void		init_textures(t_data *d);
 int 		handle_mouse_move(int x, int y, t_data *data);
 int			render_frame(t_data *data);
 int			handle_key_release(int key, t_data *data);
@@ -262,7 +262,7 @@ int			handle_close(t_data *data);
 void		init_ray(t_ray *ray);
 void		init_img_clean(t_img *img);
 void		init_texture_img(t_data *data, t_img *tmp, char *filename);
-void		init_texture_pixels(t_data *data);
+void		init_t_pixel(t_data *data, int h, int w);
 void		init_raycasting(int x, t_ray *ray, t_player *player);
 int			raycasting(t_player *player, t_data *data);
 void		init_img(t_data *data, t_img *img, int width, int height);
@@ -270,14 +270,20 @@ void		set_image_pixel(t_img *img, int x, int y, int color);
 void		render_images(t_data *data);
 void		render_raycast(t_data *data);
 void		update_texture(t_ray *ray, t_data *data, int x, t_tex_color *tex);
-void		free_texture_pixels(void **texture_pixels);
+void		free_t_pixel(void **t_pixel);
 int			render(t_data *data);
 int			player_move(t_data *data);
 int			validate_move(t_data *data, double x, double y);
 int			player_rotate(t_data *data, double rotate, double mov_speed);
 t_window	*ft_init_win(void);
 t_player	*ft_init_player(void);
-void		init_player_direction(t_data *data);
+void		init_player_direction(t_data *d);
 int			rotating(t_data *data, double speed);
+void		free_window(t_window *w);
+void		free_int_arr(int **arr);
+int			check_line_by_line(t_game_map *map, char *line, int row);
+int			valid_pos(t_game_map *map, int row, int col);
+int			upper_wall(t_game_map *map, int row, int col);
+int			lower_wall(t_game_map *map, int row, int col);
 
 #endif
