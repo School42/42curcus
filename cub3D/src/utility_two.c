@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 13:05:27 by talin             #+#    #+#             */
-/*   Updated: 2025/07/03 10:43:17 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/18 12:38:47 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	ft_size_map(char *filename)
 		if (str != NULL)
 			line++;
 	}
+	close(fd);
 	return (line);
 }
 

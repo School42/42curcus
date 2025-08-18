@@ -44,8 +44,8 @@ OBJ 		= ${SRC:.c=.o}
 OBJS 		= ${addprefix ${OBJ_PATH}, ${OBJ}}
 
 CC          = cc
-
-CFLAGS      = -Wall -Wextra -Werror -g3
+BONUS_FLAG	= -DBONUS=0
+CFLAGS      = -Wall -Wextra -Werror -g3 ${BONUS_FLAG}
 
 INC 		= -I ./include/\
 				-I ./libft/\
@@ -82,4 +82,7 @@ fclean:     clean
 
 re:         fclean all
 
-.PHONY:     all clean fclean re libft norm
+bonus: BONUS_FLAG=-DBONUS=1
+bonus: fclean all
+
+.PHONY:     all clean fclean re libft norm bonus

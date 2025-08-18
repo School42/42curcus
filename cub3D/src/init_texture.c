@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 09:46:10 by rick              #+#    #+#             */
-/*   Updated: 2025/07/22 14:43:29 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/18 14:57:28 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	init_texture_img(t_data *data, t_img *tmp, char *filename)
 	tmp->img = mlx_xpm_file_to_image(data->win->mlx, filename, &data->tex_color->size, &data->tex_color->size);
 	if (!tmp->img)
 	{
+		free_data(data);
 		printf("Error\n");
 		exit(1);
 	}
 	tmp->addr = (int *)mlx_get_data_addr(tmp->img, &tmp->bits_per_pixel, &tmp->line_length, &tmp->endian);
-	// printf("check point : init_texture_img\n");
 }
 
 static int	*xpm_to_img(t_data *data, char *filename)
@@ -42,19 +42,14 @@ static int	*xpm_to_img(t_data *data, char *filename)
 	int		y;
 
 	init_texture_img(data, &tmp, filename);
-	// printf("check point : after init_texture_img\n");
-	// printf("size : %d\n", data->tex_color->size);
 	buffer = ft_calloc(1, sizeof * buffer * data->tex_color->size * data->tex_color->size);
 	if (!buffer)
 	{
+		free_data(data);
 		printf("Error\n");
 		exit(1);
 	}
-	// printf("buffer : size : %zu\n", sizeof(buffer));
-	// printf("line_length : %d\n", tmp.line_length);
-	// printf("check point : after ft_calloc\n");
 	y = -1;
-	// printf("tex_color->size : %d\n", data->tex_color->size);
 	while (++y < data->tex_color->size)
 	{
 		x = -1;
@@ -62,9 +57,7 @@ static int	*xpm_to_img(t_data *data, char *filename)
 			buffer[y * data->tex_color->size + x] = tmp.addr[y * data->tex_color->size + x];
 		}
 	}
-	// printf("check point : before mlx_destory_image");
 	mlx_destroy_image(data->win->mlx, tmp.img);
-	// printf("check point : xpm_to_img\n");
 	return (buffer);
 }
 
@@ -73,6 +66,7 @@ void	init_textures(t_data *data)
 	data->win->textures = ft_calloc(5, sizeof * data->win->textures);
 	if (!data->win->textures)
 	{
+		free_data(data);
 		printf("Error\n");
 		exit(1);
 	}
@@ -80,7 +74,6 @@ void	init_textures(t_data *data)
 	data->win->textures[SOUTH] = xpm_to_img(data, data->tex_color->south_texture);
 	data->win->textures[EAST] = xpm_to_img(data, data->tex_color->east_texture);
 	data->win->textures[WEST] = xpm_to_img(data, data->tex_color->west_texture);
-	// printf("check point : init_textures\n");
 }
 
 void	init_texture_pixels(t_data *data)
@@ -92,6 +85,7 @@ void	init_texture_pixels(t_data *data)
 	data->win->texture_pixels = ft_calloc(data->win->win_height + 1, sizeof * data->win->texture_pixels);
 	if (!data->win->texture_pixels)
 	{
+		free_data(data);
 		printf("Error\n");
 		exit(1);
 	}
@@ -101,6 +95,7 @@ void	init_texture_pixels(t_data *data)
 		data->win->texture_pixels[i] = ft_calloc(data->win->win_width + 1, sizeof * data->win->texture_pixels);
 		if (!data->win->texture_pixels[i])
 		{
+			free_data(data);
 			printf("Error\n");
 			exit(1);
 		}

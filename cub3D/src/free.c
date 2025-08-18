@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rick <rick@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 13:07:27 by talin             #+#    #+#             */
-/*   Updated: 2025/07/19 14:58:57 by rick             ###   ########.fr       */
+/*   Updated: 2025/08/18 14:52:12 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,31 @@ void	free_tex_color(t_tex_color *t)
 	free(t);
 }
 
+void	free_int_arr(int **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		if (arr[i])
+			free(arr[i]);
+		i++;
+	}
+	if (arr)
+		free(arr);
+}
+
+void	free_window(t_window *w)
+{
+	if (w->texture_pixels)
+		free_int_arr(w->texture_pixels);
+	if (w->textures)
+		free_int_arr(w->textures);
+	if (w)
+		free(w);
+}
+
 void	free_data(t_data *data)
 {
 	if (!data)
@@ -68,6 +93,10 @@ void	free_data(t_data *data)
 		free_map(data->map);
 	if (data->tex_color)
 		free_tex_color(data->tex_color);
+	if (data->win)
+		free_window(data->win);
+	if (data->player)
+		free(data->player);
 	if (data)
 		free(data);
 }

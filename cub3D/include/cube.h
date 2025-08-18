@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2025/07/23 16:29:21 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/18 15:50:20 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include <X11/X.h>
 
 # ifndef BONUS
-#  define BONUS 1
+#  define BONUS 0
 # endif
 
 # ifndef M_PI
@@ -107,21 +107,21 @@ enum e_texture_index
 
 typedef struct s_tex_color
 {
-	char	*north_texture;
-	char	*south_texture;
-	char	*east_texture;
-	char	*west_texture;
-	int		*floor_color;
-	int		*ceiling_color;
-	int		check_texture_color;
+	char			*north_texture;
+	char			*south_texture;
+	char			*east_texture;
+	char			*west_texture;
+	int				*floor_color;
+	int				*ceiling_color;
+	int				check_texture_color;
 	unsigned int	hex_floor;
 	unsigned int	hex_ceiling;
-	int		size;
-	int		index;
-	double	step;
-	double	pos;
-	int		y;
-	int 	x;
+	int				size;
+	int				index;
+	double			step;
+	double			pos;
+	int				y;
+	int 			x;
 }	t_tex_color;
 
 typedef struct s_vec
@@ -140,15 +140,15 @@ typedef struct s_player_pos
 
 typedef struct s_game_map
 {
-	char	**map;
-	char	**game_map;
-	int		num_player;
+	char			**map;
+	char			**game_map;
+	int				num_player;
 	t_player_pos	*player;
-	int		ln_count;
-	int		start;
-	int		end;
-	int		width;
-	int		height;
+	int				ln_count;
+	int				start;
+	int				end;
+	int				width;
+	int				height;
 }	t_game_map;
 
 typedef struct s_img

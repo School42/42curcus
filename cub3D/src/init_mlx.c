@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 09:44:29 by rick              #+#    #+#             */
-/*   Updated: 2025/07/23 16:15:00 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/18 14:45:01 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	init_mlx(t_data *data)
 		printf("Error\n");
 		exit(1);
 	}
-	// printf("check point: init_mlx\n");
 	if (BONUS)
 	{
 		mlx_mouse_hide(data->win->mlx, data->win->mlx_win);

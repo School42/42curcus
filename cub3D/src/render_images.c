@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 14:53:25 by rick              #+#    #+#             */
-/*   Updated: 2025/07/23 15:58:24 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/18 14:58:00 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	render_images(t_data *data)
 {
 	render_raycast(data);
-	// printf("check point : render_images\n");
 }
 
 int	render(t_data *data)
