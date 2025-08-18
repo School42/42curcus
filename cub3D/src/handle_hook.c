@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:41:08 by rick              #+#    #+#             */
-/*   Updated: 2025/08/18 16:47:52 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/18 17:38:32 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	handle_key_press(int key, t_data *data)
 {
 	if (key == XK_Escape)
-		quit_game(data);
+		handle_close(data);
 	if (key == XK_Right)
 		data->player->rotate += 1;
 	if (key == XK_Left)
@@ -34,7 +34,7 @@ int	handle_key_press(int key, t_data *data)
 int	handle_key_release(int key, t_data *data)
 {
 	if (key == XK_Escape)
-		quit_game(data);
+		handle_close(data);
 	if (key == XK_Right && data->player->rotate >= -1)
 		data->player->rotate = 0;
 	if (key == XK_Left && data->player->rotate <= 1)
@@ -52,8 +52,16 @@ int	handle_key_release(int key, t_data *data)
 
 void	quit_game(t_data *data)
 {
-	(void) data;
-	mlx_destroy_window(data->win->mlx, data->win->mlx_win);
+	if (!data)
+		exit(0);
+	if (data->win->mlx && data->win->mlx_win)
+		mlx_destroy_window(data->win->mlx, data->win->mlx_win);
+	if (data->win->mlx)
+	{
+		mlx_destroy_display(data->win->mlx);
+		mlx_loop_end(data->win->mlx);
+		free(data->win->mlx);
+	}
 	free_data(data);
 	exit(0);
 }

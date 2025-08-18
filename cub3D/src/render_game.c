@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 13:27:53 by talin             #+#    #+#             */
-/*   Updated: 2025/07/23 16:13:56 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/18 17:39:01 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	render_game(t_data *data)
 	init_mlx(data);
 	init_textures(data);
 	render_images(data);
-	mlx_hook(data->win->mlx, 33, 1L << 17, handle_close, data);
+	mlx_hook(data->win->mlx_win, 33, 0L, handle_close, data);
 	mlx_hook(data->win->mlx_win, 2, 1L << 0, handle_key_press, data);
 	mlx_hook(data->win->mlx_win, 3, 1L << 1, handle_key_release, data);
 	mlx_loop_hook(data->win->mlx, render, data);
