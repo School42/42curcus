@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2025/08/19 14:40:31 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/19 15:05:30 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 // # define KEY_LEFT 123
 // # define KEY_RIGHT 124
 
-# define ERR_USAGE "usage: ./cub3d <path/to/map.cub>"
+# define ERR_USAGE "usage: ./cub3D <path/to/map.cub>"
 
 # define ERR_FILE_NOT_CUB "Not a .cub file"
 # define ERR_FILE_NOT_XPM "Not an .xpm file"
