@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2025/08/18 17:06:54 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/19 14:40:31 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ typedef struct s_tex_color
 	double			step;
 	double			pos;
 	int				y;
-	int 			x;
+	int				x;
 }	t_tex_color;
 
 typedef struct s_vec
@@ -136,7 +136,6 @@ typedef struct s_player_pos
 	double	y;
 	char	pos;
 }	t_player_pos;
-
 
 typedef struct s_game_map
 {
@@ -153,7 +152,7 @@ typedef struct s_game_map
 
 typedef struct s_img
 {
-	void 	*img;
+	void	*img;
 	int		*addr;
 	int		bits_per_pixel;
 	int		line_length;
@@ -162,7 +161,7 @@ typedef struct s_img
 
 typedef struct s_ray
 {
-	double 	camera_x;
+	double	camera_x;
 	double	ray_dir_x;
 	double	ray_dir_y;
 	int		map_x;
@@ -208,7 +207,6 @@ typedef struct s_player
 	int		rotate;
 }	t_player;
 
-
 typedef struct s_data
 {
 	t_tex_color	*tex_color;
@@ -253,7 +251,7 @@ int			contain_only_certain_characters(char *src, char *allowed);
 void		render_game(t_data *data);
 void		init_mlx(t_data *data);
 void		init_textures(t_data *d);
-int 		handle_mouse_move(int x, int y, t_data *data);
+int			handle_mouse_move(int x, int y, t_data *data);
 int			render_frame(t_data *data);
 int			handle_key_release(int key, t_data *data);
 int			handle_key_press(int key, t_data *data);
