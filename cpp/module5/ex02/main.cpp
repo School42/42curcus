@@ -2,7 +2,7 @@
 #include "AForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
-#include "PresidentialPardomForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 int	main(void) {
 	try {
@@ -32,7 +32,7 @@ int	main(void) {
 	try {
 		Bureaucrat	bob("Bob", 1);
 		std::cout << bob << std::endl;
-		PresidentialPardomForm	form("home");
+		PresidentialPardonForm	form("home");
 		std::cout << form << std::endl;
 		bob.signForm(form);
 		bob.executeForm(form);
@@ -44,7 +44,7 @@ int	main(void) {
 	try {
 		Bureaucrat	bob("Bob", 20);
 		std::cout << bob << std::endl;
-		PresidentialPardomForm	form("home");
+		PresidentialPardonForm	form("home");
 		std::cout << form << std::endl;
 		bob.signForm(form);
 		bob.executeForm(form);
@@ -56,7 +56,7 @@ int	main(void) {
 	try {
 		Bureaucrat bob("Bob", 1);
 		std::cout << bob << std::endl;
-		PresidentialPardomForm	form("home");
+		PresidentialPardonForm	form("home");
 		std::cout << form << std::endl;
 		bob.executeForm(form);
 	}
