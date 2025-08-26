@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 11:52:35 by talin             #+#    #+#             */
-/*   Updated: 2025/08/18 17:07:36 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/26 14:52:03 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,5 @@ t_data	*ft_create_game_map(char **av, int fd)
 		return (error_ft(ERR_MAP_NOT_CREATED), free_data(data), NULL);
 	if (!validate_game_map(data->map))
 		return (printf("Not a valid game map!\n"), free_data(data), NULL);
-	print_game_map(data->map->game_map);
 	return (data);
 }
