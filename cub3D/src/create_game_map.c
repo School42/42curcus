@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 11:52:35 by talin             #+#    #+#             */
-/*   Updated: 2025/08/26 14:52:03 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/28 15:09:58 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	**ft_making_map(int fd, int size)
 	char		**map;
 
 	map = (char **)malloc(sizeof(char *) * (size + 1));
+	if (!map)
+		return (NULL);
 	str = get_next_line(fd);
 	i = 0;
 	while (str != NULL)

@@ -43,6 +43,7 @@ SRC         = main.c \
 				longest_line.c \
 				validate_line_by_line.c \
 				valid_wall.c \
+				ft_split_se.c
 
 OBJ_PATH 	= ./objs/
 OBJ 		= ${SRC:.c=.o}

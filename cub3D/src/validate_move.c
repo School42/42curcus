@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 10:23:30 by talin             #+#    #+#             */
-/*   Updated: 2025/08/18 16:25:30 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/28 17:15:53 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,29 @@ static int	is_valid_pos_in_map(t_data *data, double x, double y)
 	return (1);
 }
 
-// static int	is_wall_touched(t_data *data, double x, double y)
-// {
-// 	int a;
-// 	int b;
-
-// 	a = (int)(x);
-// 	b = (int)(y);
-// 	if (data->map->game_map[b][a] == '1')
-// 		return (1);
-// 	printf("x : %f, y : %f, map char : %c\n", x, y, data->map->game_map[b][a]);
-// 	return (0);
-// }
-
 static int	is_wall_touched(t_data *data, double x, double y)
 {
-	int	map_x;
-	int	map_y;
+	int	left;
+	int	right;
+	int	top;
+	int	bottom;
 
-	map_x = (int)x;
-	map_y = (int)y;
-	if (data->map->game_map[map_y][map_x] == '1')
+	left = (int)(x - PLAYER_RADIUS);
+	right = (int)(x + PLAYER_RADIUS);
+	top = (int)(y - PLAYER_RADIUS);
+	bottom = (int)(y + PLAYER_RADIUS);
+	if (left < 0)
+		left = 0;
+	if (right >= data->map->width)
+		right = data->map->width - 1;
+	if (top < 0)
+		top = 0;
+	if (bottom >= data->map->height)
+		bottom = data->map->height - 1;
+	if (data->map->game_map[top][left] == '1'
+		|| data->map->game_map[top][right] == '1'
+		|| data->map->game_map[bottom][left] == '1'
+		|| data->map->game_map[bottom][right] == '1')
 		return (1);
 	return (0);
 }
@@ -52,25 +54,6 @@ static int	is_valid_pos(t_data *data, double x, double y)
 		return (1);
 	return (0);
 }
-
-// int	validate_move(t_data *data, double x, double y, int dir)
-// {
-// 	int	moved;
-// 	(void) dir;
-
-// 	moved = 0;
-// 	if (is_valid_pos(data, x, data->player->pos_y))
-// 	{
-// 		data->player->pos_x = x;
-// 		moved = 1;
-// 	}
-// 	if (is_valid_pos(data, data->player->pos_x, y))
-// 	{
-// 		data->player->pos_y = y;
-// 		moved = 1;
-// 	}
-// 	return (moved);
-// }
 
 int	validate_move(t_data *data, double new_x, double new_y)
 {

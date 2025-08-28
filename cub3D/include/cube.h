@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:34:38 by talin             #+#    #+#             */
-/*   Updated: 2025/08/19 15:05:30 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/28 17:22:46 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@
 # define ERR_MLX_WIN "Could not create mlx window"
 # define ERR_MLX_IMG "Could not create mlx image"
 # define ERR_MUL_ELE "More than needed element informations (duplicate data)"
+# define ERR_TEX_OPEN "Could not open texture file"
 
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
@@ -96,6 +97,7 @@
 # define MOUSE_SPEED 0.03
 # define ROTATE_SPEED 0.05
 # define TEX_SIZE 64
+# define PLAYER_RADIUS 0.15
 
 enum e_texture_index
 {
@@ -283,5 +285,6 @@ int			check_line_by_line(t_game_map *map, char *line, int row);
 int			valid_pos(t_game_map *map, int row, int col);
 int			upper_wall(t_game_map *map, int row, int col);
 int			lower_wall(t_game_map *map, int row, int col);
+char		**ft_split_se(char const *s, char c);
 
 #endif

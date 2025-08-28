@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 13:04:01 by talin             #+#    #+#             */
-/*   Updated: 2025/08/18 16:07:20 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/28 16:09:00 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ int	*copy_codes(char **string_arr)
 	codes = (int *)malloc(sizeof(int) * 4);
 	if (!codes)
 		return (free(code), NULL);
-	color_str = ft_split(code, ',');
+	color_str = ft_split_se(code, ',');
+	if (ft_length_str_arr(color_str) != 3)
+		return (ft_free_string_arr(color_str), free(code), NULL);
 	i = -1;
 	while (++i < 3)
 		codes[i] = ft_atoi(color_str[i]);

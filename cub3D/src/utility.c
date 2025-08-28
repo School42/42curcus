@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 11:05:06 by talin             #+#    #+#             */
-/*   Updated: 2025/08/18 16:06:04 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/28 16:41:43 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	ft_file_exist(char *filename)
 		return (error_ft(ERR_FILE_IS_DIR), 0);
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-		return (0);
+		return (error_ft(ERR_TEX_OPEN), 0);
 	else
 		close(fd);
 	return (1);

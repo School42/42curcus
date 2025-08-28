@@ -6,7 +6,7 @@
 /*   By: talin <talin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 15:19:19 by rick              #+#    #+#             */
-/*   Updated: 2025/08/18 16:43:55 by talin            ###   ########.fr       */
+/*   Updated: 2025/08/28 15:04:25 by talin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ static void	get_texture_index(t_data *data, t_ray *ray)
 	if (ray->side == 0)
 	{
 		if (ray->ray_dir_x < 0)
-			data->tex_color->index = WEST;
-		else
 			data->tex_color->index = EAST;
+		else
+			data->tex_color->index = WEST;
 	}
 	else
 	{
 		if (ray->ray_dir_y < 0)
-			data->tex_color->index = NORTH;
-		else
 			data->tex_color->index = SOUTH;
+		else
+			data->tex_color->index = NORTH;
 	}
 }
 
