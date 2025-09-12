@@ -8,6 +8,10 @@
 #include <ctime>
 #include <cstdlib>
 #include <iostream>
+#include <string>
+#include <limits>
+#include <sstream>
+#include <iterator>
 
 class PmergeMe
 {
@@ -16,8 +20,6 @@ class PmergeMe
 		~PmergeMe();
 		PmergeMe(const PmergeMe &other);
 		PmergeMe &operator=(const PmergeMe &other);
-		void sort(int *array, int size);
-		void print();
 };
 
 #endif
