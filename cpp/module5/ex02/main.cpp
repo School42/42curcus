@@ -11,6 +11,7 @@ int	main(void) {
 		ShrubberyCreationForm	form("home");
 		std::cout << form << std::endl;
 		bob.signForm(form);
+		std::cout << form << std::endl;
 		bob.executeForm(form);
 	}
 	catch (std::exception &e) {
@@ -23,6 +24,7 @@ int	main(void) {
 		RobotomyRequestForm	form("home");
 		std::cout << form << std::endl;
 		bob.signForm(form);
+		std::cout << form << std::endl;
 		bob.executeForm(form);
 	}
 	catch (std::exception &e) {
@@ -35,6 +37,7 @@ int	main(void) {
 		PresidentialPardonForm	form("home");
 		std::cout << form << std::endl;
 		bob.signForm(form);
+		std::cout << form << std::endl;
 		bob.executeForm(form);
 	}
 	catch (std::exception &e) {
@@ -47,6 +50,7 @@ int	main(void) {
 		PresidentialPardonForm	form("home");
 		std::cout << form << std::endl;
 		bob.signForm(form);
+		std::cout << form << std::endl;
 		bob.executeForm(form);
 	}
 	catch (std::exception &e) {

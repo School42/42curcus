@@ -28,8 +28,9 @@ class Form {
 		void beSigned(Bureaucrat const &bureaucrat);
 		class GradeTooHighException;
 		class GradeTooLowException;
-		friend std::ostream &operator<<(std::ostream &out, Form const &src);
 };
+
+std::ostream &operator<<(std::ostream &out, Form const &src);
 
 class Form::GradeTooHighException : public std::exception {
 	public:

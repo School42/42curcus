@@ -5,11 +5,11 @@ Bureaucrat::Bureaucrat() : name("default"), grade(150) {
 }
 
 Bureaucrat::Bureaucrat(std::string const name, int grade) : name(name), grade(grade) {
-	std::cout << "Bureaucrat Constructor called" << std::endl;
 	if (grade < 1)
 		throw Bureaucrat::GradeTooHighException();
 	if (grade > 150)
 		throw Bureaucrat::GradeTooLowException();
+	std::cout << "Bureaucrat Constructor called" << std::endl;
 }
 
 Bureaucrat::~Bureaucrat() {

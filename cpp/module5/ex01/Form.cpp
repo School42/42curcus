@@ -5,7 +5,6 @@ Form::Form(): name("Default"), isSigned(false), gradeToSign(150), gradeToExecute
 }
 
 Form::Form(std::string const name, int const gradeToSign, int const gradeToExecute): name(name), isSigned(false), gradeToSign(gradeToSign), gradeToExecute(gradeToExecute) {
-	std::cout << "Form Constructor called" << std::endl;
 	if (gradeToSign < 1)
 		throw Form::GradeTooHighException();
 	if (gradeToSign > 150)
@@ -14,6 +13,7 @@ Form::Form(std::string const name, int const gradeToSign, int const gradeToExecu
 		throw Form::GradeTooHighException();
 	if (gradeToExecute > 150)
 		throw Form::GradeTooLowException();
+	std::cout << "Form Constructor called" << std::endl;
 }
 
 Form::~Form() {
