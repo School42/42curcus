@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef BASE_HPP
 #define BASE_HPP
 
@@ -28,6 +26,7 @@ Base *generate(void) {
 }
 
 void identify(Base* p) {
+	std::cout << "pointer: ";
 	if (dynamic_cast<A*>(p))
 		std::cout << "A" << std::endl;
 	else if (dynamic_cast<B*>(p))
@@ -37,6 +36,7 @@ void identify(Base* p) {
 }
 
 void identify(Base& p) {
+	std::cout << "reference: ";
 	try {
 		A &a = dynamic_cast<A &>(p);
 		(void)a;
