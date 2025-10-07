@@ -12,12 +12,13 @@ typedef struct Data {
 
 class Serializer {
 	public:
+		static uintptr_t serialize(Data* ptr);
+		static Data* deserialize(uintptr_t raw);
+	private:
 		Serializer();
 		~Serializer();
 		Serializer(Serializer const &src);
 		Serializer &operator=(Serializer const &src);
-		uintptr_t serialize(Data* ptr);
-		Data* deserialize(uintptr_t raw);
 };
 
 #endif

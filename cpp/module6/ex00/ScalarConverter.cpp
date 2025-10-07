@@ -39,7 +39,7 @@ void convert_float(std::string input) {
 	double d = atof(input.c_str());
 	float f = static_cast<float>(d);
 	int i = static_cast<int>(d);
-	std::string float_tail = (f - i == 0) ? ".0f" : ".f";
+	std::string float_tail = (f - i == 0) ? ".0f" : "f";
 	std::string double_tail = (d - i == 0) ? ".0" : "";
 	if (!(i >= 32 && i <= 126)) {
 		std::cout << "char: Non displayable" << std::endl;
@@ -55,7 +55,7 @@ void convert_double(std::string input) {
 	double d = atof(input.c_str());
 	float f = static_cast<float>(d);
 	int i = static_cast<int>(d);
-	std::string float_tail = (f - i == 0) ? ".0f" : ".f";
+	std::string float_tail = (f - i == 0) ? ".0f" : "f";
 	std::string double_tail = (d - i == 0) ? ".0" : "";
 	if (!(i >= 32 && i <= 126)) {
 		std::cout << "char: Non displayable" << std::endl;
