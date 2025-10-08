@@ -3,20 +3,21 @@
 
 #include <iostream>
 
-template <typename T> void iter(T *arr, const int len, void (*f)(T &)) {
-	if (len == 0 || arr == NULL || f == NULL)
-		return;
-	for (int i = 0; i < len; i++) {
-		f(arr[i]);
-	}
+template <typename T, typename F>
+void iter(T *array, size_t length, F func) {
+	if (array == NULL || func == NULL || length <= 0)
+		return ;
+	for (size_t i = 0; i < length; ++i)
+		std::cout << func(array[i]) << " ";
+	std::cout << std::endl;
 }
 
-template <typename T> void printing(T &a) {
-	std::cout << a << " ";
+template <typename T> T printing(T &a) {
+	return a;
 }
 
-template <typename T> void singing(const T &a) {
-	std::cout << "La la la " << a << std::endl;
+template <typename T> T increment(const T& x){
+	return x + 1;
 }
 
 #endif

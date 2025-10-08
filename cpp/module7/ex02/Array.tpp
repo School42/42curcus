@@ -53,6 +53,6 @@ template<typename T>
 T &Array<T>::operator[](unsigned int index) const
 {
 	if (index >= this->_size || index < 0)
-		throw std::exception();
+		throw OutOfRangeException();
 	return this->_array[index];
 }

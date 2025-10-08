@@ -11,6 +11,6 @@ int main(void) {
 	iter(arr3, 3, &printing<double>);
 	std::cout << std::endl;
 	const int arr4[5] = {1, 2, 3, 4, 5};
-	iter(arr4, 5, &singing);
+	iter(arr4, 5, &increment<int>);
 	return 0;
 }
