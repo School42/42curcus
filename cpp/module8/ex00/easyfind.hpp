@@ -1,12 +1,9 @@
-#pragma once
 #ifndef EASYFIND_HPP
 #define EASYFIND_HPP
 
 #include <algorithm>
 #include <vector>
 #include <list>
-#include <deque>
-#include <array>
 #include <iterator>
 #include <exception>
 #include <iostream>

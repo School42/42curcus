@@ -5,7 +5,8 @@ Span::Span(unsigned int N) : N(N) {}
 Span::~Span() {}
 
 Span::Span(const Span &other) {
-	*this = other;
+	this->N = other.size();
+	this->_vector = other._vector;
 }
 
 Span &Span::operator=(const Span &other) {
@@ -32,6 +33,7 @@ void Span::addNumber(int start, int end, int size){
 		}
 		catch (SpanFullException &e) {
 			std::cout << e.what() << std::endl;
+			break;
 		}
 		size--;
 	}

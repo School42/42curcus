@@ -38,7 +38,7 @@ int main() {
 	std::cout << "forth test" << std::endl;
 	try {
 		Span sp = Span(10000);
-		sp.addNumber(3000, 1000000, 10001);
+		sp.addNumber(3000, 1000000, 10100);
 		std::cout << sp.shortestSpan() << std::endl;
 		std::cout << sp.longestSpan() << std::endl;
 	}

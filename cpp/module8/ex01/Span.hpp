@@ -1,4 +1,3 @@
-#pragma once
 #ifndef SPAN_HPP
 #define SPAN_HPP
 

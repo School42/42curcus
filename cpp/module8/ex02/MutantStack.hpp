@@ -1,4 +1,3 @@
-#pragma once
 #ifndef MUTANTSTACK_HPP
 #define MUTANTSTACK_HPP
 
@@ -11,10 +10,13 @@ template <typename T>
 class MutantStack : public std::stack<T> {
 	public:
 		typedef typename std::stack<T> stack;
-		typedef typename stack::container_type::iterator iterator;
-		typedef typename stack::container_type::const_iterator const_iterator;
-		typedef typename stack::container_type::reverse_iterator reverse_iterator;
-		typedef typename stack::container_type::const_reverse_iterator const_reverse_iterator;
+		typedef typename stack::container_type container;
+
+		typedef typename container::iterator iterator;
+		typedef typename container::reverse_iterator reverse_iterator;
+		typedef typename container::const_iterator const_iterator;
+		typedef typename container::const_reverse_iterator const_reverse_iterator;
+		
 		MutantStack();
 		MutantStack(const MutantStack& other);
 		MutantStack& operator=(const MutantStack& other);
