@@ -1,184 +1,119 @@
 #include "PmergeMe.hpp"
 
-bool is_positive_number(std::string str) {
-    if (str.empty())
-        return false;
-    if (str[0] == '-')
-        return false;
-    
-    for (size_t i = 0; i < str.length(); ++i) {
-        if (!std::isdigit(str[i]))
-            return false;
-    }
-    
-    std::stringstream ss(str);
-    long result;
-    ss >> result;
-    
-    if (result <= 0)
-        return false;
-    if (result > std::numeric_limits<int>::max())
-        return false;
-    
-    return true;
+static std::string validate_arg(std::string arg)
+{
+    if (arg[0] == '-')
+        return "Negative numbers are not allowed";
+    long nbr = strtol(arg.c_str(), NULL, 10);
+    if (nbr == 0 && arg != "0")
+        return "Non-number arguments not allowed";
+    if (nbr > INT_MAX || errno == ERANGE)
+        return "Too big arguments are not allowed";
+    return "";
 }
 
-std::list<std::string> split(std::string str, char delimiter) {
-    std::list<std::string> result;
-    std::string token;
-    size_t start = 0;
-    
-    while (start < str.length() && str[start] == delimiter)
-        start++;
-    
-    while (start < str.length()) {
-        size_t end = str.find(delimiter, start);
-        if (end == std::string::npos)
-            end = str.length();
-        
-        token = str.substr(start, end - start);
-        result.push_back(token);
-        start = end + 1;
-        
-        while (start < str.length() && str[start] == delimiter)
-            start++;
+static std::string validate(int argc, char** argv)
+{
+    if (argc == 1)
+        return "No arguments were provided";
+    for (int i = 1; i < argc; i++)
+    {
+        std::string status = validate_arg(argv[i]);
+        if (status != "")
+            return status;
     }
-    
-    return result;
+    return "";
 }
 
-bool validateArg(std::string arg) {
-    std::list<std::string> tokens = split(arg, ' ');
-    if (tokens.empty())
-        return false;
-    
-    std::list<std::string>::iterator it = tokens.begin();
-    while (it != tokens.end()) {
-        if (!is_positive_number(*it))
-            return false;
-        ++it;
+static std::vector<int> argv_to_vector(int argc, char** argv)
+{
+    std::vector<int> res;
+    res.reserve(argc - 1);
+    for (int i = 1; i < argc; i++)
+    {
+        res.push_back(atoi(argv[i]));
     }
-    return true;
+    return res;
 }
 
-bool validateInput(int ac, char **av) {
-    for (int i = 1; i < ac; i++) {
-        if (!validateArg(av[i]))
-            return false;
+static std::deque<int> argv_to_deque(int argc, char** argv)
+{
+    std::deque<int> res;
+    for (int i = 1; i < argc; i++)
+    {
+        res.push_back(atoi(argv[i]));
     }
-    return true;
+    return res;
 }
 
-std::list<int> argv_to_list(int ac, char **av) {
-    std::list<int> result;
-    for (int i = 1; i < ac; i++) {
-        std::list<std::string> tokens = split(av[i], ' ');
-        std::list<std::string>::iterator it = tokens.begin();
-        while (it != tokens.end()) {
-            result.push_back(atoi(it->c_str()));
-            ++it;
-        }
-    }
-    return result;
-}
-
-std::deque<int> list_to_deque(std::list<int> list) {
-    std::deque<int> result;
-    std::list<int>::iterator it = list.begin();
-    while (it != list.end()) {
-        result.push_back(*it);
-        ++it;
-    }
-    return result;
-}
-
-template <typename T> 
-bool is_sorted(const T &container) {
-    if (container.empty() || container.size() == 1)
+template <typename T> static bool is_sorted(const T& container)
+{
+    if (container.size() == 0 || container.size() == 1)
         return true;
-    
-    typename T::const_iterator it = container.begin();
-    typename T::const_iterator next_it = it;
-    ++next_it;
-    
-    while (next_it != container.end()) {
-        if (*it > *next_it)
+    typename T::const_iterator end = container.end();
+    std::advance(end, -1);
+    for (typename T::const_iterator it = container.begin(); it != end; it++)
+    {
+        typename T::const_iterator next = it;
+        std::advance(next, 1);
+        if (*next < *it) {
             return false;
-        ++it;
-        ++next_it;
+		}
     }
     return true;
 }
 
-int main(int ac, char **av) {
-    if (ac < 2) {
-        std::cerr << "Please run this program as : ./PmergeMe <numbers>" << std::endl;
-        return 1;
-    }
-    
-    if (!validateInput(ac, av)) {
-        std::cerr << "Error" << std::endl;
-        std::cerr << "Please enter only positive int numbers!!!" << std::endl;
-        return 1;
-    }
-    
+int main(int argc, char** argv)
+{
     PmergeMe pm;
-    
-    // Get original input for display
-    std::list<int> original = argv_to_list(ac, av);
-    
-    // Create separate copies for list and deque
-    std::list<int> list_int = argv_to_list(ac, av);
-    std::deque<int> deque_int = list_to_deque(original);
-    
-    // Sort list and measure time
-    PmergeMe::comps = 0;
-    clock_t start_lst = clock();
-    pm.sort_list(list_int);
-    clock_t end_lst = clock();
-    double time_lst = (double)(end_lst - start_lst) / CLOCKS_PER_SEC * 1000000;
-    
-    // Sort deque and measure time
-    PmergeMe::comps = 0;
-    clock_t start_deq = clock();
-    pm.sort_deque(deque_int);
-    clock_t end_deq = clock();
-    double time_deq = (double)(end_deq - start_deq) / CLOCKS_PER_SEC * 1000000;
-    
-    // Verify sorting
-    // if (!is_sorted(list_int)) {
-    //     std::cerr << "Error" << std::endl;
-    //     std::cerr << "The list is not sorted!!!" << std::endl;
-    //     return 1;
-    // }
-    
-    // if (!is_sorted(deque_int)) {
-    //     std::cerr << "Error" << std::endl;
-    //     std::cerr << "The deque is not sorted!!!" << std::endl;
-    //     return 1;
-    // }
-    
-    // Print results
-    std::cout << "Before : ";
-    std::list<int>::iterator it = original.begin();
-    while (it != original.end()) {
-        std::cout << *it << " ";
-        ++it;
+	
+    std::string status = validate(argc, argv);
+    if (status != "")
+    {
+        std::cerr << "Error: " << status << "\n";
+        return EXIT_FAILURE;
     }
-    std::cout << std::endl;
-    
-    std::cout << "After  : ";
-    it = list_int.begin();
-    while (it != list_int.end()) {
-        std::cout << *it << " ";
-        ++it;
-    }
-    std::cout << std::endl;
-    
-    std::cout << "Time to process a range of " << list_int.size() 
-              << " elements with std::list  : " << time_lst << " us" << std::endl;
-    std::cout << "Time to process a range of " << deque_int.size() 
-              << " elements with std::deque : " << time_deq << " us" << std::endl;
-    
-    return 0;
+
+    clock_t start_vec = clock();
+    std::vector<int> vec = argv_to_vector(argc, argv);
+    pm.sort_vec(vec);
+    clock_t end_vec = clock();
+    double time_elapsed_vec = (static_cast<double>(end_vec - start_vec) / CLOCKS_PER_SEC) * 1e6;
+
+	PmergeMe::nbr_of_comps = 0;
+    clock_t start_deque = clock();
+    std::deque<int> deque = argv_to_deque(argc, argv);
+    pm.sort_deque(deque);
+    clock_t end_deque = clock();
+    double time_elapsed_deque = (static_cast<double>(end_deque - start_deque) / CLOCKS_PER_SEC) * 1e6;
+
+    if (!is_sorted(vec) || (int)vec.size() != (argc - 1))
+	{
+        std::cout << "Vector was not sorted properly.\n";
+		return 1;
+	}
+    if (!is_sorted(deque) || (int)deque.size() != (argc - 1))
+	{
+        std::cout << "Deque was not sorted properly.\n";
+		return 1;
+	}
+
+    std::cout << "Before: ";
+	for (int i = 1; i < argc ; i++){
+		std::cout << argv[i] << " ";
+	}
+	std::cout << "\n";
+    std::cout << "After:  ";
+	for (int i = 0; i < (int)vec.size(); i++) {
+		std::cout << vec[i] << " ";
+	}
+	std::cout << "\n";
+    std::cout << "Time to process a range of " << vec.size()
+              << " elements with std::vector: " << time_elapsed_vec << " us\n";
+    std::cout << "Time to process a range of " << deque.size()
+              << " elements with std::deque:  "  << time_elapsed_deque << " us\n";
+	if (EXPLANATION) {
+		std::cout << "Number of comparisons: " << PmergeMe::nbr_of_comps << '\n';
+	}
+	return 0;
 }

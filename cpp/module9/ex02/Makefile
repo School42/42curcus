@@ -21,4 +21,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+explain:
+	$(MAKE) CXXFLAGS="$(CXXFLAGS) -D EXPLANATION=1" re
+
+.PHONY: all clean fclean re explain

@@ -1,28 +1,28 @@
 #include "PmergeMe.hpp"
 
-int PmergeMe::comps = 0;
+int PmergeMe::nbr_of_comps = 0;
 
 PmergeMe::PmergeMe() {}
 
-PmergeMe::~PmergeMe() {}
+PmergeMe::PmergeMe(const PmergeMe& pm) { (void)pm; }
 
-PmergeMe::PmergeMe(const PmergeMe &other) { 
-    *this = other; 
-}
-
-PmergeMe &PmergeMe::operator=(const PmergeMe &other) {
-    (void)other;
+PmergeMe& PmergeMe::operator=(const PmergeMe& pm)
+{
+    (void)pm;
     return *this;
 }
 
-long jacobsthal_value(long n) {
-    return ((static_cast<long>(pow(2, n)) - static_cast<long>(pow(-1, n))) / 3);
+PmergeMe::~PmergeMe() {}
+
+long jacob_num(long n) { 
+	return ((static_cast<long>(pow(2, n)) - static_cast<long>(pow(-1, n))) / 3);
 }
 
-void PmergeMe::sort_deque(std::deque<int> &deque) {
-    merge_insert(deque, 1);
+void PmergeMe::sort_vec(std::vector<int>& vec) { 
+	merge_insert_sort<std::vector<int> >(vec, 1); 
 }
 
-void PmergeMe::sort_list(std::list<int> &list) {
-    merge_insert(list, 1);
+void PmergeMe::sort_deque(std::deque<int>& deque)
+{
+    merge_insert_sort<std::deque<int> >(deque, 1);
 }

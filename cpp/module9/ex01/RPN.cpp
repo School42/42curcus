@@ -4,7 +4,9 @@ RPN::RPN() {}
 
 RPN::~RPN() {}
 
-RPN::RPN(const RPN &other) { *this = other; }
+RPN::RPN(const RPN &other) {
+	this->_stack = other.getStack();
+}
 
 RPN &RPN::operator=(const RPN &other) {
 	if (this != &other) {
@@ -43,10 +45,11 @@ double ft_stod(std::string str) {
 }
 
 bool is_number(std::string str) {
-	for (int i = 0; str[i] != '\0'; ++i) {
-		if (!std::isdigit(str[i]))
-			return false;
-	}
+	std::stringstream ss(str);
+	double result;
+	ss >> result;
+	if (ss.fail())
+		return false;
 	return true;
 }
 
@@ -59,12 +62,12 @@ void RPN::calculate(std::string input) {
 				return;
 		} else {
 			if (is_number(token) == false) {
-				std::cerr << "Error: invalid input" << std::endl;
+				std::cerr << "Error: invalid input : " << token << std::endl;
 				return;
 			}
 			double num = ft_stod(token);
 			if (!(num < 10)) {
-				std::cerr << "Error: invalid input" << std::endl;
+				std::cerr << "Error: input too big : " << token << std::endl;
 				return;
 			}
 			this->_stack.push(num);

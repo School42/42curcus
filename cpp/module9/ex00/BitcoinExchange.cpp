@@ -44,7 +44,7 @@ bool isLeapYear(int year) {
 bool validateDate(std::string date) {
 	if (date.empty())
 		return false;
-	std::vector<std::string> tokens;
+	std::list<std::string> tokens;
 	std::stringstream ss(date);
 	std::string token;
 	while (ss >> token) {
@@ -53,17 +53,18 @@ bool validateDate(std::string date) {
 	if (tokens.size() > 1)	{
 		return false;
 	}
-	std::vector<std::string> dateTokens;
-	std::stringstream ss2(tokens[0]);
+	std::list<std::string> dateTokens;
+	std::stringstream ss2(*tokens.begin());
 	std::string token2;
 	while (std::getline(ss2, token2, '-')) {
 		dateTokens.push_back(token2);
 	}
 	if (dateTokens.size() != 3)
 		return false;
-	int year = ft_stoi(dateTokens[0]);
-	int month = ft_stoi(dateTokens[1]);
-	int day = ft_stoi(dateTokens[2]);
+	std::list<std::string>::iterator it = dateTokens.begin();
+	int year = ft_stoi(*it);
+	int month = ft_stoi(*(++it));
+	int day = ft_stoi(*(++it));
 	if (year < 0 || month < 1 || month > 12 || day < 1 || day > 31 || (month == 2 && day > 29 && isLeapYear(year) == false) || year < 1)
 		return false;
 	if (month == 4 || month == 6 || month == 9 || month == 11) {
@@ -114,7 +115,7 @@ BitcoinExchange::BitcoinExchange() {
 	}
 
 	std::string line;
-	std::vector<std::string> lines;
+	std::list<std::string> lines;
 	while (std::getline(file, line)) {
 		lines.push_back(line);
 	}
@@ -122,7 +123,7 @@ BitcoinExchange::BitcoinExchange() {
 	file.close();
 
 	std::map<time_t, double> data;
-	std::vector<std::string>::iterator it = lines.begin();
+	std::list<std::string>::iterator it = lines.begin();
 	it++;
 	while (it != lines.end()) {
 		std::stringstream ss(*it);
@@ -161,12 +162,12 @@ void BitcoinExchange::calculatePrices(std::string filename) {
 		return;
 	}
 	std::string line;
-	std::vector<std::string> lines;
+	std::list<std::string> lines;
 	while (std::getline(file, line)) {
 		lines.push_back(line);
 	}
 	file.close();
-	std::vector<std::string>::iterator it = lines.begin();
+	std::list<std::string>::iterator it = lines.begin();
 	it++;
 	while (it != lines.end()) {
 		std::stringstream ss(*it);
@@ -182,9 +183,21 @@ void BitcoinExchange::calculatePrices(std::string filename) {
 void BitcoinExchange::exchange(std::string date, std::string value) {
 	std::map<time_t, double>::iterator it = this->_data.end();
 	// std::cout << "date: " << date << " value: " << value << std::endl;
-	if (date.empty() || value.empty()) {
-		std::cout << "Error: Missing date or value" << std::endl;
+	if (date.empty()) {
+		std::cout << "Error: Missing date : ";
+		if (!value.empty()) {
+			std::cout << value;
+		}
+		std::cout << std::endl;
 		return;
+	}
+	if (value.empty()) {
+		std::cout << "Error: Missing value : ";
+		if (!date.empty()) {
+			std::cout << date;
+		}
+		std::cout << std::endl;
+		return ;
 	}
 	if (validateDate(date) == false) {
 		std::cout << "Error: Invalid date : " << date << std::endl;
