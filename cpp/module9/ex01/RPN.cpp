@@ -78,6 +78,9 @@ void RPN::calculate(std::string input) {
 		return;
 	}
 	double result = this->_stack.top();
+	if (result == -0) {
+		result = 0;
+	}
 	this->_stack.pop();
 	std::cout << result << std::endl;
 }

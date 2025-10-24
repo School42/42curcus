@@ -67,6 +67,7 @@ template <typename T> void PmergeMe::merge_insert_sort(T& container, int level)
         return;
     bool is_odd = pairs % 2 == 1;
 	if (EXPLANATION) {
+		std::cout << "########################################################" << std::endl;
 		std::cout << "Level: " << level << " Before : (";
 		int count = 0;
 		for (int i = 0; i < (int)container.size(); i++) {
@@ -142,8 +143,9 @@ template <typename T> void PmergeMe::merge_insert_sort(T& container, int level)
 	if (EXPLANATION) {
 		std::cout << std::endl;
 		std::cout << "main: ";
-		for (int i = 0; i < (int)main.size(); i++)
+		for (int i = 0; i < (int)main.size(); i++){
 			std::cout << *main[i] << " ";
+		}
 		std::cout << std::endl;
 		std::cout << "pend: ";
 		for (int i = 0; i < (int)pend.size(); i++)
