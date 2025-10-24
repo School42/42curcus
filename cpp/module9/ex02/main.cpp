@@ -1,14 +1,20 @@
 #include "PmergeMe.hpp"
 
-static std::string validate_arg(std::string arg)
+static std::string validate_input(std::string arg)
 {
-    if (arg[0] == '-')
-        return "Negative numbers are not allowed";
+    if (arg[0] == '-'){
+        return "Negative numbers are not allowed : " + arg;
+	}
+	for (int i = 0; arg[i]; i++)
+	{
+		if (arg[i] < '0' || arg[i] > '9')
+			return "Only positive integers are allowed : " + arg;
+	}
     long nbr = strtol(arg.c_str(), NULL, 10);
     if (nbr == 0 && arg != "0")
-        return "Non-number arguments not allowed";
+        return "Non-number arguments not allowed : " + arg;
     if (nbr > INT_MAX || errno == ERANGE)
-        return "Too big arguments are not allowed";
+        return "Too big arguments are not allowed : " + arg;
     return "";
 }
 
@@ -18,9 +24,14 @@ static std::string validate(int argc, char** argv)
         return "No arguments were provided";
     for (int i = 1; i < argc; i++)
     {
-        std::string status = validate_arg(argv[i]);
-        if (status != "")
-            return status;
+		std::string tokens = argv[i];
+		std::string token = "";
+		std::stringstream ss(tokens);
+		while (ss >> token)
+		{
+			if (validate_input(token) != "")
+				return validate_input(token);
+		}
     }
     return "";
 }
@@ -31,7 +42,13 @@ static std::vector<int> argv_to_vector(int argc, char** argv)
     res.reserve(argc - 1);
     for (int i = 1; i < argc; i++)
     {
-        res.push_back(atoi(argv[i]));
+        std::string tokens = argv[i];
+		std::string token = "";
+		std::stringstream ss(tokens);
+		while (ss >> token)
+		{
+			res.push_back(atoi(token.c_str()));
+		}
     }
     return res;
 }
@@ -41,7 +58,13 @@ static std::deque<int> argv_to_deque(int argc, char** argv)
     std::deque<int> res;
     for (int i = 1; i < argc; i++)
     {
-        res.push_back(atoi(argv[i]));
+		std::string tokens = argv[i];
+		std::string token = "";
+		std::stringstream ss(tokens);
+		while (ss >> token)
+		{
+			res.push_back(atoi(token.c_str()));
+		}
     }
     return res;
 }
@@ -87,12 +110,12 @@ int main(int argc, char** argv)
     clock_t end_deque = clock();
     double time_elapsed_deque = (static_cast<double>(end_deque - start_deque) / CLOCKS_PER_SEC) * 1e6;
 
-    if (!is_sorted(vec) || (int)vec.size() != (argc - 1))
+    if (!is_sorted(vec))
 	{
         std::cout << "Vector was not sorted properly.\n";
 		return 1;
 	}
-    if (!is_sorted(deque) || (int)deque.size() != (argc - 1))
+    if (!is_sorted(deque))
 	{
         std::cout << "Deque was not sorted properly.\n";
 		return 1;
